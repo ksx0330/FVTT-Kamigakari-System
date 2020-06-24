@@ -1,0 +1,346 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <div class="sheet-wrapper">
+      <button style="display: none;">Input Button Click bypass</button>
+        {{!-- Sheet Header --}}
+        <header class="sheet-header">
+            <div class="sheet-header__fields">
+                <input class="input--title" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+
+                <div class="flex-item flex-item--level">
+                    <label for="data.atributes.level.value">{{localize "KG.LEVEL"}}</label>
+                    <input name="data.attributes.level.value" type="text" value="{{data.attributes.level.value}}" placeholder="Level" data-dtype="Number"/>
+                </div>
+                <div class="flex-item--xp flex-item ">
+                    <label for="data.attributes.xp.value">{{localize "KG.XP"}}</label>
+                    <input name="data.attributes.xp.value" type="text" value="{{data.attributes.xp.value}}" placeholder="XP" data-dtype="Number"/>
+                </div>
+
+            </div>
+        </header>
+
+        {{!-- Sidebar --}}
+        <section class="sheet-look">
+          <div class="cell cell--aesthetics">
+            <div class="cell cell--image">
+              <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+            </div>
+  
+            <div class="cell cell--look">
+              <label class="cell__title">{{localize "KG.Look"}}</label>
+              <textarea class="alignment" name="data.details.look" rows="5" title="Hey there! Who are you!?"
+                data-dtype="String">{{#if data.details.look}}{{data.details.look}}{{/if}}</textarea>
+            </div>
+
+            <div class="cell cell--look">
+              <label class="cell__title">{{localize "KG.Spirit"}}</label>
+              <textarea class="alignment" name="data.details.spirit_look" rows="5" title="Hey there! Who are you!?"
+                data-dtype="String">{{#if data.details.spirit_look}}{{data.details.spirit_look}}{{/if}}</textarea>
+            </div>
+  
+            <div class="cell cell--race">
+              <label class="cell__title">{{localize "KG.Race"}}</label>
+              <input type="text" class="input input--title" name="data.details.race.value" value="{{data.details.race.value}}" data-dtype="String"/>
+              <textarea class="race" name="data.details.race.description" rows="5" title="What's your race?"
+                data-dtype="String">{{#if data.details.race.description}}{{data.details.race.description}}{{/if}}</textarea>
+            </div>
+
+            <div class="cell cell--style">
+              <label class="cell__title">{{localize "KG.Style"}}</label>
+              <input type="text" class="input input--title" name="data.details.style.value" value="{{data.details.style.value}}" data-dtype="String"/>
+              <textarea class="race" name="data.details.style.description" rows="5" title="What's your style?"
+                data-dtype="String">{{#if data.details.style.description}}{{data.details.style.description}}{{/if}}</textarea>
+            </div>
+  
+            <div class="cell cell--bonds">
+              <div class="cell__title">
+                <label>{{localize "KG.Bonds"}}</label>
+              </div>
+              <textarea class="alignment" name="data.details.bonds" rows="5" title="Hey there! Who are you!?"
+                data-dtype="String">{{#if data.details.bonds}}{{data.details.bonds}}{{/if}}</textarea>
+            </div>
+          </div>
+  
+          <button class="toggle toggle--look"><i class="fas fa-chevron-left"></i></button>
+        </section>
+
+
+        <section class="sheet-main">
+
+          <section class="sheet-attributes">
+            <div class="cell cell--hp">
+              <label for="data.attributes.hp.value" class="cell--title">{{localize "KG.HP"}}<i class="fas fa-heart attribute-icon"></i></label>
+              <div class="cell--counter">
+                <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
+                <span> / </span>
+                <input type="text" name="data.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number"/>
+              </div>
+            </div>
+
+            <div class="cell cell--spirit-list">
+              <label for="data.attribute.spirit.value" class="cell--title spirit-dice">{{localize "KG.SpiritDice"}}<i class="fas fa-dice attribute-icon"></i></label>
+              <div class="spirit-list">
+                <span class="fas fa-angle-left dice-holder-icon"></span>
+                {{#each data.attributes.spirit_dice.value as |dice|}}
+                <img class="dice-image" src="systems/study/assets/dice/{{dice}}.PNG" data-index="{{@index}}" width="45" height="45">
+                <input type="hidden" class="dice-number" name="data.attributes.spirit_dice.value" value="{{dice}}" data-dtype="Number" data-index="{{@index}}">
+                {{/each}}
+                <span class="fas fa-angle-right dice-holder-icon"></span>
+              </div>
+            </div>
+            <div class="cell cell--spirit">
+              <label for="data.attributes.spirit.value" class="cell--title">{{localize "KG.Spirit"}}<i class="fas fa-yin-yang attribute-icon"></i></label>
+              <input type="text" name="data.attributes.spirit.value" value="{{data.attributes.spirit.value}}" data-dtype="Number"/>
+            </div>
+
+            <div class="cell cell--abilities">
+              <span class="cell--title">{{localize "KG.MainStatus"}}</span>
+              <div class="ability-list">
+                <div class="cell cell--ability" data-ability="str" data-label="{{localize 'KG.AbilitySTR'}}">
+                  <label for="data.attributes.str.value" class="cell--title rollable-ability">{{localize "KG.STR"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.str.value" value="{{data.attributes.str.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability" data-ability="agi" data-label="{{localize 'KG.AbilityAGI'}}">
+                  <label for="data.attributes.agi.value" class="cell--title rollable-ability">{{localize "KG.AGI"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.agi.value" value="{{data.attributes.agi.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability" data-ability="int" data-label="{{localize 'KG.AbilityINT'}}">
+                  <label for="data.attributes.int.value" class="cell--title rollable-ability">{{localize "KG.INT"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.int.value" value="{{data.attributes.int.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability" data-ability="wil" data-label="{{localize 'KG.AbilityWIL'}}">
+                  <label for="data.attributes.wil.value" class="cell--title rollable-ability">{{localize "KG.WIL"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.wil.value" value="{{data.attributes.wil.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability" data-ability="lck" data-label="{{localize 'KG.AbilityLCK'}}">
+                  <label for="data.attributes.lck.value" class="cell--title rollable-ability">{{localize "KG.LCK"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.lck.value" value="{{data.attributes.lck.value}}" data-dtype="Number"/>
+                </div>
+              </div>
+
+              <span class="cell--title">{{localize "KG.SubStatus"}}</span>
+              <div class="ability-list">
+                <div class="cell cell--ability" data-ability="acc" data-label="{{localize 'KG.AbilityACC'}}">
+                  <label for="data.attributes.acc.value" class="cell--title rollable-ability">{{localize "KG.ACC"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.acc.value" value="{{data.attributes.acc.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability" data-ability="eva" data-label="{{localize 'KG.AbilityEVA'}}">
+                  <label for="data.attributes.eva.value" class="cell--title rollable-ability">{{localize "KG.EVA"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.eva.value" value="{{data.attributes.eva.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability" data-ability="cnj" data-label="{{localize 'KG.AbilityCNJ'}}">
+                  <label for="data.attributes.cnj.value" class="cell--title rollable-ability">{{localize "KG.CNJ"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.cnj.value" value="{{data.attributes.cnj.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability" data-ability="res" data-label="{{localize 'KG.AbilityRES'}}">
+                  <label for="data.attributes.res.value" class="cell--title rollable-ability">{{localize "KG.RES"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.res.value" value="{{data.attributes.res.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability" data-ability="ins" data-label="{{localize 'KG.AbilityINS'}}">
+                  <label for="data.attributes.ins.value" class="cell--title rollable-ability">{{localize "KG.INS"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.ins.value" value="{{data.attributes.ins.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.pd.value" class="cell--title">{{localize "KG.PD"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.pd.value" value="{{data.attributes.pd.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.md.value" class="cell--title">{{localize "KG.MD"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.md.value" value="{{data.attributes.md.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.init.value" class="cell--title">{{localize "KG.Init"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.init.value" value="{{data.attributes.init.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.armor.value" class="cell--title">{{localize "KG.Armor"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.armor.value" value="{{data.attributes.armor.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.barrier.value" class="cell--title">{{localize "KG.Barrier"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.barrier.value" value="{{data.attributes.barrier.value}}" data-dtype="Number"/>
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          {{!-- Sheet Tab Navigation --}}
+          <nav class="sheet-tabs tabs" data-group="primary">
+              <a class="item" data-tab="description">{{localize "KG.Description"}}</a>
+              <a class="item" data-tab="talents">{{localize "KG.Talents"}}</a>
+              <a class="item" data-tab="equipment">{{localize "KG.Equipment"}}</a>
+          </nav>
+
+          {{!-- Sheet Body --}}
+          <section class="sheet-body">
+
+            {{!-- Biography Tab --}}
+            <div class="tab description" data-group="primary" data-tab="description">
+              <div class="sheet-tab">
+                <div class="cell cell--bio">
+                  <label class="cell--title">{{localize "KG.Biography"}}</label>
+                  {{!-- We're avoiding WYSIWYGs... for now... --}}
+                  {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}}
+
+                </div>
+              </div>
+            </div>
+
+            {{!-- Talents Tab --}}
+            <div class="tab talents active" data-group="primary" data-tab="talents">
+              <section class="sheet-tab">
+
+                <div class="cell cell--race-talents">
+                  <h2 class="cell--title">
+                    <label>{{localize "KG.RaceTalents"}}</label>
+                    <div class="item-controls">
+                      <button class="item-control item-create" title='{{localize "KG.TalentCreate"}}' data-type="talent" data-talentType="RACE">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </h2>
+                  <ol class="items-list">
+                  {{#each actor.raceTalents as |item id|}}
+                    <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+                      {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
+                      <h4 class="item-name"><span class="echo-item"><i class="fas fa-book"></i></span> <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                      <div class="item-controls">
+                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                      </div>
+                      <div class="item-description">{{{item.data.description}}}</div>
+                    </li>
+                  {{/each}}
+                  </ol>
+                </div>
+
+                <div class="cell cell--style-talent">
+                  <h2 class="cell--title">
+                    <label>{{localize "KG.StyleTalents"}}</label>
+                    <div class="item-controls">
+                      <button class="item-control item-create" title='{{localize "KG.TalentCreate"}}' data-type="talent" data-talentType="STYLE">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </h2>
+                  <ol class="items-list">
+                  {{#each actor.styleTalents as |item id|}}
+                    <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+                      {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
+                      <h4 class="item-name"><span class="echo-item"><i class="fas fa-book"></i></span> <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                      <div class="item-controls">
+                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                      </div>
+                      <div class="item-description">{{{item.data.description}}}</div>
+                    </li>
+                  {{/each}}
+                  </ol>
+                </div>
+
+                <div class="cell cell--common-talent">
+                  <h2 class="cell--title">
+                    <label>{{localize "KG.CommonTalents"}}</label>
+                    <div class="item-controls">
+                      <button class="item-control item-create" title='{{localize "KG.TalentCreate"}}' data-type="talent" data-talentType="COMMON">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </h2>
+                  <ol class="items-list">
+                  {{#each actor.talents as |item id|}}
+                    <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+                      {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
+                      <h4 class="item-name"><span class="echo-item"><i class="fas fa-book"></i></span> <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                      <div class="item-controls">
+                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                      </div>
+                      <div class="item-description">{{{item.data.description}}}</div>
+                    </li>
+                  {{/each}}
+                  </ol>
+                </div>
+
+              </section>
+            </div>
+
+            {{!-- Owned Items Tab --}}
+            <div class="tab" data-group="primary" data-tab="equipment">
+              <div class="cell flexrow margin-top-10">
+                <b>{{localize "KG.Money"}} </b>
+                <input type="text" name="data.money" value="{{data.money}}" data-dtype="Number">
+                <b class="cell-G">G</b>
+
+              </div>
+
+              <div class="cell cell--equipment-item">
+                <h2 class="cell--title">
+                  <label>{{localize "KG.EquipmentItem"}}</label>
+                  <div class="item-controls">
+                    <button class="item-control item-create" title='{{localize "KG.ItemCreate"}}' data-type="equipment" data-talentType="-">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </h2>
+                <ol class="items-list">
+                {{#each actor.equipmentItems as |item id|}}
+                  <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+                    {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
+                    <h4 class="item-name"><span class="echo-item"><i class="fas fa-book"></i></span> <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                    <div class="item-controls">
+                      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    </div>
+                    <div class="item-description">{{{item.data.description}}}</div>
+                  </li>
+                {{/each}}
+                </ol>
+              </div>
+
+              <div class="cell cell--common-talent">
+                <h2 class="cell--title">
+                  <label>{{localize "KG.CommonItem"}}</label>
+                  <div class="item-controls">
+                    <button class="item-control item-create" title='{{localize "KG.TalentCreate"}}' data-type="item" data-talentType="-">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </h2>
+                <ol class="items-list">
+                {{#each actor.commonItems as |item id|}}
+                  <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+                    {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
+                    <h4 class="item-name"><span class="echo-item"><i class="fas fa-book"></i></span> <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                    <div class="item-controls">
+                      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    </div>
+                    <div class="item-description"><p>{{{item.data.description}}}</p></div>
+                  </li>
+                {{/each}}
+                </ol>
+              </div>
+
+            </div>
+          </section>
+
+        </section>
+
+    </div>
+</form>
+

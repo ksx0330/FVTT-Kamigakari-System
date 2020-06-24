@@ -1,0 +1,159 @@
+{
+"Actor": {
+  "types": ["character"],
+  "templates": {
+    "base": {
+      "attributes": {
+        "hp": {
+          "value": 0,
+          "min": 0,
+          "max": 10
+        },
+        "acc": {
+          "value": 0,
+          "min": 0
+        },
+        "eva": {
+          "value": 0,
+          "min": 0
+        },
+        "cnj": {
+          "value": 0,
+          "min": 0
+        },
+        "res": {
+          "value": 0,
+          "min": 0
+        },
+        "ins": {
+          "value": 0,
+          "min": 0
+        },
+        "pd": {
+          "value": 0,
+          "min": 0
+        },
+        "md": {
+          "value": 0,
+          "min": 0
+        },
+        "init": {
+          "value": 0,
+          "min": 0
+        },
+        "armor": {
+          "value": 0,
+          "min": 0
+        },
+        "barrier": {
+          "value": 0,
+          "min": 0
+        }
+      },
+      "details": {
+        "biography": ""
+      }
+    }
+  },
+
+  "character": {
+    "templates": [
+      "base"
+    ],
+
+    "attributes": {
+      "spirit": {
+        "value": 22
+      },
+      "str": {
+        "value": 0,
+        "min": 0
+      },
+      "agi": {
+        "value": 0,
+        "min": 0
+      },
+      "int": {
+        "value": 0,
+        "min": 0
+      },
+      "wil": {
+        "value": 0,
+        "min": 0
+      },
+      "lck": {
+        "value": 0,
+        "min": 0
+      },
+      "level": {
+        "value": 1
+      },
+      "xp": {
+        "value": 0
+      },
+      "spirit_dice": {
+        "value": [0,0,0,0]
+      },
+      "money": {
+        "value": 0
+      }
+
+    },
+    "details": {
+      "look": "",
+      "spirit_look": "",
+      "bonds": "",
+      "style": {
+        "value": "",
+        "description": ""
+      },
+      "race": {
+        "value": "",
+        "description": ""
+      }
+    }
+  }
+},
+"Item": {
+  "types": ["talent", "equipment", "item"],
+  "templates": {
+    "base": {
+      "name": "",
+      "description": ""
+    }
+  },
+  "talent": {
+    "templates": [
+      "base"
+    ],
+    "talentType": "",
+    "className": "",
+    "classType": "",
+    "condition": "",
+    "timing": "",
+    "range": "",
+    "target": "",
+    "cost": "",
+    "effect": ""
+  },
+  "equipment": {
+    "templates": [
+      "base"
+    ],
+    "form": "",
+    "restrict": "",
+    "mode": "",
+    "price": 0,
+    "attributes": {},
+    "additional": {},
+    "material": {}
+
+  },
+  "item": {
+    "templates": [
+        "base"
+    ],
+    "quantity": 1
+  }
+}
+}

@@ -1,0 +1,166 @@
+<form class="{{cssClass}} item-form flexcol" autocomplete="off">
+  <header class="sheet-header flexrow">
+      {{!-- <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/> --}}
+      <div class="header-fields">
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" ></h1>
+      </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-navigation sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "KG.Description" }}</a>
+    <a class="item" data-tab="attributes">{{localize "KG.Attributes" }}</a>
+    <a class="item" data-tab="armssystem">{{localize "KG.ArmsSystem" }}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+      {{!-- Description Tab --}}
+      <div class="tab" data-group="primary" data-tab="description">
+        <div class="sheet-tab margin-top-10">
+          <div class="sheet-wrapper">
+            <section class="sheet-attributes">
+
+              <div class="cell cell--talent">
+                <label for="data.form" class="cell--title">{{localize "KG.Form"}}</label>
+                <input type="text" name="data.form" value="{{data.form}}" data-dtype="String"/>
+              </div>
+
+              <div class="cell cell--talent">
+                <label for="data.restrict" class="cell--title">{{localize "KG.Restrict"}}</label>
+                <input type="text" name="data.restrict" value="{{data.restrict}}" data-dtype="String"/>
+              </div>
+
+              <div class="cell cell--talent">
+                <label for="data.mode" class="cell--title">{{localize "KG.Mode"}}</label>
+                <input type="text" name="data.mode" value="{{data.mode}}" data-dtype="String"/>
+              </div>
+
+              <div class="cell cell--talent">
+                <label for="data.price" class="cell--title">{{localize "KG.Price"}}</label>
+                <input type="text" name="data.price" value="{{data.price}}" data-dtype="Number"/>
+              </div>
+
+            </section>
+
+            <div class="cell cell--bio">
+              <label class="cell--title">{{localize "KG.Description"}}</label>
+              {{!-- We're avoiding WYSIWYGs... for now... --}}
+              {{!-- {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}} --}}
+              <textarea class="biography" name="data.description" rows="5" title="Hey there! Who are you!?"
+                      data-dtype="String">{{data.description}}</textarea>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {{!-- Attributes Tab --}}
+      <div class="tab attributes" data-group="primary" data-tab="attributes">
+          <header class="attributes-header flexrow">
+              <span class="attribute-key">{{localize "KG.Attributes"}}</span>
+              <span class="attribute-value">{{localize "KG.Value"}}</span>
+              <a class="attribute-control" data-action="create" data-type="attributes"><i class="fas fa-plus"></i></a>
+          </header>
+    
+          <ol class="attributes-list">
+          {{#each data.attributes as |attr key|}}
+              <li class="attribute flexrow" data-attribute="{{key}}">
+                  <select class="attribute-key" name="data.attributes.{{key}}.key" data-dtype="String">
+                    {{#select key}}
+                    <option value="-">-</option>
+                    <option value="hp">{{localize "KG.HP"}}</option>
+                    <option value="acc">{{localize "KG.ACC"}}</option>
+                    <option value="eva">{{localize "KG.EVA"}}</option>
+                    <option value="cnj">{{localize "KG.CNJ"}}</option>
+                    <option value="res">{{localize "KG.RES"}}</option>
+                    <option value="ins">{{localize "KG.INS"}}</option>
+                    <option value="pd">{{localize "KG.PD"}}</option>
+                    <option value="md">{{localize "KG.MD"}}</option>
+                    <option value="init">{{localize "KG.Init"}}</option>
+                    <option value="armor">{{localize "KG.Armor"}}</option>
+                    <option value="barrier">{{localize "KG.Barrier"}}</option>
+                    <option value="str">{{localize "KG.STR"}}</option>
+                    <option value="agi">{{localize "KG.AGI"}}</option>
+                    <option value="int">{{localize "KG.INT"}}</option>
+                    <option value="wil">{{localize "KG.WIL"}}</option>
+                    <option value="lck">{{localize "KG.LCK"}}</option>
+                    {{/select}}
+                  </select>
+    
+                  <input class="attribute-value" type="text" name="data.attributes.{{key}}.value" value="{{attr.value}}" data-dtype="Number"/>
+                  <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
+              </li>
+          {{/each}}
+          </ol>
+      </div>
+
+      {{!-- Arms System Tab --}}
+      <div class="tab talents active" data-group="primary" data-tab="armssystem">
+        <section class="sheet-tab">
+
+          <div class="cell cell--additional-effects">
+            <h2 class="cell--title">
+              <label>{{localize "KG.AdditionalEffect"}}</label>
+            </h2>
+            <div class="attributes">
+              <header class="attributes-header flexrow">
+                <span class="attribute-name">{{localize "KG.Name"}}</span>
+                <span class="attribute-cost">{{localize "KG.Price"}}</span>
+                <span class="attribute-trade">{{localize "KG.Trade"}}</span>
+                <a class="attribute-control" data-action="create" data-type="additional"><i class="fas fa-plus"></i></a>
+            </header>
+            <ol class="attributes-list">
+              {{#each data.additional as |attr key|}}
+                  <div class="additional attribute" data-attribute="{{key}}">
+                    <li class="flexrow">
+                      <input class="attribute-key" type="hidden" name="data.additional.{{key}}.key" value="{{key}}"/>
+                      <input class="attribute-name bold" type="text" name="data.additional.{{key}}.name" value="{{attr.name}}" data-dtype="String"/>
+                      <input class="attribute-price" type="text" name="data.additional.{{key}}.price" value="{{attr.price}}" data-dtype="Number"/>
+                      <input class="attribute-trade" type="text" name="data.additional.{{key}}.trade" value="{{attr.trade}}" data-dtype="Number"/>
+                      <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
+                    </li>
+                    <li class="flexrow effect-column">
+                      <header class="attributes-header">{{localize "KG.Effect"}}</header>
+                      <textarea class="attribute-effect" type="text" name="data.additional.{{key}}.effect" data-dtype="String">{{attr.effect}}</textarea>
+                    </li>
+                  </div>
+              {{/each}}
+              </ol>
+            </div>
+          </div>
+
+          <div class="cell cell--material-synthesis">
+            <h2 class="cell--title">
+              <label>{{localize "KG.MaterialSynthesis"}}</label>
+            </h2>
+            <div class="attributes">
+              <header class="attributes-header flexrow">
+                <span class="attribute-name">{{localize "KG.Name"}}</span>
+                <span class="attribute-cost">{{localize "KG.Price"}}</span>
+                <span class="attribute-trade">{{localize "KG.Effect"}}</span>
+                <a class="attribute-control" data-action="create" data-type="material"><i class="fas fa-plus"></i></a>
+            </header>
+            <ol class="attributes-list">
+              {{#each data.material as |attr key|}}
+              <li class="attribute flexrow" data-attribute="{{key}}">
+                <input class="attribute-key" type="hidden" name="data.material.{{key}}.key" value="{{key}}" data-dtype="String"/>
+                <input class="attribute-name" type="text" name="data.material.{{key}}.name" value="{{attr.name}}" data-dtype="String"/>
+                <input class="attribute-price" type="text" name="data.material.{{key}}.price" value="{{attr.price}}" data-dtype="Number"/>
+                <input class="attribute-value" type="text" name="data.material.{{key}}.effect" value="{{attr.effect}}" data-dtype="String"/>
+
+                <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
+              </li>
+              {{/each}}
+              </ol>
+            </div>
+
+          </div>
+
+        </section>
+      </div>
+
+
+</section>
+</form>

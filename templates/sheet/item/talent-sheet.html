@@ -1,0 +1,82 @@
+<form class="{{cssClass}} item-form" autocomplete="off">
+  <header class="sheet-header flexrow">
+      {{!-- <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/> --}}
+      <div class="header-fields">
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" ></h1>
+      </div>
+  </header>
+
+  <div class="sheet-tab margin-top-10">
+    <div class="sheet-wrapper">
+      <section class="sheet-attributes">
+        <div class="cell cell--talent">
+          <label for="data.attributes.str.value" class="cell--title">{{localize "KG.TalentType"}}</label>
+          <select class="width-100" name="data.talentType" data-dtype="String">
+            {{#select data.talentType}}
+            <option value="COMMON">{{localize "KG.COMMON"}}</option>
+            <option value="RACE">{{localize "KG.RACE"}}</option>
+            <option value="STYLE">{{localize "KG.STYLE"}}</option>
+            {{/select}}
+          </select>
+        </div>
+
+        <div class="cell cell--class">
+          <label for="data.class" class="cell--title">{{localize "KG.Class"}}</label>
+          <div class="cell--counter width-100">
+            <input type="text" name="data.class" value="{{data.class}}" data-dtype="String"/>
+            <select name="data.classType" data-dtype="String">
+              {{#select data.classType}}
+              <option value="-">-</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              {{/select}}
+            </select>
+          </div>
+        </div>
+
+        <div class="cell cell--talent">
+          <label for="data.attributes.int.value" class="cell--title">{{localize "KG.Condition"}}</label>
+          <select name="data.condition" data-dtype="String" class="width-100">
+            {{#select data.condition}}
+            <option value="-">-</option>
+            <option value="※">※</option>
+            <option value="●">●</option>
+            <option value="◎">◎</option>
+            {{/select}}
+          </select>                
+        </div>
+
+        <div class="cell cell--talent">
+          <label for="data.timing" class="cell--title">{{localize "KG.Timing"}}</label>
+          <input type="text" name="data.timing" value="{{data.timing}}" data-dtype="String"/>
+        </div>
+
+        <div class="cell cell--talent">
+          <label for="data.range" class="cell--title">{{localize "KG.Range"}}</label>
+          <input type="text" name="data.range" value="{{data.range}}" data-dtype="String"/>
+        </div>
+
+        <div class="cell cell--talent">
+          <label for="data.target" class="cell--title">{{localize "KG.Target"}}</label>
+          <input type="text" name="data.target" value="{{data.target}}" data-dtype="String"/>
+        </div>
+
+        <div class="cell cell--talent">
+          <label for="data.cost" class="cell--title">{{localize "KG.Cost"}}</label>
+          <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String"/>
+        </div>
+
+            
+
+      </section>
+
+      <div class="cell cell--bio">
+        <label class="cell--title">{{localize "KG.Description"}}</label>
+        {{!-- We're avoiding WYSIWYGs... for now... --}}
+        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+      </div>
+
+    </div>
+  </div>
+
+</form>

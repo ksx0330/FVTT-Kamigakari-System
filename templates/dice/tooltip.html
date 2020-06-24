@@ -1,0 +1,16 @@
+{{#each parts}}
+<section class="tooltip-part">
+    <div class="dice">
+        <span class="dice-rolls">
+        {{#each this.rolls}}
+            <img src="systems/study/assets/dice/{{this.result}}.PNG" width=30 height=30 class="roll {{this.classes}}" data-dice={{this.result}}>
+        {{/each}}
+        </span>
+        <span class="part-total">{{this.total}} </span>
+        <a class="entity-link" data-pack="kamigakari.spirit" data-lookup="ANpRXhlt7ibWWGLl" draggable="false">
+            <i class="fas fa-yin-yang" style="font-size: 30px"></i>
+        </a>
+    </div>
+</section>
+{{/each}}
+
