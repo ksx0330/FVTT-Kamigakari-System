@@ -41,7 +41,7 @@
   "primaryTokenAttribute": "hp",
   "secondaryTokenAttribute": null,
   "url": "https://github.com/ksx0330/FVTT-Kamigakari-System/",
-  "manifest": "https://github.com/ksx0330/FVTT-Kamigakari-System/blob/master/system.json",
+  "manifest": "https://raw.githubusercontent.com/ksx0330/FVTT-Kamigakari-System/master/system.json",
   "download": "https://github.com/ksx0330/FVTT-Kamigakari-System/archive/master.zip",
   "license": "LICENSE.txt"
 }
