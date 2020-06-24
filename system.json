@@ -40,8 +40,8 @@
   "gridUnits": "Sq",
   "primaryTokenAttribute": "hp",
   "secondaryTokenAttribute": null,
-  "url": "",
-  "manifest": "",
-  "download": "",
+  "url": "https://github.com/ksx0330/FVTT-Kamigakari-System/",
+  "manifest": "https://github.com/ksx0330/FVTT-Kamigakari-System/blob/master/system.json",
+  "download": "https://github.com/ksx0330/FVTT-Kamigakari-System/archive/master.zip",
   "license": "LICENSE.txt"
 }
