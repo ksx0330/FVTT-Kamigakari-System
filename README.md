@@ -14,7 +14,6 @@ Anouncement
 If you are using an older version of the sheet, please follow the steps below.
   
 1.Click the HP section once before manipulating the dice
- 
 2. Press Enter to update the sheet.
 
 Update List
