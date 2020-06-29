@@ -12,6 +12,7 @@ https://raw.githubusercontent.com/ksx0330/FVTT-Kamigakari-System/master/system.j
 Update List
 -------------
 0.1.0 - System Open
+
 0.1.1 - Bug Fixed
   * Fixed Spirit Dice being out of sync
   * Fixed Influence is not worked in player
