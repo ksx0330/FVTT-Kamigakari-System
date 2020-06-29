@@ -118,9 +118,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
   /** @override */
   _updateObject(event, formData) {
-
-    console.log(formData);
-
+    
     // Update the Actor
     return this.object.update(formData);
   }
