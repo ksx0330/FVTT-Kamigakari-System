@@ -83,7 +83,7 @@
                 <span class="fas fa-angle-left dice-holder-icon"></span>
                 {{#each data.attributes.spirit_dice.value as |dice|}}
                 <img class="dice-image" src="systems/kamigakari/assets/dice/{{dice}}.PNG" data-index="{{@index}}" width="45" height="45">
-                <input type="hidden" class="dice-number" name="data.attributes.spirit_dice.value" value="{{dice}}" data-dtype="Number" data-index="{{@index}}">
+                <input type="hidden" class="dice-number" name="data.attributes.spirit_dice.value.[{{@index}}]" value="{{dice}}" data-dtype="Number" data-index="{{@index}}">
                 {{/each}}
                 <span class="fas fa-angle-right dice-holder-icon"></span>
               </div>
