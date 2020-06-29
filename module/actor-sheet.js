@@ -114,6 +114,16 @@ export class KamigakariActorSheet extends ActorSheet {
     return position;
   }
 
+  /* -------------------------------------------- */
+
+  /** @override */
+  _updateObject(event, formData) {
+
+    console.log(formData);
+
+    // Update the Actor
+    return this.object.update(formData);
+  }
 
   /* -------------------------------------------- */
 
@@ -184,14 +194,12 @@ export class KamigakariActorSheet extends ActorSheet {
     event.preventDefault();
     const actorData = this.actor.data.data;
 
-    for (var i = 0; i < actorData.attributes.spirit_dice.value.length; i++) {
-      if (this.actor.data.data.attributes.spirit_dice.value[i] != 0)
+    for (let [key, value] of Object.entries(actorData.attributes.spirit_dice.value)) {
+      if (value != 0)
         continue;
       const randomDice = Math.floor(Math.random() * 6) + 1;
-      this.actor.data.data.attributes.spirit_dice.value[i] = randomDice;
+      this.actor.update({[`data.attributes.spirit_dice.value.${key}`]: randomDice});
     }
-    this.actor.update({"data.attributes.spirit_dice.value": this.actor.data.data.attributes.spirit_dice.value});
-    this.render();
 
     var context = game.i18n.localize("KG.RechargeSpirit") ;
     ChatMessage.create({content: context, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -202,7 +210,6 @@ export class KamigakariActorSheet extends ActorSheet {
       this._onUseSpirit(html, event);
     else
       this._onChangeSpirit(html, event);
-      this.render();
   }
 
   async _onUseSpirit(html, event) {
@@ -214,8 +221,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
     const answer = confirm(game.i18n.localize("KG.UseSpiritAlert") + "\n" + oriValue);
     if (answer) {
-      this.actor.data.data.attributes.spirit_dice.value[index] = 0;
-      this.actor.update({"data.attributes.spirit_dice.value": this.actor.data.data.attributes.spirit_dice.value});
+      this.actor.update({[`data.attributes.spirit_dice.value.[${index}]`]: 0});
 
       var context = game.i18n.localize("KG.UseSpiritMessage") ;
       ChatMessage.create({content: context + " " + oriValue, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -231,8 +237,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
     const answer = prompt(game.i18n.localize("KG.ChangeSpiritAlert"));
     if (!isNaN(answer) && answer != null) {
-      this.actor.data.data.attributes.spirit_dice.value[index] = answer;
-      this.actor.update({"data.attributes.spirit_dice.value": this.actor.data.data.attributes.spirit_dice.value});
+      this.actor.update({[`data.attributes.spirit_dice.value.[${index}]`]: answer});
 
       var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
       ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: this.actor})});
