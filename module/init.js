@@ -2,6 +2,7 @@
 
 import { KamigakariItemSheet } from "./item-sheet.js";
 import { KamigakariActorSheet } from "./actor-sheet.js";
+import { InfluenceDialog } from "./influence-dialog.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -57,7 +58,7 @@ Hooks.on("canvasInit", function() {
 	};
 });
 
-function setSpiritDice() {
+async function setSpiritDice() {
 	const speaker = ChatMessage.getSpeaker();
 	let actor;
 	if (speaker.token) actor = game.actors.tokens[speaker.token];
@@ -70,14 +71,13 @@ function setSpiritDice() {
 
 	var answer = prompt("Whay do you want to change?\n ex) 4, 5");
 	if (!isNaN(answer) && answer != null && answer >= 1) {
-		const arr = [];
+		actor.update({'data.attributes.spirit_dice.value': 0 })
+		await actor.update({'data.attributes.spirit_dice.value': {} });
 		for (var i = 0; i < answer; i++)
-			arr[i] = 0;
-		actor.update({"data.attributes.spirit_dice.value": arr});
+			await actor.update({[`data.attributes.spirit_dice.value.[${i}]`]: 0});
 	}
 
 }
-
 
 function influence() {
 	const speaker = ChatMessage.getSpeaker();
@@ -96,77 +96,12 @@ function influence() {
 
 	var actionDice = [];
 	var spiritDice = actor.data.data.attributes.spirit_dice.value;
-	
+
 	var dices = d.find("img");
 	dices.each(function() {
 		actionDice.push($(this).attr("data-dice"));
 	});
-	
-	var content = "<p>What do you change dice?<br><br>Action Dice<br>";
-	$(actionDice).each(element => {
-		content += '<img width=30 height=30 src="systems/kamigakari/assets/dice/' + actionDice[element] + '.PNG">';
-	});
-	content += "<br>Spirit Dice<br>";
-	for (let [key, value] of Object.entries(spiritDice)) {
-		content += '<img width=30 height=30 src="systems/kamigakari/assets/dice/' + value + '.PNG">';
-	}
-	content += "<br></p><div style='display: flex; text-align: center'>";
-	content += "<input type='text' placeholder='action' name='action'>";
-	content += "<span> - </span>";
-	content += "<input type='text' placeholder='spirit' name='spirit'></div><br>";
-	
-	let dialog1 = new Dialog({
-	 title: "Influence",
-	 content: content,
-	 buttons: {
-		"cancel": {
-			icon: '<i class="fas fa-times"></i>',
-			label: "cancel",
-			callback: () => console.log("Canceled")
-		},
-		"change": {
-			icon: '<i class="fas fa-check"></i>',
-			label: "Change",
-			callback: () => {
-				var action = $("input[name=action]").val();
-				var spirit = $("input[name=spirit]").val();
-	
-				if (action >= 1 && action <= 6 && spirit >= 1 && spirit <= 6) {
-					var actionIndex = actionDice.findIndex(element => element == action);
-					var spiritIndex = Object.keys(spiritDice).find(key => spiritDice[key] == spirit);
-	
-					if (actionIndex == -1 || spiritIndex == undefined) {
-						alert("Not validated input");
-						return;
-					}
-	
-					var tmp = actionDice[actionIndex];
-					actionDice[actionIndex] = spiritDice[spiritIndex];
-					actor.update({[`data.attributes.spirit_dice.value.${spiritIndex}`]: tmp});
-	
-					var formula = "";
-					$(actionDice).each(element => {
-						formula += actionDice[element] + "+";
-					});
-					formula += modScore;
-	
-					var roll = new Roll(formula);
-					roll.roll();
-					roll.render().then(r => {
-						ChatMessage.create({content: r, speaker: ChatMessage.getSpeaker({actor: actor})});
-					});
-	
-				}
-	
-			}
-		}
-	 },
-	 default: "cancel",
-	 close: () => console.log("This always is logged no matter which option is chosen")
-	});
-	
-	dialog1.render(true);
 
-
-
+	let dialog = new InfluenceDialog(actionDice, spiritDice, actor, modScore);
+	dialog.render(true);
 }

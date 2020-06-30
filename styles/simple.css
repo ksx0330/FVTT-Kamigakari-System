@@ -16,6 +16,17 @@
   font-weight: bold;
 }
 
+.kamigakari .dice-select {
+  border: 3px dotted darksalmon;
+  width: 48px;
+  height: 48px;
+}
+
+.kamigakari .dice-change {
+  margin: 4px 0;
+  background: #c2c2c2;
+}
+
 .kamigakari .sheet-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
