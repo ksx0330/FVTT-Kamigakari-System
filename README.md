@@ -9,13 +9,10 @@ dialog on the Setup menu of the application.
 
 https://raw.githubusercontent.com/ksx0330/FVTT-Kamigakari-System/master/system.json
 
-Anouncement
+Spirit Macro
 -------------
-If you are using an older version of the sheet, please follow the steps below.
-  
-1. Click the HP section once before manipulating the dice
-
-2. Press Enter to update the sheet.
+1. Set Spirit Dice Pull - You can choose the number of spirit dice.
+2. Influence - You can choose multiple dice exchange.
 
 Update List
 -------------
@@ -25,6 +22,12 @@ Update List
   * Fixed Spirit Dice being out of sync
   * Fixed Influence is not worked in player
   
+0.1.2 - Set Action Dice
+  * Select action dice number ex) 2D -> 3D
+  * Raise spirit dice number (use Macro)
   
- 
-    
+0.1.2 - Bug Fixed & Influence Update
+  * Fixed Instability of Spirit Dice
+  * Change Influence UI.
+  * Multiple Dice Influence.
+  
