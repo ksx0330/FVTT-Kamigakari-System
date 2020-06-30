@@ -22,9 +22,6 @@ export class KamigakariActorSheet extends ActorSheet {
   getData() {
     const data = super.getData();
     data.dtypes = ["String", "Number", "Boolean"];
-    for ( let attr of Object.values(data.data.attributes) ) {
-      attr.isCheckbox = attr.dtype === "Boolean";
-    }
 
     this._prepareCharacterItems(data);
 
@@ -144,13 +141,15 @@ export class KamigakariActorSheet extends ActorSheet {
     const a = event.target.parentElement;
     const data = a.dataset;
     const actorData = this.actor.data.data;
-    const ability = actorData.attributes[data.ability]
+    const ability = actorData.attributes[data.ability];
+    let dice = null;
     let formula = null;
     let flavorText = null;
     let templateData = {};
 
     if (data['ability'] != null) {
-      formula = `2d6+${ability.value}`;
+      dice = actorData.attributes[`${data.ability}_dice`];
+      formula = `${dice}6+${ability.value}`;
       flavorText = data.label;
 
       templateData = {
@@ -234,7 +233,7 @@ export class KamigakariActorSheet extends ActorSheet {
     const oriValue = dices[index].value;
 
     const answer = prompt(game.i18n.localize("KG.ChangeSpiritAlert"));
-    if (!isNaN(answer) && answer != null) {
+    if (!isNaN(answer) && answer != null && answer >= 1 && answer <= 6) {
       this.actor.update({[`data.attributes.spirit_dice.value.[${index}]`]: answer});
 
       var context = game.i18n.localize("KG.ChangeSpiritMessage") ;

@@ -11,7 +11,8 @@ Hooks.once("init", async function() {
 	console.log('Initializing Kamigakri System.');
 	
 	game.kamigakari = {
-		influence
+		influence,
+		setSpiritDice
 	  };
 
     CONFIG.Dice.tooltip = "systems/kamigakari/templates/dice/tooltip.html";
@@ -56,6 +57,27 @@ Hooks.on("canvasInit", function() {
 	};
 });
 
+function setSpiritDice() {
+	const speaker = ChatMessage.getSpeaker();
+	let actor;
+	if (speaker.token) actor = game.actors.tokens[speaker.token];
+	if (!actor) actor = game.actors.get(speaker.actor);
+
+	if (actor == null) {
+		alert("You must use actor");
+		return;
+	}
+
+	var answer = prompt("Whay do you want to change?\n ex) 4, 5");
+	if (!isNaN(answer) && answer != null && answer >= 1) {
+		const arr = [];
+		for (var i = 0; i < answer; i++)
+			arr[i] = 0;
+		actor.update({"data.attributes.spirit_dice.value": arr});
+	}
+
+}
+
 
 function influence() {
 	const speaker = ChatMessage.getSpeaker();
@@ -63,8 +85,10 @@ function influence() {
 	if (speaker.token) actor = game.actors.tokens[speaker.token];
 	if (!actor) actor = game.actors.get(speaker.actor);
 
-	if (actor == null)
+	if (actor == null) {
 		alert("You must use actor");
+		return;
+	}
 
 	var m = $(".message-sender:contains('" + actor.data.name + "')");
 	var d = m.parent().parent().find(".dice-rolls").last();

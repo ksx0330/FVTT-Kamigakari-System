@@ -1,1 +1,2 @@
-{"name":"Influence","permission":{"default":3},"type":"script","flags":{},"scope":"global","command":"console.log(game.kamigakari.influence());","author":"qbUuGvCaFbrkiBWc","img":"icons/svg/dice-target.svg","actorIds":[],"_id":"ANpRXhlt7ibWWGLl"}
+{"name":"Influence","permission":{"default":3},"type":"script","flags":{},"scope":"global","command":"game.kamigakari.influence();","author":"qbUuGvCaFbrkiBWc","img":"icons/svg/dice-target.svg","actorIds":[],"_id":"ANpRXhlt7ibWWGLl"}
+{"name":"Set Spirit Dice Pull","permission":{"default":3},"type":"script","flags":{},"scope":"global","command":"game.kamigakari.setSpiritDice();;","author":"qbUuGvCaFbrkiBWc","img":"icons/svg/dice-target.svg","actorIds":[],"_id":"xlf1P5jKmw2IVpiI"}

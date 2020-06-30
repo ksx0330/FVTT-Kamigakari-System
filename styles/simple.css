@@ -353,6 +353,13 @@
   padding: 0;
 }
 
+.kamigakari .sheet-wrapper .cell--dice {
+  margin: 0;
+  width: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
 .kamigakari .sheet-wrapper .ability-list {
   display: grid;
   grid-column: span 15;

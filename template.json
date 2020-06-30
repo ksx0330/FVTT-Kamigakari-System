@@ -13,22 +13,27 @@
           "value": 0,
           "min": 0
         },
+        "acc_dice": "2D",
         "eva": {
           "value": 0,
           "min": 0
         },
+        "eva_dice": "2D",
         "cnj": {
           "value": 0,
           "min": 0
         },
+        "cnj_dice": "2D",
         "res": {
           "value": 0,
           "min": 0
         },
+        "res_dice": "2D",
         "ins": {
           "value": 0,
           "min": 0
         },
+        "ins_dice": "2D",
         "pd": {
           "value": 0,
           "min": 0
@@ -69,22 +74,27 @@
         "value": 0,
         "min": 0
       },
+      "str_dice": "2D",
       "agi": {
         "value": 0,
         "min": 0
       },
+      "agi_dice": "2D",
       "int": {
         "value": 0,
         "min": 0
       },
+      "int_dice": "2D",
       "wil": {
         "value": 0,
         "min": 0
       },
+      "wil_dice": "2D",
       "lck": {
         "value": 0,
         "min": 0
       },
+      "lck_dice": "2D",
       "level": {
         "value": 1
       },
