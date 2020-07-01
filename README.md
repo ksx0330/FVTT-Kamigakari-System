@@ -26,7 +26,7 @@ Update List
   * Select action dice number ex) 2D -> 3D
   * Raise spirit dice number (use Macro)
   
-0.1.2 - Bug Fixed & Influence Update
+0.1.3 - Bug Fixed & Influence Update
   * Fixed Instability of Spirit Dice
   * Change Influence UI.
   * Multiple Dice Influence.
