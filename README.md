@@ -31,3 +31,6 @@ Update List
   * Change Influence UI.
   * Multiple Dice Influence.
   
+0.1.4 - Chat module compatibility update
+  * Sidebar Aesthetics's compatibility issue fix
+  
