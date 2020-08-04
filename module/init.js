@@ -90,9 +90,14 @@ function influence() {
 		return;
 	}
 
-	var m = $(".message-sender:contains('" + actor.data.name + "')");
-	var d = m.parent().parent().find(".dice-rolls").last();
-	var modScore = d.parent().parent().find(".dice-total").text() - d.parent().parent().find(".part-total").text();
+	var m = game.messages["entities"].filter(element => element.data.speaker.alias == actor.data.name && element.data.content.indexOf("<span class=\"dice-rolls\">") != -1);
+
+	if (m.length == 0) {
+		alert("Unusual Approach.");
+		return;
+	}
+	var d = $(m[m.length - 1].data.content);
+	var modScore = d.find(".dice-total").text() - d.find(".part-total").text();
 
 	var actionDice = [];
 	var spiritDice = actor.data.data.attributes.spirit_dice.value;
