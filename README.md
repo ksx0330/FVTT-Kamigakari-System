@@ -32,5 +32,8 @@ Update List
   * Multiple Dice Influence.
   
 0.1.4 - Chat module compatibility update
-  * Sidebar Aesthetics's compatibility issue fix
+  * Sidebar Aesthetics's compatibility issue fix.
+  
+0.1.5 - Talent Description Update
+  * Now you can see talent's timing, range, target, cost in your character sheet. 
   
