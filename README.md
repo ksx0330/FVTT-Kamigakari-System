@@ -39,4 +39,9 @@ Update List
   
 0.1.6 - Term Collection
   * Dice Pull Macro -> Dice Pool Macro
-  * Conjection -> Invocation, Insight -> Instinct
+  * Conjection -> Invocation, Insight -> Instinct, Armor -> Guard, Barrier -> Ward
+  
+0.2.0 - Add Enermy Sheet
+  * Can create enery sheet
+  
+  
