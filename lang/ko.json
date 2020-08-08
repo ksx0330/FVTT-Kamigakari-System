@@ -78,5 +78,17 @@
     "KG.Quantity": "개수",
     "KG.Money": "돈",
     "KG.LookDefault": "나이: \r\n성별: \r\n눈색: \r\n머리색: \r\n그 외:",
-    "KG.SpiritLookDefault": "기원: \r\n위치: \r\n형태: "
+    "KG.SpiritLookDefault": "기원: \r\n위치: \r\n형태: ",
+    "KG.Move": "이동거리",
+    "KG.ACCFix": "명중 고정치",
+    "KG.EVAFix": "회피 고정치",
+    "KG.IVCFix": "발동 고정치",
+    "KG.RESFix": "저항 고정치",
+    "KG.CHKFix": "간파 고정치",
+    "KG.BasicStat": "기본 능력치",
+    "KG.ActionStat": "판정 능력치",
+    "KG.Attack": "공격",
+    "KG.Materials": "소재",
+    "KG.AttackOptions": "공격 옵션",
+    "KG.EnermyDefault": "클래스: \t\t크기: \t\t 교활함: \r\n지각: \t\t말하기: \t\t반응: \r\n감지난이도: \t\t약점: \r\n이동방법: "
 }
