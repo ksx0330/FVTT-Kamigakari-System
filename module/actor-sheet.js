@@ -8,12 +8,19 @@ export class KamigakariActorSheet extends ActorSheet {
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
   	  classes: ["kamigakari", "sheet", "actor"],
-  	  template: "systems/kamigakari/templates/sheet/actor/actor-sheet.html",
       width: 850,
       height: 730,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description"}],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  get template() {
+    const path = "systems/kamigakari/templates/sheet/actor";
+    return `${path}/${this.actor.data.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */

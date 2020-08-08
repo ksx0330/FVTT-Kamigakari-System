@@ -1,6 +1,6 @@
 {
 "Actor": {
-  "types": ["character"],
+  "types": ["character", "enermy"],
   "templates": {
     "base": {
       "attributes": {
@@ -127,7 +127,44 @@
         "description": ""
       }
     }
+  },
+
+  "enermy": {
+    "templates": [
+      "base"
+    ],
+    "attributes": {
+      "move": {
+        "value": 0
+      },
+      "acc_fix": {
+        "value": 0,
+        "min": 0
+      },
+      "eva_fix": {
+        "value": 0,
+        "min": 0
+      },
+      "ivc_fix": {
+        "value": 0,
+        "min": 0
+      },
+      "res_fix": {
+        "value": 0,
+        "min": 0
+      },
+      "chk_fix": {
+        "value": 0,
+        "min": 0
+      }
+    },
+    "details": {
+      "basic": "",
+      "attack": "",
+      "matterials": ""
+    }
   }
+
 },
 "Item": {
   "types": ["talent", "equipment", "item"],

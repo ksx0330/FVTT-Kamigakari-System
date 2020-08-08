@@ -33,8 +33,8 @@
     "KG.PD": "P.D",
     "KG.MD": "M.D",
     "KG.Init": "Init",
-    "KG.Armor": "Armor",
-    "KG.Barrier": "Barrier",
+    "KG.Armor": "Guard",
+    "KG.Barrier": "Ward",
     "KG.Description": "Description",
     "KG.Talents": "Talents",
     "KG.Equipment": "Equipment",
@@ -78,6 +78,17 @@
     "KG.Quantity": "Quantity",
     "KG.Money": "Money",
     "KG.LookDefault": "Age: \r\nGender: \r\nEye: \r\nHair: \r\nOthers:",
-    "KG.SpiritLookDefault": "Origin: \r\nLoaction: \r\nShape: "
-
+    "KG.SpiritLookDefault": "Origin: \r\nLoaction: \r\nShape: ",
+    "KG.Move": "Move",
+    "KG.ACCFix": "ACC Fix",
+    "KG.EVAFix": "EVA Fix",
+    "KG.IVCFix": "IVC Fix",
+    "KG.RESFix": "RES Fix",
+    "KG.CHKFix": "CHK Fix",
+    "KG.BasicStat": "Basic Stat",
+    "KG.ActionStat": "Action Stat",
+    "KG.Attack": "Attack",
+    "KG.Materials": "Materials",
+    "KG.AttackOptions": "Attack Options",
+    "KG.EnermyDefault": "Class: \t\tSize: \t\t Cunning: \r\nPerception: \t\tSpeech: \t\tReaction: \r\nID: \t\tWeakness: \r\nMovement: "
 }

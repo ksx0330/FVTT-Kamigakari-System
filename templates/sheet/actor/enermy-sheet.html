@@ -1,0 +1,165 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <div class="sheet-wrapper">
+      <button style="display: none;">Input Button Click bypass</button>
+        {{!-- Sheet Header --}}
+        <header class="sheet-header">
+            <div class="sheet-header__fields">
+                <input class="input--title" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+
+                <div class="flex-item flex-item--level">
+                    <label for="data.atributes.level.value">{{localize "KG.LEVEL"}}</label>
+                    <input name="data.attributes.level.value" type="text" value="{{data.attributes.level.value}}" placeholder="Level" data-dtype="Number"/>
+                </div>
+
+            </div>
+        </header>
+
+
+        <section class="sheet-main">
+          <div class="enermy-header">
+            <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+            <textarea name="data.details.basic">{{data.details.basic}}</textarea>
+          </div>
+          <section class="sheet-attributes">
+
+            <div class="cell cell--abilities">
+              <span class="cell--title">{{localize "KG.BasicStat"}}</span>
+              <div class="ability-list">
+                <div class="cell cell--ability">
+                  <label for="data.attributes.hp.value" class="cell--title">{{localize "KG.HP"}}<i class="fas fa-heart attribute-icon"></i></label>
+                  <div class="cell--counter">
+                    <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
+                    <span> / </span>
+                    <input type="text" name="data.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number"/>
+                  </div>
+                </div>        
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.init.value" class="cell--title">{{localize "KG.Init"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.init.value" value="{{data.attributes.init.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.move.value" class="cell--title">{{localize "KG.Move"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.move.value" value="{{data.attributes.move.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.armor.value" class="cell--title">{{localize "KG.Armor"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.armor.value" value="{{data.attributes.armor.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.barrier.value" class="cell--title">{{localize "KG.Barrier"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="data.attributes.barrier.value" value="{{data.attributes.barrier.value}}" data-dtype="Number"/>
+                </div>
+              </div>
+
+              <span class="cell--title">{{localize "KG.ActionStat"}}</span>
+              <div class="ability-list">
+                <div class="cell cell--ability">
+                  <label for="data.attributes.acc.value" class="cell--title">{{localize "KG.ACC"}}</label>
+                  <input type="text" name="data.attributes.acc.value" value="{{data.attributes.acc.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.eva.value" class="cell--title">{{localize "KG.EVA"}}</label>
+                  <input type="text" name="data.attributes.eva.value" value="{{data.attributes.eva.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.cnj.value" class="cell--title">{{localize "KG.CNJ"}}</label>
+                  <input type="text" name="data.attributes.cnj.value" value="{{data.attributes.cnj.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.res.value" class="cell--title">{{localize "KG.RES"}}</label>
+                  <input type="text" name="data.attributes.res.value" value="{{data.attributes.res.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.ins.value" class="cell--title">{{localize "KG.INS"}}</label>
+                  <input type="text" name="data.attributes.ins.value" value="{{data.attributes.ins.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.acc_fix.value" class="cell--title">{{localize "KG.ACCFix"}}</label>
+                  <input type="text" name="data.attributes.acc_fix.value" value="{{data.attributes.acc_fix.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.eva_fix.value" class="cell--title">{{localize "KG.EVAFix"}}</label>
+                  <input type="text" name="data.attributes.eva_fix.value" value="{{data.attributes.eva_fix.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.ivc_fix.value" class="cell--title">{{localize "KG.IVCFix"}}</label>
+                  <input type="text" name="data.attributes.ivc_fix.value" value="{{data.attributes.ivc_fix.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.res_fix.value" class="cell--title">{{localize "KG.RESFix"}}</label>
+                  <input type="text" name="data.attributes.res_fix.value" value="{{data.attributes.res_fix.value}}" data-dtype="Number"/>
+                </div>
+
+                <div class="cell cell--ability">
+                  <label for="data.attributes.chk_fix.value" class="cell--title">{{localize "KG.CHKFix"}}</label>
+                  <input type="text" name="data.attributes.chk_fix.value" value="{{data.attributes.chk_fix.value}}" data-dtype="Number"/>
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          {{!-- Sheet Tab Navigation --}}
+          <nav class="sheet-tabs tabs" data-group="primary">
+              <a class="item" data-tab="description">{{localize "KG.Description"}}</a>
+              <a class="item" data-tab="attack">{{localize "KG.Attack"}}</a>
+              <a class="item" data-tab="materials">{{localize "KG.Materials"}}</a>
+          </nav>
+
+          {{!-- Sheet Body --}}
+          <section class="sheet-body">
+
+            {{!-- Biography Tab --}}
+            <div class="tab description" data-group="primary" data-tab="description">
+              <div class="sheet-tab">
+                <div class="cell cell--bio">
+                  {{!-- We're avoiding WYSIWYGs... for now... --}}
+                  {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}}
+
+                </div>
+              </div>
+            </div>
+
+            {{!-- Talents Tab --}}
+            <div class="tab description" data-group="primary" data-tab="attack">
+              <section class="sheet-tab">
+                <div class="cell cell--bio">
+                  <label class="cell--title">{{localize "KG.AttackOptions"}}</label>
+                  {{!-- We're avoiding WYSIWYGs... for now... --}}
+                  {{editor content=data.details.attack target="data.details.attack" button=true owner=owner editable=editable}}
+
+                </div>
+              </section>
+            </div>
+
+            {{!-- Owned Items Tab --}}
+            <div class="tab description" data-group="primary" data-tab="materials">
+              <section class="sheet-tab">
+                <div class="cell cell--bio">
+                  <label class="cell--title">{{localize "KG.Materials"}}</label>
+                  {{!-- We're avoiding WYSIWYGs... for now... --}}
+                  {{editor content=data.details.materials target="data.details.materials" button=true owner=owner editable=editable}}
+
+                </div>
+              </section>
+            </div>
+          </section>
+
+        </section>
+
+    </div>
+</form>
+
