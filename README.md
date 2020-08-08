@@ -37,3 +37,6 @@ Update List
 0.1.5 - Talent Description Update
   * Now you can see talent's timing, range, target, cost in your character sheet. 
   
+0.1.6 - Term Collection
+  * Dice Pull Macro -> Dice Pool Macro
+  * Conjection -> Invocation, Insight -> Instinct
