@@ -44,4 +44,5 @@ Update List
 0.2.0 - Add Enermy Sheet
   * Can create enery sheet
   
-  
+0.2.1 - Battle Tracker Initiative Update
+  * You can use battle tracker by initiative
