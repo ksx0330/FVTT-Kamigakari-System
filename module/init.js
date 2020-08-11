@@ -24,7 +24,13 @@ Hooks.once("init", async function() {
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("kamigakari", KamigakariItemSheet, {makeDefault: true});
 
+    // Patch Core Functions
+    Combat.prototype._getInitiativeFormula = function(combatant) {
+        const actor = combatant.actor;
+        const init = actor.data.data.attributes.init.value;
 
+        return "" + init;
+    };
 
 });
 
