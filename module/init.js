@@ -36,8 +36,11 @@ Hooks.once("init", async function() {
 
 Hooks.on('createActor', async (actor, options, id) => {
 	await actor.update({ 'data.details.look': game.i18n.localize("KG.LookDefault"), 
-		'data.details.spirit_look': game.i18n.localize("KG.SpiritLookDefault"),
-		'data.details.basic': game.i18n.localize("KG.EnermyDefault")  });
+		'data.details.spirit_look': game.i18n.localize("KG.SpiritLookDefault") });
+
+	if (actor.data.data.details.basic == "") {
+		await actor.update({'data.details.basic': game.i18n.localize("KG.EnermyDefault") })
+	}
 });
 
 Hooks.on("canvasInit", function() {

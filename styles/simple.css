@@ -292,7 +292,6 @@
   padding: 5px;
   margin-bottom: 5px;
   font-weight: bold;
-  font-family: "Metamorphous", serif;
 }
 
 .kamigakari .sheet-wrapper .sheet-attributes .cell .cell--title {
@@ -428,6 +427,26 @@
   padding: 0;
 }
 
+.kamigakari .sheet-wrapper .cell--spirit-burn {
+  display: flex;
+  border: 2px solid #555555;
+  padding: 10px;
+  border-radius: 5%;
+}
+
+.kamigakari .sheet-wrapper .spirit-butn-name {
+  flex: 4;
+  margin: auto;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #2d3748;
+}
+
+.kamigakari .sheet-wrapper .cell--spirit-burn button {
+  flex: 1;
+  white-space: nowrap;
+}
+
 .kamigakari .sheet-tab .cell--bio {
   -webkit-box-flex: 100;
   -ms-flex: 100;
@@ -457,7 +476,6 @@
   padding: 5px;
   margin-bottom: 5px;
   font-weight: bold;
-  font-family: "Metamorphous", serif;
 }
 
 .kamigakari .editor, .kamigakari .editor-content {
@@ -628,3 +646,4 @@
 .kamigakari .cell-G {
   flex: 5;
 }
+

@@ -90,5 +90,12 @@
     "KG.Attack": "Attack",
     "KG.Materials": "Materials",
     "KG.AttackOptions": "Attack Options",
-    "KG.EnermyDefault": "Class: \t\tSize: \t\t Cunning: \r\nPerception: \t\tSpeech: \t\tReaction: \r\nID: \t\tWeakness: \r\nMovement: "
+    "KG.EnermyDefault": "Class: \t\tSize: \t\t Cunning: \r\nPerception: \t\tSpeech: \t\tReaction: \r\nID: \t\tWeakness: \r\nMovement: ",
+    "KG.SpiritBurn": "Spirit Burn",
+    "KG.Transcend": "Transcend",
+    "KG.TranscendAlert": "Spirit Burn - Transcend: Add Dice 1 ~ 3",
+    "KG.VitalIgnition": "Vital Ignition",
+    "KG.ConceptDestruction": "Concept Destruction",
+    "KG.AddRank": "Add Rank",
+    "KG.UseItem": "Use Item"
 }

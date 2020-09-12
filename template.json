@@ -1,6 +1,6 @@
 {
 "Actor": {
-  "types": ["character", "enermy"],
+  "types": ["character", "enemy", "enermy"],
   "templates": {
     "base": {
       "attributes": {
@@ -70,6 +70,9 @@
       "spirit": {
         "value": 22
       },
+      "transcend": {
+        "value": 0
+      },
       "str": {
         "value": 0,
         "min": 0
@@ -129,7 +132,7 @@
     }
   },
 
-  "enermy": {
+  "enemy": {
     "templates": [
       "base"
     ],
@@ -161,7 +164,7 @@
     "details": {
       "basic": "",
       "attack": "",
-      "matterials": ""
+      "materials": ""
     }
   }
 

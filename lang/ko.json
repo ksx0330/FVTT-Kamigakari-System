@@ -90,5 +90,12 @@
     "KG.Attack": "공격",
     "KG.Materials": "소재",
     "KG.AttackOptions": "공격 옵션",
-    "KG.EnermyDefault": "클래스: \t\t크기: \t\t 교활함: \r\n지각: \t\t말하기: \t\t반응: \r\n감지난이도: \t\t약점: \r\n이동방법: "
+    "KG.EnermyDefault": "클래스: \t\t크기: \t\t 교활함: \r\n지각: \t\t말하기: \t\t반응: \r\n감지난이도: \t\t약점: \r\n이동방법: ",
+    "KG.SpiritBurn": "영문 연소",
+    "KG.Transcend": "물리 초월",
+    "KG.TranscendAlert": "영문 연소 - 물리 초월: 주사위를 1~3개까지 추가하세요.",
+    "KG.VitalIgnition": "생명 연소",
+    "KG.ConceptDestruction": "개념 파괴",
+    "KG.AddRank": "랭크 추가",
+    "KG.UseItem": "아이템 사용"
 }
