@@ -45,4 +45,9 @@ Update List
   * Can create enery sheet
   
 0.2.1 - Battle Tracker Initiative Update
-  * You can use battle tracker by initiative
+  * Can use battle tracker by initiative
+  
+0.3.0 - Add Spirit Burn Support & Inventory Update
+  * Can use spirit burn in actor sheet
+  * Common equipment is showing its quantity in character's sheet
+  * enermy -> enemy
