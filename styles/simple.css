@@ -557,6 +557,15 @@
   padding: 0;
 }
 
+.kamigakari .sheet-wrapper .sheet-attributes .cell--formula {
+  grid-column: span 12;
+  padding: 0;
+}
+
+.kamigakari .sheet-wrapper .sheet-attributes .cell--formula input {
+  height: 34px;
+}
+
 .kamigakari .items-list .item {
   padding: 10px 0;
 }

@@ -170,26 +170,29 @@
 
 },
 "Item": {
-  "types": ["talent", "equipment", "item"],
+  "types": ["talent", "equipment", "item", "attackOption"],
   "templates": {
     "base": {
       "name": "",
       "description": ""
+    },
+    "talent": {
+      "timing": "",
+      "range": "",
+      "target": "",
+      "cost": "",
+      "effect": ""
     }
   },
   "talent": {
     "templates": [
-      "base"
+      "base",
+      "talent"
     ],
     "talentType": "",
     "class": "",
     "classType": "",
-    "condition": "",
-    "timing": "",
-    "range": "",
-    "target": "",
-    "cost": "",
-    "effect": ""
+    "condition": ""
   },
   "equipment": {
     "templates": [
@@ -209,6 +212,13 @@
         "base"
     ],
     "quantity": 1
+  },
+  "attackOption": {
+    "templates": [
+      "base",
+      "talent"
+    ],
+    "formula": ""
   }
 }
 }

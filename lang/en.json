@@ -97,5 +97,8 @@
     "KG.VitalIgnition": "Vital Ignition",
     "KG.ConceptDestruction": "Concept Destruction",
     "KG.AddRank": "Add Rank",
-    "KG.UseItem": "Use Item"
+    "KG.UseItem": "Use Item",
+    "KG.Formula": "Formula",
+    "KG.RollAttack": "Attack",
+    "KG.Memo": "Memo"
 }

@@ -49,6 +49,8 @@ export class KamigakariActorSheet extends ActorSheet {
     const equipmentItems = [];
     const commonItems = [];
 
+    const attackOptions = [];
+
     for (let i of sheetData.items) {
       let item = i.data;
       i.img = i.img || DEFAULT_TOKEN;
@@ -71,8 +73,11 @@ export class KamigakariActorSheet extends ActorSheet {
 
       else if (i.type =='equipment')
         equipmentItems.push(i);
-      else
+      else if (i.type == 'item')
         commonItems.push(i);
+
+      else if (i.type == 'attackOption')
+        attackOptions.push(i);
     }
 
     // Assign and return
@@ -82,6 +87,8 @@ export class KamigakariActorSheet extends ActorSheet {
 
     actorData.equipmentItems = equipmentItems;
     actorData.commonItems = commonItems;
+
+    actorData.attackOptions = attackOptions;
   }
 
   /* -------------------------------------------- */
@@ -116,6 +123,9 @@ export class KamigakariActorSheet extends ActorSheet {
 
     // Use Item
     html.find(".use-item").click(this._useItem.bind(this));
+
+    // Enemy Attack
+    html.find(".roll-attck").click(this._rollAttck.bind(this));
 
   }
 
@@ -389,6 +399,46 @@ export class KamigakariActorSheet extends ActorSheet {
 
     }
   
+  }
+
+  async _rollAttck(event) {
+    event.preventDefault();
+    const itemData = $(event.currentTarget)[0].dataset;
+
+    if (itemData.formula == "")
+      return;
+
+    // Render the roll.
+    let template = 'systems/kamigakari/templates/chat/chat-move.html';
+    // GM rolls.
+    let chatData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor })
+    };
+
+    let rollMode = game.settings.get("core", "rollMode");
+    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+    if (rollMode === "blindroll") chatData["blind"] = true;
+
+    let roll = new Roll(itemData.formula);
+    roll.roll();
+    roll.render().then(r => {
+      let templateData = {
+        title: itemData.name,
+        rollDw: r
+      };
+      renderTemplate(template, templateData).then(content => {
+        chatData.content = content;
+        if (game.dice3d) {
+          game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
+        }
+        else {
+          chatData.sound = CONFIG.sounds.dice;
+          ChatMessage.create(chatData);
+        }
+      });
+    });
   }
 
 

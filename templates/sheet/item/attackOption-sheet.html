@@ -1,0 +1,52 @@
+<form class="{{cssClass}} item-form" autocomplete="off">
+  <header class="sheet-header flexrow">
+      {{!-- <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/> --}}
+      <div class="header-fields">
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" ></h1>
+      </div>
+  </header>
+
+  <div class="sheet-tab margin-top-10">
+    <div class="sheet-wrapper">
+      <section class="sheet-attributes">
+
+        <div class="cell cell--talent">
+          <label for="data.timing" class="cell--title">{{localize "KG.Timing"}}</label>
+          <input type="text" name="data.timing" value="{{data.timing}}" data-dtype="String"/>
+        </div>
+
+        <div class="cell cell--talent">
+          <label for="data.range" class="cell--title">{{localize "KG.Range"}}</label>
+          <input type="text" name="data.range" value="{{data.range}}" data-dtype="String"/>
+        </div>
+
+        <div class="cell cell--talent">
+          <label for="data.target" class="cell--title">{{localize "KG.Target"}}</label>
+          <input type="text" name="data.target" value="{{data.target}}" data-dtype="String"/>
+        </div>
+
+        <div class="cell cell--talent">
+          <label for="data.cost" class="cell--title">{{localize "KG.Cost"}}</label>
+          <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String"/>
+        </div>
+
+        <div class="cell cell--talent">
+          <label for="data.formula" class="cell--title">{{localize "KG.Formula"}}</label>
+        </div>
+
+        <div class="cell cell--formula">
+          <input type="text" name="data.formula" value="{{data.formula}}" data-dtype="String"/>
+        </div>
+
+      </section>
+
+      <div class="cell cell--bio">
+        <label class="cell--title">{{localize "KG.Description"}}</label>
+        {{!-- We're avoiding WYSIWYGs... for now... --}}
+        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+      </div>
+
+    </div>
+  </div>
+
+</form>

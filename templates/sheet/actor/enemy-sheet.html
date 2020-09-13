@@ -137,9 +137,39 @@
             <div class="tab description" data-group="primary" data-tab="attack">
               <section class="sheet-tab">
                 <div class="cell cell--bio">
-                  <label class="cell--title">{{localize "KG.AttackOptions"}}</label>
-                  {{!-- We're avoiding WYSIWYGs... for now... --}}
-                  {{editor content=data.details.attack target="data.details.attack" button=true owner=owner editable=editable}}
+
+                  <h2 class="cell--title">
+                    <label>{{localize "KG.AttackOptions"}}</label>
+                    <div class="item-controls">
+                      <button class="item-control item-create" title='{{localize "KG.AttackOptions"}}' data-type="attackOption" data-talentType="-">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </h2>
+                  <ol class="items-list">
+                    {{#each actor.attackOptions as |item id|}}
+                      <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+                        {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
+                        <h4 class="item-name"><span class="echo-item"><i class="fas fa-book"></i></span> <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                        <div class="item-controls">
+                          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        </div>
+                        <div class="item-description" style="display: block;">
+                          <b>{{localize "KG.Timing"}}</b> : {{item.data.timing}} / 
+                          <b>{{localize "KG.Range"}}</b> : {{item.data.range}} / 
+                          <b>{{localize "KG.Target"}}</b> : {{item.data.target}} / 
+                          <b>{{localize "KG.Formula"}}</b> : {{item.data.formula}} <br>{{{item.data.description}}}
+
+                          <button class="roll-attck" data-name="{{item.name}}" data-formula="{{item.data.formula}}">{{localize "KG.RollAttack"}}</button>
+                        </div>
+                      </li>
+                    {{/each}}
+                    </ol>
+                    <hr>
+                    <label class="cell--title">{{localize "KG.Memo"}}</label>
+                    {{!-- We're avoiding WYSIWYGs... for now... --}}
+                    {{editor content=data.details.attack target="data.details.attack" button=true owner=owner editable=editable}}
 
                 </div>
               </section>
