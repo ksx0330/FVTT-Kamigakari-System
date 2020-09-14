@@ -52,6 +52,9 @@ Update List
   * Common equipment is showing its quantity in character's sheet
   * enermy -> enemy
   
-0.3.3 - Change Enemy's Attack Option
+0.3.5 - Change Enemy's Attack Option
   * Attack option item is added
   * Enemy attack option memo is added
+
+0.3.6 - Typo correction
+  *  Fixed Transcend typo in chat window
