@@ -405,7 +405,7 @@ export class KamigakariActorSheet extends ActorSheet {
       await this.actor.update({'data.attributes.transcend.value': answer});
 
       let templateData = {
-        title: game.i18n.localize("KG.ConceptDestruction")
+        title: game.i18n.localize("KG.Transcend")
       };
   
       // Render the roll.
