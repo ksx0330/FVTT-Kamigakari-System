@@ -37,13 +37,12 @@ Features
 
 Image
 -------------
-1.Character sheet
-![character sheet](https://user-images.githubusercontent.com/15700174/93171087-6534bf00-f763-11ea-81a9-ff791b2e5254.PNG)
+1. Character sheet
+<img src="https://user-images.githubusercontent.com/15700174/93171087-6534bf00-f763-11ea-81a9-ff791b2e5254.PNG" width="40%">
 
-![talent list](https://user-images.githubusercontent.com/15700174/93172358-ac23b400-f765-11ea-9156-fd1212904fe0.PNG)
+<img src="https://user-images.githubusercontent.com/15700174/93172358-ac23b400-f765-11ea-9156-fd1212904fe0.PNG" width="40%">
 
-![Equipment list](https://user-images.githubusercontent.com/15700174/93172429-d37a8100-f765-11ea-8548-8d58955c966d.PNG)
-
+<img src="https://user-images.githubusercontent.com/15700174/93172429-d37a8100-f765-11ea-8548-8d58955c966d.PNG" width="40%">
 
 2. Enermy sheet
-![enermy sheet](https://user-images.githubusercontent.com/15700174/93172611-2c4a1980-f766-11ea-901f-07e09b11b0c9.PNG)
+<img src="https://user-images.githubusercontent.com/15700174/93172611-2c4a1980-f766-11ea-901f-07e09b11b0c9.PNG" width="40%">
