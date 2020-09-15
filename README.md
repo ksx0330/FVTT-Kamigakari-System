@@ -11,25 +11,25 @@ https://raw.githubusercontent.com/ksx0330/FVTT-Kamigakari-System/master/system.j
 
 Spirit Macro
 -------------
-1. Set Spirit Dice Pull - You can choose the number of spirit dice.
-2. Influence - You can choose multiple dice exchange.
+* Set Spirit Dice Pull - You can choose the number of spirit dice.
+* Influence - You can choose multiple dice exchange.
 
 Features
 -------------
-1. Use Spirit Dice
+* Use Spirit Dice
   * Charge spirit dice -> Click "Spirit Dice" tab
   * Change spirit dice -> Left click you want to change dice icon
   * Use spirit dice -> Right click you want to use dice icon
   
-2. Automatic Main Stat, Battle Stat roll
+* Automatic Main Stat, Battle Stat roll
   * Click Main Stat, Battle Stat label
   
-3. Automatic Spirit burn roll
+* Automatic Spirit burn roll
   * Transcend -> Click butten, and input dice number. and roll by Main Stat, Battle Stat.
   * Vital Ignition -> Click button.
   * Concept Destruction -> Click button. first result is using crest, second result is added rank.
   
-4. Influence
+* Influence
   * Roll by Main Stat, Battle Stat. 
   * Click yin-yang icon button. 
   * Change action dice and spirit dice. 
