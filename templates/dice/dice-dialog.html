@@ -1,0 +1,26 @@
+<div class="dialog-content">
+    <h2>Spirit Dice Viewer</h2>
+
+    <div id="dice-list">
+    {{#each actors }}
+        <div class="dice-viewer">
+            <b>{{name}}</b>
+
+            <div data-id="{{id}}">
+            {{#each spiritDice as |value key|}}
+            <img class="spirit" width=45 height=45 data-key={{key}} data-value={{value}} src="systems/kamigakari/assets/dice/{{value}}.PNG">
+            {{/each}}
+            </div>
+        </div>
+    {{/each}}
+    </div>
+
+</div>
+<div class="dialog-buttons">
+    {{#each buttons as |button id|}}
+    <button class="dialog-button" data-button="{{id}}">
+        {{{button.icon}}}
+        {{{button.label}}}
+    </button>
+    {{/each}}
+</div>

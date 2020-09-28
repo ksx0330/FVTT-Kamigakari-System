@@ -161,7 +161,10 @@
                           <b>{{localize "KG.Target"}}</b> : {{item.data.target}} / 
                           <b>{{localize "KG.Formula"}}</b> : {{item.data.formula}} <br>{{{item.data.description}}}
 
+                          {{#ifEquals item.data.formula ""}}
+                          {{else}}
                           <a class="inline-roll" data-title="{{item.name}}" data-formula="{{item.data.formula}}">{{localize "KG.RollAttack"}}</a>
+                          {{/ifEquals}}
                         </div>
                       </li>
                     {{/each}}

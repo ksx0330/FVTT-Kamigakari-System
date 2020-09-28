@@ -27,6 +27,12 @@
   background: #c2c2c2;
 }
 
+.kamigakari .dice-viewer {
+    border: 3px solid #2d3748;
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
 .kamigakari .sheet-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;

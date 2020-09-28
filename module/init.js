@@ -1,8 +1,10 @@
 // Import Modules
 
-import { KamigakariItemSheet } from "./item-sheet.js";
-import { KamigakariActorSheet } from "./actor-sheet.js";
-import { InfluenceDialog } from "./influence-dialog.js";
+import { KamigakariItemSheet } from "./sheet/item-sheet.js";
+import { KamigakariActorSheet } from "./sheet/actor-sheet.js";
+import { InfluenceDialog } from "./dialog/influence-dialog.js";
+import { ActorListDialog } from "./dialog/actor-list-dialog.js";
+import { KgRegisterHelpers } from "./handlebars.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -13,7 +15,8 @@ Hooks.once("init", async function() {
 	
 	game.kamigakari = {
 		influence,
-		setSpiritDice
+		setSpiritDice,
+        showSpiritDiceViewer
 	  };
 
     CONFIG.Dice.tooltip = "systems/kamigakari/templates/dice/tooltip.html";
@@ -31,6 +34,8 @@ Hooks.once("init", async function() {
 
         return "" + init;
     };
+
+    KgRegisterHelpers.init();
 
 });
 
@@ -67,6 +72,24 @@ Hooks.on("canvasInit", function() {
 			return spaces * canvas.dimensions.distance;
 		});
 	};
+});
+
+
+Hooks.on("updateActor", function() {
+    if (game.kamigakari.SpiritDiceViewer != null && game.kamigakari.SpiritDiceViewer._state != -1)
+        game.kamigakari.SpiritDiceViewer.render(true);
+});
+
+Hooks.on("getSceneControlButtons", function(controls) {
+    controls[0].tools.push({
+        name: "diceviewer",
+        title: "Spirit Dice Viewer",
+        icon: "fas fa-yin-yang",
+        visible: true,
+        onClick: () => game.kamigakari.showSpiritDiceViewer(),
+        button: true
+    });
+
 });
 
 async function setSpiritDice() {
@@ -120,4 +143,11 @@ function influence() {
 
 	let dialog = new InfluenceDialog(actionDice, spiritDice, actor, modScore);
 	dialog.render(true);
+}
+
+function showSpiritDiceViewer() {
+    var actors = game.data.actors.filter(element => element.type == "character" && (element.permission['default'] == 3 ) );
+
+    let dialog = new ActorListDialog(actors)
+    dialog.render(true);
 }

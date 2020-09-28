@@ -1,6 +1,6 @@
 {
 "Actor": {
-  "types": ["character", "enemy", "enermy"],
+  "types": ["character", "enemy"],
   "templates": {
     "base": {
       "attributes": {
@@ -112,9 +112,7 @@
           "[3]": 0
         }
       },
-      "money": {
-        "value": 0
-      }
+      "money": 0
 
     },
     "details": {
