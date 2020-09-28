@@ -41,4 +41,10 @@ Changelog
   * Enemy attack option memo is added
 
 0.3.6 - Typo correction
-  *  Fixed Transcend typo in chat window
+  * Fixed Transcend typo in chat window
+
+0.4.0 - Add Spirit Dice Viewer
+  * Added Spirit dice viewer
+  * Added Enermy to enemy macro
+  * Fixed Character coin is not synced
+  * Invisible the attack button when the enemy's attack formula is empty
