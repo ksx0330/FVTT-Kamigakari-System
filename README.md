@@ -13,6 +13,7 @@ Spirit Macro
 -------------
 * Set Spirit Dice Pull - You can choose the number of spirit dice.
 * Influence - You can choose multiple dice exchange.
+* Update Enermy to Enemy - When you update from less than 0.4.0. You must run this macro.
 
 Features
 -------------
@@ -34,6 +35,10 @@ Features
   * Click yin-yang icon button. 
   * Change action dice and spirit dice. 
   * Click apply button.
+
+* Spirit Dice Viewer
+  * Click Scene controls' yin-yang icon button.
+  * Choose what you want to view spirit dice. (This list is only showed if the characters' default permission is Owner)
 
 Image
 -------------
