@@ -53,3 +53,6 @@ Image
 
 2. Enermy sheet
 <img src="https://user-images.githubusercontent.com/15700174/93172611-2c4a1980-f766-11ea-901f-07e09b11b0c9.PNG" width="60%">
+
+3. Spirit Dice Viewer
+<img src="https://user-images.githubusercontent.com/15700174/94503911-8d7feb80-0242-11eb-887e-55e659ee916c.PNG" width="60%">
