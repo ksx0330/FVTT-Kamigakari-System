@@ -48,3 +48,7 @@ Changelog
   * Added Enermy to enemy macro
   * Fixed Character coin is not synced
   * Invisible the attack button when the enemy's attack formula is empty
+
+0.4.1 - Add Export feature & Bug Fix
+  * Added feature which export item from actor sheet to item directory 
+  * Fixed the problem of not syncing when more than one spirit dice dialog
