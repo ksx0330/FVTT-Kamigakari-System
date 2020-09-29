@@ -16,7 +16,8 @@ Hooks.once("init", async function() {
 	game.kamigakari = {
 		influence,
 		setSpiritDice,
-        showSpiritDiceViewer
+        showSpiritDiceViewer,
+        SpiritDiceViewer: []
 	  };
 
     CONFIG.Dice.tooltip = "systems/kamigakari/templates/dice/tooltip.html";
@@ -76,8 +77,15 @@ Hooks.on("canvasInit", function() {
 
 
 Hooks.on("updateActor", function() {
-    if (game.kamigakari.SpiritDiceViewer != null && game.kamigakari.SpiritDiceViewer._state != -1)
-        game.kamigakari.SpiritDiceViewer.render(true);
+    game.kamigakari.SpiritDiceViewer = game.kamigakari.SpiritDiceViewer.filter(e => e._state != -1);
+    var viewers = game.kamigakari.SpiritDiceViewer;
+
+    if (viewers.length != 0) {
+        for (let viewer of viewers)
+            viewer.render(true);
+    }
+
+
 });
 
 Hooks.on("getSceneControlButtons", function(controls) {

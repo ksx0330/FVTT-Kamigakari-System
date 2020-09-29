@@ -124,6 +124,15 @@ export class KamigakariActorSheet extends ActorSheet {
     // Use Item
     html.find(".use-item").click(this._useItem.bind(this));
 
+    if (this.actor.owner) {
+      let handler = ev => this._onDragStart(ev);
+      html.find('li.item').each((i, li) => {
+        if (li.classList.contains("inventory-header")) return;
+        li.setAttribute("draggable", true);
+        li.addEventListener("dragstart", handler, false);
+      });
+    }
+
   }
 
   /* -------------------------------------------- */
