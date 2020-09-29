@@ -56,3 +56,8 @@ Image
 
 3. Spirit Dice Viewer
 <img src="https://user-images.githubusercontent.com/15700174/94503911-8d7feb80-0242-11eb-887e-55e659ee916c.PNG" width="60%">
+
+4. Influence
+<img src="https://user-images.githubusercontent.com/15700174/94505534-44319b00-0246-11eb-9c35-def8327609b3.png" width="60%">
+
+<img src="https://user-images.githubusercontent.com/15700174/94505605-6b886800-0246-11eb-96c2-ea1bf272671a.png" width="60%">
