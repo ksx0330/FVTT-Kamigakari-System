@@ -432,6 +432,7 @@ export class KamigakariActorSheet extends ActorSheet {
   
       let roll = new Roll(answer + "d6");
       roll.roll();
+
       roll.render().then(r => {
         templateData.rollDw = r;
         renderTemplate(template, templateData).then(content => {
@@ -445,7 +446,7 @@ export class KamigakariActorSheet extends ActorSheet {
           }
         });
       });
-      await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll._result});
+      await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll.result});
     }
   }
 
@@ -485,7 +486,7 @@ export class KamigakariActorSheet extends ActorSheet {
       });
     });
 
-    await this.actor.update({'data.attributes.hp.value': this.actor.data.data.attributes.str.value, 'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll._result});
+    await this.actor.update({'data.attributes.hp.value': this.actor.data.data.attributes.str.value, 'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll.result});
   }
 
   async _conceptDestruction(event) {
@@ -524,7 +525,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
     console.log(roll);
 
-    await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll._result.split(" + ")[0]});
+    await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll.result.split(" + ")[0]});
 
   }
 

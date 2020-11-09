@@ -397,8 +397,10 @@
   padding: 0;
 }
 
-.kamigakari .tabs {
+.kamigakari nav.tabs {
   border-bottom: 1px solid;
+  border-top: 0;
+  line-height: 29px;
 }
 
 .kamigakari .tabs .item {
@@ -406,7 +408,6 @@
   background: #bcc8de;
   border-radius: 4px 4px 0 0;
   margin: 0 5px -1px;
-  padding: 4px;
 }
 
 .kamigakari .tabs .item.active {

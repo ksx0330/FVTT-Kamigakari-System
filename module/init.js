@@ -20,7 +20,7 @@ Hooks.once("init", async function() {
         SpiritDiceViewer: []
 	  };
 
-    CONFIG.Dice.tooltip = "systems/kamigakari/templates/dice/tooltip.html";
+    Roll.TOOLTIP_TEMPLATE = "systems/kamigakari/templates/dice/tooltip.html";
 
     // Register sheet application classes
     Actors.unregisterSheet("core", ActorSheet);
