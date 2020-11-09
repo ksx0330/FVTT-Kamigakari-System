@@ -52,3 +52,5 @@ Changelog
 0.4.1 - Add Export feature & Bug Fix
   * Added feature which export item from actor sheet to item directory 
   * Fixed the problem of not syncing when more than one spirit dice dialog
+  
+0.4.2 - Compatible Update 0.7.5
