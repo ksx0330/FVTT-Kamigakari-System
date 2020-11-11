@@ -24,13 +24,20 @@ Features
   * Change spirit dice -> Left click you want to change dice icon
   * Use spirit dice -> Right click you want to use dice icon
   
-* Automatic Main Stat, Battle Stat roll
-  * Click Main Stat, Battle Stat label
+* Automatic calc Main Stat, Battle Stat, Damage
+  * Insert race sheet and style sheet to actor sheet
+  
+* Automatic Main Stat, Battle Stat, Damage roll
+  * Click Main Stat, Battle Stat, Damage label
   
 * Automatic Spirit burn roll
   * Transcend -> Click butten, and input dice number. and roll by Main Stat, Battle Stat.
   * Vital Ignition -> Click button.
   * Concept Destruction -> Click button. first result is using crest, second result is added rank.
+  
+* Talent's active checkbox
+  * When checking active checkbox, talent's attribute data is adding to actor sheet.
+  * When use talent or this talent is passive talent, you check active checkbox.
   
 * Influence
   * Roll by Main Stat, Battle Stat. 
