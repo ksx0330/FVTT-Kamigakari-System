@@ -1,0 +1,50 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+        </div>
+
+    </header>
+
+    <table>
+
+        <tr>
+            <th>{{localize "KG.ACC"}}</th>
+            <th>{{localize "KG.EVA"}}</th>
+            <th>{{localize "KG.CNJ"}}</th>
+            <th>{{localize "KG.RES"}}</th>
+            <th>{{localize "KG.INS"}}</th>
+            <th>{{localize "KG.PD"}}</th>
+            <th>{{localize "KG.MD"}}</th>
+            <th>{{localize "KG.Init"}}</th>
+            <th>{{localize "KG.HP"}}</th>
+        </tr>
+
+        <tr>
+            <td><input type="text" name="data.attributes.acc.value" value="{{data.attributes.acc.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.eva.value" value="{{data.attributes.eva.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.cnj.value" value="{{data.attributes.cnj.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.res.value" value="{{data.attributes.res.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.ins.value" value="{{data.attributes.ins.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.pd.value" value="{{data.attributes.pd.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.md.value" value="{{data.attributes.md.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.init.value" value="{{data.attributes.init.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/></td>
+        </tr>
+
+
+    </table>
+
+    <div class="cell cell--bio">
+        <label class="cell--title">{{localize "KG.Description"}}
+            <div>
+                <span style="position: relative; top: -5px;">{{localize "KG.Main"}}</span> 
+                <input type="checkbox" name="data.main" {{#if data.main}} checked {{/if}}>
+            </div>
+        </label>
+        {{!-- We're avoiding WYSIWYGs... for now... --}}
+        {{!-- {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}} --}}
+        <textarea class="biography" name="data.description" rows="5" title="Hey there! Who are you!?"
+                data-dtype="String">{{data.description}}</textarea>
+    </div>
+</form>

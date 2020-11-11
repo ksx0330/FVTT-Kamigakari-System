@@ -72,41 +72,22 @@ export class KamigakariItemSheet extends ItemSheet {
 
     // Add new attribute
     if ( action === "create" ) {
-      const aNk = Object.keys(this.object.data.data.additional).length + 1;
-      const mNk = Object.keys(this.object.data.data.material).length + 1;
       let newKey = document.createElement("div");
-      const attributes = `
-      <select class="attribute-key" name="data.attributes.{{key}}.key" data-dtype="String">
-      {{#select data.key}}
-        <option value="-">-</option>
-        <option value="hp">{{localize "KG.HP"}}</option>
-        <option value="acc">{{localize "KG.ACC"}}</option>
-        <option value="eva">{{localize "KG.EVA"}}</option>
-        <option value="cnj">{{localize "KG.CNJ"}}</option>
-        <option value="res">{{localize "KG.RES"}}</option>
-        <option value="ins">{{localize "KG.INS"}}</option>
-        <option value="pd">{{localize "KG.PD"}}</option>
-        <option value="md">{{localize "KG.MD"}}</option>
-        <option value="init">{{localize "KG.Init"}}</option>
-        <option value="armor">{{localize "KG.Armor"}}</option>
-        <option value="barrier">{{localize "KG.Barrier"}}</option>
-        <option value="str">{{localize "KG.STR"}}</option>
-        <option value="agi">{{localize "KG.AGI"}}</option>
-        <option value="int">{{localize "KG.INT"}}</option>
-        <option value="wil">{{localize "KG.WIL"}}</option>
-        <option value="lck">{{localize "KG.LCK"}}</option>
-      {{/select}}
-      </select>`;
-  
-       const additional = `<input type="hidden" name="data.additional.add${aNk}.key" value="add${aNk}"/>`;
-       const material = `<input type="hidden" name="data.material.add${mNk}.key" value="material${mNk}"/>`;
 
-      if (type == 'attributes')
+
+      if (type == 'attributes') {
+        const aNk = Object.keys(this.object.data.data.attributes).length + 1;
+        const attributes = `<input type="hidden" name="data.attributes.${aNk}.key" value="-" data-dType="String">`;
         newKey.innerHTML = attributes;
-      else if (type == 'additional')
+      } else if (type == 'additional') {
+        const aNk = Object.keys(this.object.data.data.additional).length + 1;
+        const additional = `<input type="hidden" name="data.additional.add${aNk}.key" value="add${aNk}"/>`;
         newKey.innerHTML = additional;
-      else if (type == 'material')
+      } else if (type == 'material') {
+        const mNk = Object.keys(this.object.data.data.material).length + 1;
+        const material = `<input type="hidden" name="data.material.add${mNk}.key" value="material${mNk}"/>`;
         newKey.innerHTML = material;
+      }
 
       newKey = newKey.children[0];
       form.appendChild(newKey);
@@ -125,14 +106,17 @@ export class KamigakariItemSheet extends ItemSheet {
 
   /** @override */
   _updateObject(event, formData) {
+    console.log(formData);
+    console.log(this.object);
 
-    if (this.item.data.type != 'equipment')
+    if (this.item.data.type != 'equipment' && this.item.data.type != 'talent')
       return this.object.update(formData);
 
     formData = this.updateAttributes(formData);
-    formData = this.updateAdditional(formData);
-    formData = this.updateMaterial(formData);
-
+    if (this.item.data.type == 'equipment') {
+      formData = this.updateAdditional(formData);
+      formData = this.updateMaterial(formData);
+    }
 
     // Update the Item
     return this.object.update(formData);

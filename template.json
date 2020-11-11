@@ -8,52 +8,8 @@
           "value": 0,
           "min": 0,
           "max": 10
-        },
-        "acc": {
-          "value": 0,
-          "min": 0
-        },
-        "acc_dice": "2D",
-        "eva": {
-          "value": 0,
-          "min": 0
-        },
-        "eva_dice": "2D",
-        "cnj": {
-          "value": 0,
-          "min": 0
-        },
-        "cnj_dice": "2D",
-        "res": {
-          "value": 0,
-          "min": 0
-        },
-        "res_dice": "2D",
-        "ins": {
-          "value": 0,
-          "min": 0
-        },
-        "ins_dice": "2D",
-        "pd": {
-          "value": 0,
-          "min": 0
-        },
-        "md": {
-          "value": 0,
-          "min": 0
-        },
-        "init": {
-          "value": 0,
-          "min": 0
-        },
-        "armor": {
-          "value": 0,
-          "min": 0
-        },
-        "barrier": {
-          "value": 0,
-          "min": 0
         }
+
       },
       "details": {
         "biography": ""
@@ -73,31 +29,53 @@
       "transcend": {
         "value": 0
       },
+      "destuction": {
+        "value": 0
+      },
       "str": {
-        "value": 0,
-        "min": 0
+        "add": 0,
+        "dice": "2D"
       },
-      "str_dice": "2D",
       "agi": {
-        "value": 0,
-        "min": 0
+        "add": 0,
+        "dice": "2D"
       },
-      "agi_dice": "2D",
       "int": {
-        "value": 0,
-        "min": 0
+        "add": 0,
+        "dice": "2D"
       },
-      "int_dice": "2D",
       "wil": {
-        "value": 0,
-        "min": 0
+        "add": 0,
+        "dice": "2D"
       },
-      "wil_dice": "2D",
       "lck": {
-        "value": 0,
-        "min": 0
+        "add": 0,
+        "dice": "2D"
       },
-      "lck_dice": "2D",
+
+      "acc": {
+        "dice": "2D"
+      },
+      "eva": {
+        "dice": "2D"
+      },
+      "cnj": {
+        "dice": "2D"
+      },
+      "res": {
+        "dice": "2D"
+      },
+      "ins": {
+        "dice": "2D"
+      },
+
+      "pd": { },
+      "md": { },
+      "init": { },
+      "armor": { },
+      "barrier": { },
+      "move": { },
+
       "level": {
         "value": 1
       },
@@ -105,28 +83,20 @@
         "value": 0
       },
       "spirit_dice": {
-        "value": {
-          "[0]": 0,
-          "[1]": 0,
-          "[2]": 0,
-          "[3]": 0
-        }
+        "value": [0, 0, 0, 0]
+      },
+      "overflow": {
+        "value": 0
+      },
+      "damage": {
+        "auto": true,
+        "base": 1,
+        "high": 0,
+        "rank": 0,
+        "add": 0
       },
       "money": 0
 
-    },
-    "details": {
-      "look": "",
-      "spirit_look": "",
-      "bonds": "",
-      "style": {
-        "value": "",
-        "description": ""
-      },
-      "race": {
-        "value": "",
-        "description": ""
-      }
     }
   },
 
@@ -135,29 +105,55 @@
       "base"
     ],
     "attributes": {
+      "acc": {
+        "value": 0,
+        "min": 0,
+        "fix": 0
+      },
+      "eva": {
+        "value": 0,
+        "min": 0,
+        "fix": 0
+      },
+      "ivc": {
+        "value": 0,
+        "min": 0,
+        "fix": 0
+      },
+      "res": {
+        "value": 0,
+        "min": 0,
+        "fix": 0
+      },
+      "chk": {
+        "value": 0,
+        "min": 0,
+        "fix": 0
+      },
+      "pd": {
+        "value": 0,
+        "min": 0
+      },
+      "md": {
+        "value": 0,
+        "min": 0
+      },
+      "init": {
+        "value": 0,
+        "min": 0
+      },
+      "armor": {
+        "value": 0,
+        "min": 0
+      },
+      "barrier": {
+        "value": 0,
+        "min": 0
+      },
       "move": {
         "value": 0
-      },
-      "acc_fix": {
-        "value": 0,
-        "min": 0
-      },
-      "eva_fix": {
-        "value": 0,
-        "min": 0
-      },
-      "ivc_fix": {
-        "value": 0,
-        "min": 0
-      },
-      "res_fix": {
-        "value": 0,
-        "min": 0
-      },
-      "chk_fix": {
-        "value": 0,
-        "min": 0
       }
+
     },
     "details": {
       "basic": "",
@@ -168,7 +164,7 @@
 
 },
 "Item": {
-  "types": ["talent", "equipment", "item", "attackOption"],
+  "types": ["talent", "equipment", "item", "attackOption", "race", "style", "bond"],
   "templates": {
     "base": {
       "name": "",
@@ -187,6 +183,9 @@
       "base",
       "talent"
     ],
+    "active": false,
+    "roll": "-",
+    "attributes": {},
     "talentType": "",
     "class": "",
     "classType": "",
@@ -217,6 +216,105 @@
       "talent"
     ],
     "formula": ""
+  },
+  "race": {
+    "templates": [
+      "base"
+    ],
+    "type": 0,
+    "attributes": [
+      {
+        "str": {
+          "value": 0
+        },
+        "agi": {
+          "value": 0
+        },
+        "int": {
+          "value": 0
+        },
+        "wil": {
+          "value": 0
+        },
+        "lck": {
+          "value": 0
+        }
+      },
+      {
+        "str": {
+          "value": 0
+        },
+        "agi": {
+          "value": 0
+        },
+        "int": {
+          "value": 0
+        },
+        "wil": {
+          "value": 0
+        },
+        "lck": {
+          "value": 0
+        }
+      },
+      {
+        "str": {
+          "value": 0
+        },
+        "agi": {
+          "value": 0
+        },
+        "int": {
+          "value": 0
+        },
+        "wil": {
+          "value": 0
+        },
+        "lck": {
+          "value": 0
+        }
+      }
+    ]
+  },
+  "style": {
+    "templates": [
+      "base"
+    ],
+    "main": false,
+    "attributes": {
+      "hp": {
+        "value": 0
+      },
+      "acc": {
+        "value": 0
+      },
+      "eva": {
+        "value": 0
+      },
+      "cnj": {
+        "value": 0
+      },
+      "res": {
+        "value": 0
+      },
+      "ins": {
+        "value": 0
+      },
+      "pd": {
+        "value": 0
+      },
+      "md": {
+        "value": 0
+      },
+      "init": {
+        "value": 0
+      }
+    }
+  },
+  "bond": {
+    "templates": [
+      "base"
+    ]
   }
 }
 }

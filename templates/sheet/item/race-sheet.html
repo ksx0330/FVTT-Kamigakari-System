@@ -1,0 +1,63 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+        </div>
+    </header>
+
+    <table>
+        <colgroup>
+            <col style="width: 15%;">
+            <col style="width: 15%;">
+            <col style="width: 15%;">
+            <col style="width: 15%;">
+            <col style="width: 15%;">
+            <col style="width: 15%;">
+        </colgroup>
+
+        <tr>
+            <th>{{localize "KG.RaceType"}}</th>
+            <th>{{localize "KG.STR"}}</th>
+            <th>{{localize "KG.AGI"}}</th>
+            <th>{{localize "KG.INT"}}</th>
+            <th>{{localize "KG.WIL"}}</th>
+            <th>{{localize "KG.LCK"}}</th>
+        </tr>
+
+        <tr>
+            <td><input type="radio" id="type1" name="data.type" value="0" data-dtype="Number" {{#ifEquals data.type 0}} checked {{/ifEquals}}>&nbsp<label for="type1">{{localize "KG.Warrior"}}</label></td>
+            <td><input type="text" name="data.attributes.0.str.value" value="{{data.attributes.[0].str.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.0.agi.value" value="{{data.attributes.[0].agi.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.0.int.value" value="{{data.attributes.[0].int.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.0.wil.value" value="{{data.attributes.[0].wil.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.0.lck.value" value="{{data.attributes.[0].lck.value}}" data-dtype="Number"/></td>
+        </tr>
+
+        <tr>
+            <td><input type="radio" id="type2" name="data.type" value="1" data-dtype="Number" {{#ifEquals data.type 1}} checked {{/ifEquals}}>&nbsp<label for="type2">{{localize "KG.Adept"}}</label></td>
+            <td><input type="text" name="data.attributes.1.str.value" value="{{data.attributes.[1].str.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.1.agi.value" value="{{data.attributes.[1].agi.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.1.int.value" value="{{data.attributes.[1].int.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.1.wil.value" value="{{data.attributes.[1].wil.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.1.lck.value" value="{{data.attributes.[1].lck.value}}" data-dtype="Number"/></td>
+        </tr>
+
+        <tr>
+            <td><input type="radio" id="type3" name="data.type" value="2" data-dtype="Number" {{#ifEquals data.type 2}} checked {{/ifEquals}}>&nbsp<label for="type3">{{localize "KG.Occultist"}}</label></td>
+            <td><input type="text" name="data.attributes.2.str.value" value="{{data.attributes.[2].str.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.2.agi.value" value="{{data.attributes.[2].agi.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.2.int.value" value="{{data.attributes.[2].int.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.2.wil.value" value="{{data.attributes.[2].wil.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="data.attributes.2.lck.value" value="{{data.attributes.[2].lck.value}}" data-dtype="Number"/></td>
+        </tr>
+
+    </table>
+
+    <div class="cell cell--bio">
+        <label class="cell--title">{{localize "KG.Description"}}</label>
+        {{!-- We're avoiding WYSIWYGs... for now... --}}
+        {{!-- {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}} --}}
+        <textarea class="biography" name="data.description" rows="5" title="Hey there! Who are you!?"
+                data-dtype="String">{{data.description}}</textarea>
+    </div>
+</form>

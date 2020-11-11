@@ -54,3 +54,9 @@ Changelog
   * Fixed the problem of not syncing when more than one spirit dice dialog
   
 0.4.2 - Compatible Update 0.7.5
+
+0.5.0 - Automation Update
+  * Character sheet is automaticaly calcutating status
+  * Automaticaly calculating damage -> high dice and talent's rank, additional correction
+  * Overflow can use in his sheet
+  * Other etc...

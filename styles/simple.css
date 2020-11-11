@@ -228,7 +228,12 @@
   transform: rotate(180deg);
 }
 
-.kamigakari .cell--image img {
+.kamigakari .cell--detail {
+  grid-column: span 3;
+  text-align: center;
+}
+
+.kamigakari .cell--detail img {
   display: block;
   width: 100%;
   height: auto;
@@ -254,6 +259,15 @@
 }
 
 .kamigakari .sheet-wrapper .sheet-attributes {
+  display: grid;
+  grid-column: span 16;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: 0px 10px;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.kamigakari .sheet-wrapper .sheet-basic {
   display: grid;
   grid-column: span 16;
   grid-template-columns: repeat(16, minmax(0, 1fr));
@@ -339,17 +353,58 @@
   justify-content: space-between;
 }
 
+.kamigakari .sheet-attributes .add-circle {
+  position: absolute;
+  top: 36px;
+  width: 35px;
+  height: 35px;
+  right: 5px;
+  border: 2px solid;
+  border-radius: 50%;
+}
+
+.kamigakari .sheet-attributes .slash {
+  margin: 0 10px;
+  padding-top: 4px;
+}
+
 .kamigakari .sheet-attributes input {
   background: white;
   margin-bottom: 8px;
+  text-align: center;
 }
 
-.kamigakari .sheet-attributes .cell--hp {
-  grid-column: span 4;
+.kamigakari .sheet-attributes .cell--basic, .kamigakari .sheet-attributes .cell--overflow {
+  grid-column: span 5;
 }
 
-.kamigakari .sheet-attributes .cell--spirit-list {
-  grid-column: span 9;
+.kamigakari .sheet-attributes .cell--hp, .kamigakari .sheet-attributes .cell--overflow-label {
+  grid-column: span 10;
+}
+
+.kamigakari .sheet-attributes .cell--damage, .kamigakari .sheet-attributes .cell--spirit-list {
+  grid-column: span 16;
+}
+
+.kamigakari .sheet-attributes .cell--spirit-box {
+  grid-column: span 8;
+}
+
+.kamigakari .sheet-attributes .cell--main-stat {
+  grid-column: span 13;
+}
+
+.kamigakari .sheet-attributes .cell--overflow input {
+  height: 36px;
+  width: 36px;
+  margin: 0 5px;
+  text-align: center;
+}
+
+.kamigakari .sheet-attributes .cell--overflow button {
+  padding: 1px 13px;
+  width: 36px;
+  height: 36px;
 }
 
 .kamigakari .sheet-attributes .dice-holder-icon {
@@ -367,11 +422,11 @@
 }
 
 .kamigakari .sheet-wrapper .cell--spirit {
-  grid-column: span 3;
+  grid-column: span 6;
   text-align: center;
 }
 
-.kamigakari .sheet-wrapper .cell--abilities {
+.kamigakari .sheet-wrapper .cell--sub-stat {
   grid-column: span 16;
   padding: 0;
 }
@@ -383,7 +438,7 @@
   text-align: center;
 }
 
-.kamigakari .sheet-wrapper .ability-list {
+.kamigakari .sheet-wrapper .main-ability-list {
   display: grid;
   grid-column: span 15;
   grid-template-columns: repeat(15, minmax(0, 1fr));
@@ -392,8 +447,22 @@
   padding: 0;
 }
 
-.kamigakari .sheet-wrapper .cell--abilities .cell--ability {
+.kamigakari .sheet-wrapper .sub-ability-list {
+  display: grid;
+  grid-column: span 14;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  gap: 0px 10px;
+  margin: 0px 0 14px 0;
+  padding: 0;
+}
+
+.kamigakari .sheet-wrapper .main-ability-list .cell--ability {
   grid-column: span 3;
+  padding: 0;
+}
+
+.kamigakari .sheet-wrapper .sub-ability-list .cell--ability {
+  grid-column: span 2;
   padding: 0;
 }
 
@@ -416,6 +485,20 @@
   border-bottom: 0;
   text-shadow: none;
   font-weight: bold;
+}
+
+.kamigakari .item-addon {
+  text-align: right;
+  font-size: 17px;
+  font-weight: bold;
+  flex: initial;
+}
+
+.kamigakari .use-button {
+  width: auto;
+  height: 30px;
+  margin: 0;
+  line-height: 0;
 }
 
 .kamigakari .sheet-wrapper .sheet-body .tab, .kamigakari .sheet-wrapper .sheet-body .sheet-tab {

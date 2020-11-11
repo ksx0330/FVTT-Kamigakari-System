@@ -8,6 +8,8 @@ export class InfluenceDialog extends Dialog {
         this.actor = actor;
         this.modScore = modScore;
 
+        this.total = this._getTotal();
+
         this.action = null;
         this.spirit = null;
 
@@ -49,17 +51,25 @@ export class InfluenceDialog extends Dialog {
     }
 
     getContent() {
-        var content = "<p>What do you change dice?<br><br>Action Dice<br><div>";
+        var content = `<p>What do you change dice?<br><br>Action Dice - <span id="actionTotal">${this.total}</span><br><div>`;
         $(this.actionDice).each(element => {
             content += `<img class="action" width=45 height=45 data-index=${element} data-value=${this.actionDice[element]} src="systems/kamigakari/assets/dice/${this.actionDice[element]}.PNG">`;
         });
         content += "</div>Spirit Dice<br><div>";
-        for (let [key, value] of Object.entries(this.spiritDice)) {
-            content += `<img class="spirit" width=45 height=45 data-key=${key} data-value=${value} src="systems/kamigakari/assets/dice/${value}.PNG">`;
+        for (var i = 0; i < this.spiritDice.length; ++i) {
+            content += `<img class="spirit" width=45 height=45 data-key=${i} data-value=${this.spiritDice[i]} src="systems/kamigakari/assets/dice/${this.spiritDice[i]}.PNG">`;
         }
         content += `</div><button class="dice-change">Change</button><br>`
 
         return content;
+    }
+
+    _getTotal() {
+        var total = this.modScore;
+        $(this.actionDice).each(element => {
+           total += Number(this.actionDice[element]); 
+        });
+        return total;
     }
 
     _selectDice(event) {
@@ -98,6 +108,7 @@ export class InfluenceDialog extends Dialog {
             this.spiritDice[this.spirit.dataset.key] = Number(this.spirit.dataset.value);
 
             $(event.currentTarget).parent().find(".dice-select").removeClass("dice-select");
+            $("#actionTotal").text(this._getTotal());
 
             this.action = null;
             this.spirit = null;
@@ -105,14 +116,17 @@ export class InfluenceDialog extends Dialog {
     }
 
     async _submit() {
-        for (let [key, value] of Object.entries(this.spiritDice))
-            this.actor.update({[`data.attributes.spirit_dice.value.${key}`]: value});
-
-        var formula = "";
+        var formula = "", high = 0;
         $(this.actionDice).each(element => {
             formula += this.actionDice[element] + "+";
+            high = (Number(this.actionDice[element]) > high) ? this.actionDice[element] : high;
         });
         formula += this.modScore;
+
+        var dices = {};
+        dices["data.attributes.spirit_dice.value"] = this.spiritDice;
+        dices[`data.attributes.damage.high`] = high;
+        this.actor.update(dices);
 
         var roll = new Roll(formula);
         roll.roll();

@@ -100,5 +100,22 @@
     "KG.UseItem": "아이템 사용",
     "KG.Formula": "공식",
     "KG.RollAttack": "공격",
-    "KG.Memo": "메모"
+    "KG.Memo": "메모",
+    "KG.Damage": "대미지",
+    "KG.Overflow": "초과영력",
+    "KG.BattleMove": "전투이동",
+    "KG.FullMove": "전력이동",
+    "KG.RaceType": "타입",
+    "KG.Warrior": "전사",
+    "KG.Adept": "범용",
+    "KG.Occultist": "마법",
+    "KG.Main": "메인",
+    "KG.Active": "활성화",
+    "KG.Roll": "판정",
+    "KG.BasicRank": "기본 랭크",
+    "KG.AddDamage": "대미지 추가",
+    "KG.MartialAttack": "물리 공격",
+    "KG.MagicAttack": "마법 공격",
+    "KG.UseTalent": "탤런트 사용",
+    "KG.CalcDamage": "대미지 산출"
 }

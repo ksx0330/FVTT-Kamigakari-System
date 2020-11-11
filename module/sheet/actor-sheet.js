@@ -42,6 +42,9 @@ export class KamigakariActorSheet extends ActorSheet {
   _prepareCharacterItems(sheetData) {
     const actorData = sheetData.actor;
 
+    const race = [];
+    const style = [];
+
     const raceTalents = [];
     const styleTalents = [];
     const commonTalents = [];
@@ -49,13 +52,19 @@ export class KamigakariActorSheet extends ActorSheet {
     const equipmentItems = [];
     const commonItems = [];
 
+    const bonds = [];
+
     const attackOptions = [];
 
     for (let i of sheetData.items) {
       let item = i.data;
       i.img = i.img || DEFAULT_TOKEN;
-      // If this is a move, sort into various arrays.
-      if (i.type === 'talent') {
+      if (i.type == 'race')
+        race.push(i);
+      else if (i.type == 'style')
+        style.push(i);
+
+      else if (i.type === 'talent') {
         switch (i.data.talentType) {
           case 'RACE':
             raceTalents.push(i);
@@ -75,18 +84,25 @@ export class KamigakariActorSheet extends ActorSheet {
         equipmentItems.push(i);
       else if (i.type == 'item')
         commonItems.push(i);
+      else if (i.type == 'bond')
+        bonds.push(i);
 
       else if (i.type == 'attackOption')
         attackOptions.push(i);
     }
 
     // Assign and return
+    actorData.race = race;
+    actorData.style = style;
+
     actorData.raceTalents = raceTalents;
     actorData.styleTalents = styleTalents;
     actorData.talents = commonTalents;
 
     actorData.equipmentItems = equipmentItems;
     actorData.commonItems = commonItems;
+
+    actorData.bonds = bonds;
 
     actorData.attackOptions = attackOptions;
   }
@@ -100,8 +116,26 @@ export class KamigakariActorSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    // Toggle look.
-    html.find('.toggle--look').on('click', this._toggleLook.bind(this, html));
+    html.find('.rollable--damage').on('click', this.actor._rollDamage.bind(this.actor));
+    html.find('.add--overflow').on('click', async ev => {
+      const add = Number(ev.currentTarget.dataset.add);
+      let overflow = this.actor.data.data.attributes.overflow.value;
+
+      if (overflow + add < 0)
+        return;
+
+      await this.actor.update({"data.attributes.overflow.value": overflow + add});
+      let chatData = {"content": "Overflow : " + overflow + "->" + (overflow + add) };
+      ChatMessage.create(chatData);
+    });
+
+    html.find('.active-check').on('click', async ev => {
+      event.preventDefault();
+      const li = event.currentTarget.closest(".item");
+      const item = this.actor.getOwnedItem(li.dataset.itemId);
+      await item.update({'data.active': !item.data.data.active});
+    });
+
     html.find('.rollable-ability').on('click', this._onAbilityRoll.bind(this));
     html.find('.spirit-dice').on('click', this._onChargeSpirit.bind(this, html));
     html.find('.dice-image').on('mousedown', this._onRouteSpiritDice.bind(this, html));
@@ -175,68 +209,23 @@ export class KamigakariActorSheet extends ActorSheet {
     event.preventDefault();
     const a = event.target.parentElement;
     const data = a.dataset;
-    const actorData = this.actor.data.data;
-    const ability = actorData.attributes[data.ability];
-    let dice = null;
-    let formula = null;
-    let flavorText = null;
-    let templateData = {};
 
-    if (data['ability'] != null) {
-      dice = actorData.attributes[`${data.ability}_dice`];
-      formula = `${dice}6+${ability.value}`;
-      if (actorData.attributes.transcend != null && actorData.attributes.transcend.value != 0) {
-        formula = Number(actorData.attributes.transcend.value) + Number(dice.charAt(0)) + "D6 + " + ability.value;
-        await this.actor.update({'data.attributes.transcend.value': 0});
-      }
+    if (data['ability'] != null)
+      await this.actor._rollDice(data['ability'], data['label']);
 
-      flavorText = data.label;
-
-      templateData = {
-        title: flavorText
-      };
-
-      // Render the roll.
-      let template = 'systems/kamigakari/templates/chat/chat-move.html';
-      // GM rolls.
-      let chatData = {
-        user: game.user._id,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor })
-      };
-
-      let rollMode = game.settings.get("core", "rollMode");
-      if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-      if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
-      if (rollMode === "blindroll") chatData["blind"] = true;
-
-      let roll = new Roll(formula);
-      roll.roll();
-      roll.render().then(r => {
-        templateData.rollDw = r;
-        renderTemplate(template, templateData).then(content => {
-          chatData.content = content;
-          if (game.dice3d) {
-            game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
-          }
-          else {
-            chatData.sound = CONFIG.sounds.dice;
-            ChatMessage.create(chatData);
-          }
-        });
-      });
-    }
   }
 
   async _onChargeSpirit(html, event) {
     event.preventDefault();
-    const actorData = this.actor.data.data;
+    const dices = JSON.parse(JSON.stringify(this.actor.data.data.attributes.spirit_dice.value));
 
-    for (let [key, value] of Object.entries(actorData.attributes.spirit_dice.value)) {
-      if (value != 0)
+    for (var i = 0; i < dices.length; ++i) {
+      if (dices[i] != 0)
         continue;
-      const randomDice = Math.floor(Math.random() * 6) + 1;
-      await this.actor.update({[`data.attributes.spirit_dice.value.${key}`]: randomDice});
+      dices[i] = Math.floor(Math.random() * 6) + 1;
     }
+
+    await this.actor.update({"data.attributes.spirit_dice.value": dices});
 
     var context = game.i18n.localize("KG.RechargeSpirit") ;
     ChatMessage.create({content: context, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -251,14 +240,15 @@ export class KamigakariActorSheet extends ActorSheet {
 
   async _onUseSpirit(html, event) {
     event.preventDefault();
-    const dices = html.find(".dice-number");
+    const dices = JSON.parse(JSON.stringify(this.actor.data.data.attributes.spirit_dice.value));
     const a = event.currentTarget;
     const index = a.dataset.index;
-    const oriValue = dices[index].value;
+    const oriValue = dices[index];
 
     const answer = confirm(game.i18n.localize("KG.UseSpiritAlert") + "\n" + oriValue);
     if (answer) {
-      await this.actor.update({[`data.attributes.spirit_dice.value.[${index}]`]: 0});
+      dices[index] = 0;
+      await this.actor.update({"data.attributes.spirit_dice.value": dices});
 
       var context = game.i18n.localize("KG.UseSpiritMessage") ;
       ChatMessage.create({content: context + " " + oriValue, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -267,14 +257,15 @@ export class KamigakariActorSheet extends ActorSheet {
 
   async _onChangeSpirit(html, event) {
     event.preventDefault();
-    const dices = html.find(".dice-number");
+    const dices = JSON.parse(JSON.stringify(this.actor.data.data.attributes.spirit_dice.value));
     const a = event.currentTarget;
     const index = a.dataset.index;
-    const oriValue = dices[index].value;
+    const oriValue = dices[index];
 
     const answer = prompt(game.i18n.localize("KG.ChangeSpiritAlert"));
-    if (!isNaN(answer) && answer != null && answer >= 1 && answer <= 6) {
-      await this.actor.update({[`data.attributes.spirit_dice.value.[${index}]`]: answer});
+    if (!isNaN(answer) && answer != null && Number(answer) >= 1 && Number(answer) <= 6) {
+      dices[index] = Number(answer);
+      await this.actor.update({"data.attributes.spirit_dice.value": dices});
 
       var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
       ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -343,15 +334,39 @@ export class KamigakariActorSheet extends ActorSheet {
 
   _echoItemDescription(event) {
     event.preventDefault();
-    const item = $(event.currentTarget).parents('.item');
-    const description = item.find('.item-description').first();
-    const title = item.find(".item-name").first();
+    const li = $(event.currentTarget).parents('.item');
+    const item = this.actor.getOwnedItem(li[0].dataset.itemId);
+
+    let title = item.data.name;
+    let description = item.data.data.description;
+
+    if (item.data.type == 'talent') {
+      description = `<table style="text-align: center;">
+                      <tr>
+                        <th>${game.i18n.localize("KG.Timing")}</th>
+                        <th>${game.i18n.localize("KG.Range")}</th>
+                        <th>${game.i18n.localize("KG.Target")}</th>
+                        <th>${game.i18n.localize("KG.Cost")}</th>
+                      </tr>
+
+                      <tr>
+                        <td>${item.data.data.timing}</td>
+                        <td>${item.data.data.range}</td>
+                        <td>${item.data.data.target}</td>
+                        <td>${item.data.data.cost}</td>
+                      </tr>
+                    </table>${description}`
+      description += `<button type="button" class="use-talent" data-actor-id="${this.actor.id}" data-item-id="${item.id}">${game.i18n.localize("KG.UseTalent")}</button>`
+
+      if (item.data.data.roll != '-')
+        description += `<button type="button" class="calc-damage" data-actor-id="${this.actor.id}" >${game.i18n.localize("KG.CalcDamage")}</button>`
+    }
 
     // Render the roll.
     let template = 'systems/kamigakari/templates/chat/chat-move.html';
     let templateData = {
-      title: title.text(),
-      details: description[0].innerHTML
+      title: title,
+      details: description
     };
 
     // GM rolls.
@@ -359,11 +374,6 @@ export class KamigakariActorSheet extends ActorSheet {
       user: game.user._id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor })
     };
-
-    let rollMode = game.settings.get("core", "rollMode");
-    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
-    if (rollMode === "blindroll") chatData["blind"] = true;
 
     renderTemplate(template, templateData).then(content => {
       chatData.content = content;
@@ -392,11 +402,6 @@ export class KamigakariActorSheet extends ActorSheet {
         user: game.user._id,
         speaker: ChatMessage.getSpeaker({ actor: this.actor })
       };
-  
-      let rollMode = game.settings.get("core", "rollMode");
-      if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-      if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
-      if (rollMode === "blindroll") chatData["blind"] = true;
   
       renderTemplate(template, templateData).then(content => {
         chatData.content = content;
@@ -525,7 +530,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
     console.log(roll);
 
-    await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll.result.split(" + ")[0]});
+    await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll.results[0], 'data.attributes.destruction.value': roll.results[2]});
 
   }
 

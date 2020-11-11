@@ -6,77 +6,150 @@
       </div>
   </header>
 
-  <div class="sheet-tab margin-top-10">
-    <div class="sheet-wrapper">
-      <section class="sheet-attributes">
-        <div class="cell cell--talent">
-          <label for="data.attributes.str.value" class="cell--title">{{localize "KG.TalentType"}}</label>
-          <select class="width-100" name="data.talentType" data-dtype="String">
-            {{#select data.talentType}}
-            <option value="COMMON">{{localize "KG.COMMON"}}</option>
-            <option value="RACE">{{localize "KG.RACE"}}</option>
-            <option value="STYLE">{{localize "KG.STYLE"}}</option>
-            {{/select}}
-          </select>
-        </div>
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-navigation sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "KG.Description" }}</a>
+    <a class="item" data-tab="attributes">{{localize "KG.Attributes" }}</a>
+  </nav>
 
-        <div class="cell cell--class">
-          <label for="data.class" class="cell--title">{{localize "KG.Class"}}</label>
-          <div class="cell--counter width-100">
-            <input type="text" name="data.class" value="{{data.class}}" data-dtype="String"/>
-            <select name="data.classType" data-dtype="String">
-              {{#select data.classType}}
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="description">
+
+      <div class="sheet-tab margin-top-10">
+        <div class="sheet-wrapper">
+          <section class="sheet-attributes">
+            <div class="cell cell--talent">
+              <label for="data.attributes.str.value" class="cell--title">{{localize "KG.TalentType"}}</label>
+              <select class="width-100" name="data.talentType" data-dtype="String">
+                {{#select data.talentType}}
+                <option value="COMMON">{{localize "KG.COMMON"}}</option>
+                <option value="RACE">{{localize "KG.RACE"}}</option>
+                <option value="STYLE">{{localize "KG.STYLE"}}</option>
+                {{/select}}
+              </select>
+            </div>
+
+            <div class="cell cell--class">
+              <label for="data.class" class="cell--title">{{localize "KG.Class"}}</label>
+              <div class="cell--counter width-100">
+                <input type="text" name="data.class" value="{{data.class}}" data-dtype="String"/>
+                <select name="data.classType" data-dtype="String">
+                  {{#select data.classType}}
+                  <option value="-">-</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  {{/select}}
+                </select>
+              </div>
+            </div>
+
+            <div class="cell cell--talent">
+              <label for="data.attributes.int.value" class="cell--title">{{localize "KG.Condition"}}</label>
+              <select name="data.condition" data-dtype="String" class="width-100">
+                {{#select data.condition}}
+                <option value="-">-</option>
+                <option value="※">※</option>
+                <option value="●">●</option>
+                <option value="◎">◎</option>
+                {{/select}}
+              </select>                
+            </div>
+
+            <div class="cell cell--talent">
+              <label for="data.timing" class="cell--title">{{localize "KG.Timing"}}</label>
+              <input type="text" name="data.timing" value="{{data.timing}}" data-dtype="String"/>
+            </div>
+
+            <div class="cell cell--talent">
+              <label for="data.range" class="cell--title">{{localize "KG.Range"}}</label>
+              <input type="text" name="data.range" value="{{data.range}}" data-dtype="String"/>
+            </div>
+
+            <div class="cell cell--talent">
+              <label for="data.target" class="cell--title">{{localize "KG.Target"}}</label>
+              <input type="text" name="data.target" value="{{data.target}}" data-dtype="String"/>
+            </div>
+
+            <div class="cell cell--talent">
+              <label for="data.cost" class="cell--title">{{localize "KG.Cost"}}</label>
+              <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String"/>
+            </div>
+
+                
+
+          </section>
+
+          <div class="cell cell--bio">
+            <label class="cell--title">{{localize "KG.Description"}}</label>
+            {{!-- We're avoiding WYSIWYGs... for now... --}}
+            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+      {{!-- Attributes Tab --}}
+      <div class="tab attributes" data-group="primary" data-tab="attributes">
+          <div>
+            <label for="data.roll" class="">{{localize "KG.Roll"}}</label>
+            <select class="" name="data.roll" data-dtype="String">
+              {{#select data.roll}}
               <option value="-">-</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
+              <option value="acc">{{localize "KG.MartialAttack"}}</option>
+              <option value="cnj">{{localize "KG.MagicAttack"}}</option>
               {{/select}}
             </select>
+
+            <div style="float: right">
+              <span style="position: relative; top: -5px;">{{localize "KG.Active"}}</span> 
+              <input type="checkbox" name="data.active" {{#if data.active}} checked {{/if}}>
+            </div>
           </div>
-        </div>
-
-        <div class="cell cell--talent">
-          <label for="data.attributes.int.value" class="cell--title">{{localize "KG.Condition"}}</label>
-          <select name="data.condition" data-dtype="String" class="width-100">
-            {{#select data.condition}}
-            <option value="-">-</option>
-            <option value="※">※</option>
-            <option value="●">●</option>
-            <option value="◎">◎</option>
-            {{/select}}
-          </select>                
-        </div>
-
-        <div class="cell cell--talent">
-          <label for="data.timing" class="cell--title">{{localize "KG.Timing"}}</label>
-          <input type="text" name="data.timing" value="{{data.timing}}" data-dtype="String"/>
-        </div>
-
-        <div class="cell cell--talent">
-          <label for="data.range" class="cell--title">{{localize "KG.Range"}}</label>
-          <input type="text" name="data.range" value="{{data.range}}" data-dtype="String"/>
-        </div>
-
-        <div class="cell cell--talent">
-          <label for="data.target" class="cell--title">{{localize "KG.Target"}}</label>
-          <input type="text" name="data.target" value="{{data.target}}" data-dtype="String"/>
-        </div>
-
-        <div class="cell cell--talent">
-          <label for="data.cost" class="cell--title">{{localize "KG.Cost"}}</label>
-          <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String"/>
-        </div>
-
-            
-
-      </section>
-
-      <div class="cell cell--bio">
-        <label class="cell--title">{{localize "KG.Description"}}</label>
-        {{!-- We're avoiding WYSIWYGs... for now... --}}
-        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+          <header class="attributes-header flexrow">
+              <span class="attribute-key">{{localize "KG.Attributes"}}</span>
+              <span class="attribute-value">{{localize "KG.Value"}}</span>
+              <a class="attribute-control" data-action="create" data-type="attributes"><i class="fas fa-plus"></i></a>
+          </header>
+    
+          <ol class="attributes-list">
+          {{#each data.attributes as |attr key|}}
+              <li class="attribute flexrow" data-attribute="{{key}}">
+                  <select class="attribute-key" name="data.attributes.{{key}}.key" data-dtype="String">
+                    {{#select key}}
+                    <option value="-">-</option>
+                    <option value="hp">{{localize "KG.HP"}}</option>
+                    <option value="acc">{{localize "KG.ACC"}}</option>
+                    <option value="eva">{{localize "KG.EVA"}}</option>
+                    <option value="cnj">{{localize "KG.CNJ"}}</option>
+                    <option value="res">{{localize "KG.RES"}}</option>
+                    <option value="ins">{{localize "KG.INS"}}</option>
+                    <option value="pd">{{localize "KG.PD"}}</option>
+                    <option value="md">{{localize "KG.MD"}}</option>
+                    <option value="init">{{localize "KG.Init"}}</option>
+                    <option value="armor">{{localize "KG.Armor"}}</option>
+                    <option value="barrier">{{localize "KG.Barrier"}}</option>
+                    <option value="str">{{localize "KG.STR"}}</option>
+                    <option value="agi">{{localize "KG.AGI"}}</option>
+                    <option value="int">{{localize "KG.INT"}}</option>
+                    <option value="wil">{{localize "KG.WIL"}}</option>
+                    <option value="lck">{{localize "KG.LCK"}}</option>
+                    <option value="base">{{localize "KG.BasicRank"}}</option>
+                    <option value="rank">{{localize "KG.AddRank"}}</option>
+                    <option value="add">{{localize "KG.AddDamage"}}</option>
+                    {{/select}}
+                  </select>
+    
+                  <input class="attribute-value" type="text" name="data.attributes.{{key}}.value" value="{{attr.value}}" data-dtype="Number"/>
+                  <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
+              </li>
+          {{/each}}
+          </ol>
       </div>
 
-    </div>
-  </div>
+
+  </section>
 
 </form>

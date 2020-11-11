@@ -100,5 +100,22 @@
     "KG.UseItem": "Use Item",
     "KG.Formula": "Formula",
     "KG.RollAttack": "Attack",
-    "KG.Memo": "Memo"
+    "KG.Memo": "Memo",
+    "KG.Damage": "Damage",
+    "KG.Overflow": "Overflow",
+    "KG.BattleMove": "Battle Move",
+    "KG.FullMove": "Full Move",
+    "KG.RaceType": "Type",
+    "KG.Warrior": "Warrior",
+    "KG.Adept": "Adept",
+    "KG.Occultist": "Occultist",
+    "KG.Main": "Main",
+    "KG.Active": "Active",
+    "KG.Roll": "Roll",
+    "KG.BasicRank": "Basic Rank",
+    "KG.AddDamage": "Add Damage",
+    "KG.MartialAttack": "Martial Attack",
+    "KG.MagicAttack": "Magic Attack",
+    "KG.UseTalent": "Use Talent",
+    "KG.CalcDamage": "Calc Damage"
 }

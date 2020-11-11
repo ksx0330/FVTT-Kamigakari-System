@@ -1,6 +1,7 @@
 // Import Modules
 
 import { KamigakariItemSheet } from "./sheet/item-sheet.js";
+import { KamigakariActor } from "./actor/actor.js";
 import { KamigakariActorSheet } from "./sheet/actor-sheet.js";
 import { InfluenceDialog } from "./dialog/influence-dialog.js";
 import { ActorListDialog } from "./dialog/actor-list-dialog.js";
@@ -22,6 +23,8 @@ Hooks.once("init", async function() {
 
     Roll.TOOLTIP_TEMPLATE = "systems/kamigakari/templates/dice/tooltip.html";
 
+    CONFIG.Actor.entityClass = KamigakariActor;
+
     // Register sheet application classes
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("kamigakari", KamigakariActorSheet, { makeDefault: true });
@@ -41,8 +44,6 @@ Hooks.once("init", async function() {
 });
 
 Hooks.on('createActor', async (actor, options, id) => {
-	await actor.update({ 'data.details.look': game.i18n.localize("KG.LookDefault"), 
-		'data.details.spirit_look': game.i18n.localize("KG.SpiritLookDefault") });
 
 	if (actor.data.data.details.basic == "") {
 		await actor.update({'data.details.basic': game.i18n.localize("KG.EnermyDefault") })
@@ -100,6 +101,34 @@ Hooks.on("getSceneControlButtons", function(controls) {
 
 });
 
+Hooks.on("renderChatLog", (app, html, data) => chatListeners(html));
+Hooks.on("renderChatPopout", (app, html, data) => chatListeners(html));
+
+async function chatListeners(html) {
+    html.on('click', '.use-talent', async ev => {
+      event.preventDefault();
+      const data = ev.currentTarget.dataset;
+      const actor = game.actors.get(data.actorId);
+      const item = actor.getOwnedItem(data.itemId);
+
+      await item.update({"data.active": true});
+      if (item.data.data.roll == 'acc')
+        actor._rollDice('acc', game.i18n.localize("KG.AbilityACC"));
+      else if (item.data.data.roll == 'cnj')
+        actor._rollDice('cnj', game.i18n.localize("KG.AbilityCNJ"));
+
+      ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
+    });
+
+    html.on('click', '.calc-damage', async ev => {
+      event.preventDefault();
+      const data = ev.currentTarget.dataset;
+      const actor = game.actors.get(data.actorId);
+      actor._rollDamage();
+    });
+
+}
+
 async function setSpiritDice() {
 	const speaker = ChatMessage.getSpeaker();
 	let actor;
@@ -113,10 +142,8 @@ async function setSpiritDice() {
 
 	var answer = prompt("Whay do you want to change?\n ex) 4, 5");
 	if (!isNaN(answer) && answer != null && answer >= 1) {
-		actor.update({'data.attributes.spirit_dice.value': 0 })
-		await actor.update({'data.attributes.spirit_dice.value': {} });
-		for (var i = 0; i < answer; i++)
-			await actor.update({[`data.attributes.spirit_dice.value.[${i}]`]: 0});
+        var dices = new Array(Number(answer)).fill(0);
+		await actor.update({'data.attributes.spirit_dice.value': dices });
 	}
 
 }
