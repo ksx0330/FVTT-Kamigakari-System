@@ -45,11 +45,11 @@ Features
 Image
 -------------
 1. Character sheet
-<img src="https://user-images.githubusercontent.com/15700174/93171087-6534bf00-f763-11ea-81a9-ff791b2e5254.PNG" width="60%">
+<img src="https://user-images.githubusercontent.com/15700174/98834488-9d662e80-2482-11eb-92f3-0bd21328b74e.png" width="60%">
 
-<img src="https://user-images.githubusercontent.com/15700174/93172358-ac23b400-f765-11ea-9156-fd1212904fe0.PNG" width="60%">
+<img src="https://user-images.githubusercontent.com/15700174/98834768-ed44f580-2482-11eb-8f0a-b77792510395.png" width="60%">
 
-<img src="https://user-images.githubusercontent.com/15700174/93172429-d37a8100-f765-11ea-8548-8d58955c966d.PNG" width="60%">
+<img src="https://user-images.githubusercontent.com/15700174/98834866-0d74b480-2483-11eb-996a-df1cf01e2311.png" width="60%">
 
 2. Enermy sheet
 <img src="https://user-images.githubusercontent.com/15700174/93172611-2c4a1980-f766-11ea-901f-07e09b11b0c9.PNG" width="60%">
@@ -61,3 +61,8 @@ Image
 <img src="https://user-images.githubusercontent.com/15700174/94505534-44319b00-0246-11eb-9c35-def8327609b3.png" width="45%">
 
 <img src="https://user-images.githubusercontent.com/15700174/94505605-6b886800-0246-11eb-96c2-ea1bf272671a.png" width="45%">
+
+5. Race & Style sheet
+<img src="https://user-images.githubusercontent.com/15700174/98834239-4fe9c180-2482-11eb-8c71-b980e9199d45.png" width="45%">
+
+<img src="https://user-images.githubusercontent.com/15700174/98834361-76a7f800-2482-11eb-9488-ddb4a64707b4.png" width="45%">
