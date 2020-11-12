@@ -66,3 +66,7 @@ Changelog
 
 0.5.2 - Bug fix
   * Fix Spirit Dice viewer not working
+
+0.5.3 - Macro & Talent Update
+  * Talent can set in macro hotbar
+  * Add conditional setting that automatically turns talent activation into inactive
