@@ -41,10 +41,12 @@ export class KamigakariActorSheet extends ActorSheet {
 
   _prepareCharacterItems(sheetData) {
     const actorData = sheetData.actor;
+    actorData.talentClassify = game.settings.get("kamigakari", "talentClassify")
 
     const race = [];
     const style = [];
 
+    const talents = [];
     const raceTalents = [];
     const styleTalents = [];
     const commonTalents = [];
@@ -65,19 +67,22 @@ export class KamigakariActorSheet extends ActorSheet {
         style.push(i);
 
       else if (i.type === 'talent') {
-        switch (i.data.talentType) {
-          case 'RACE':
-            raceTalents.push(i);
-            break;
+        if (actorData.talentClassify) {
+            switch (i.data.talentType) {
+              case 'RACE':
+                raceTalents.push(i);
+                break;
 
-          case 'STYLE':
-            styleTalents.push(i);
-            break;
+              case 'STYLE':
+                styleTalents.push(i);
+                break;
 
-          default:
-            commonTalents.push(i);
-            break;
-        }
+              default:
+                commonTalents.push(i);
+                break;
+            }
+        } else
+            talents.push(i);
       }
 
       else if (i.type =='equipment')
@@ -95,9 +100,13 @@ export class KamigakariActorSheet extends ActorSheet {
     actorData.race = race;
     actorData.style = style;
 
-    actorData.raceTalents = raceTalents;
-    actorData.styleTalents = styleTalents;
-    actorData.talents = commonTalents;
+
+    if (actorData.talentClassify) {
+        actorData.raceTalents = raceTalents;
+        actorData.styleTalents = styleTalents;
+        actorData.talents = commonTalents;
+    } else
+        actorData.talents = talents;
 
     actorData.equipmentItems = equipmentItems;
     actorData.commonItems = commonItems;

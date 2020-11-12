@@ -41,6 +41,16 @@ Hooks.once("init", async function() {
 
     KgRegisterHelpers.init();
 
+    // Register system settings
+    game.settings.register("kamigakari", "talentClassify", {
+        name: "SETTINGS.TalentClassify",
+        hint: "SETTINGS.TalentClassifyDesc",
+        scope: "world",
+        type: Boolean,
+        default: true,
+        config: true
+    });
+
 });
 
 Hooks.on('createActor', async (actor, options, id) => {

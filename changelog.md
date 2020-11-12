@@ -60,3 +60,6 @@ Changelog
   * Automaticaly calculating damage -> high dice and talent's rank, additional correction
   * Overflow can use in his sheet
   * Other etc...
+
+0.5.1 - Add Talant Classify Option
+  * Add talent classify option
