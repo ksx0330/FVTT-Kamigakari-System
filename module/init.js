@@ -1,11 +1,14 @@
 // Import Modules
 
+import { DicesDialog } from "./dialog/dices-dialog.js";
 import { KamigakariItemSheet } from "./sheet/item-sheet.js";
 import { KamigakariActor } from "./actor/actor.js";
 import { KamigakariActorSheet } from "./sheet/actor-sheet.js";
 import { InfluenceDialog } from "./dialog/influence-dialog.js";
 import { ActorListDialog } from "./dialog/actor-list-dialog.js";
 import { KgRegisterHelpers } from "./handlebars.js";
+
+import { createWorldbuildingMacro } from "./macro.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -111,6 +114,32 @@ Hooks.on("getSceneControlButtons", function(controls) {
 
 });
 
+Hooks.on("deleteCombat", async function (data, delta) {
+    console.log(data);
+    console.log(delta);
+    for (let turn of data.turns) {
+        for (let item of turn.actor.activeTalent) {
+            console.log(item);
+            if (item.data.data.disable == 'battle')
+                await item.update({"data.active": false});
+        }
+    }
+  
+});
+
+Hooks.on("updateCombat", async function (data, delta) {
+
+    if (Object.keys(delta).some((k) => k === "round")) {
+        for (let turn of data.turns) {
+            for (let item of turn.actor.activeTalent)
+                if (item.data.data.disable == 'round')
+                    await item.update({"data.active": false});
+        }
+    }
+});
+
+Hooks.on("hotbarDrop", (bar, data, slot) => createWorldbuildingMacro(data, slot));
+
 Hooks.on("renderChatLog", (app, html, data) => chatListeners(html));
 Hooks.on("renderChatPopout", (app, html, data) => chatListeners(html));
 
@@ -118,16 +147,34 @@ async function chatListeners(html) {
     html.on('click', '.use-talent', async ev => {
       event.preventDefault();
       const data = ev.currentTarget.dataset;
-      const actor = game.actors.get(data.actorId);
-      const item = actor.getOwnedItem(data.itemId);
 
-      await item.update({"data.active": true});
-      if (item.data.data.roll == 'acc')
-        actor._rollDice('acc', game.i18n.localize("KG.AbilityACC"));
-      else if (item.data.data.roll == 'cnj')
-        actor._rollDice('cnj', game.i18n.localize("KG.AbilityCNJ"));
+      const buttons = {
+        "cancel": {
+          icon: '<i class="fas fa-times"></i>',
+          label: "Cancel"
+        },
+        "use": {
+          icon: '<i class="fas fa-check"></i>',
+          label: "Use",
+          callback: async () => {
+            const actor = game.actors.get(data.actorId);
+            const item = actor.getOwnedItem(data.itemId);
 
-      ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
+            await item.update({"data.active": true});
+            if (item.data.data.roll == 'acc')
+              actor._rollDice('acc', game.i18n.localize("KG.AbilityACC"));
+            else if (item.data.data.roll == 'cnj')
+              actor._rollDice('cnj', game.i18n.localize("KG.AbilityCNJ"));
+
+            ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
+          }
+
+        }
+      }
+
+      var dialog = new DicesDialog([data.actorId], buttons).render(true);
+
+
     });
 
     html.on('click', '.calc-damage', async ev => {

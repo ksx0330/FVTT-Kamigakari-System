@@ -118,6 +118,10 @@
     "KG.MagicAttack": "마법 공격",
     "KG.UseTalent": "탤런트 사용",
     "KG.CalcDamage": "대미지 산출",
+    "KG.DisableTiming": "비활성화",
+    "KG.AfterDamage": "대미지 산출 이후",
+    "KG.AfterRound": "라운드 종료 이후",
+    "KG.AfterBattle": "전투 종료 이후",
 
     "SETTINGS.TalentClassify": "탤런트 분류",
     "SETTINGS.TalentClassifyDesc": "탤런트를 종족, 칭호, 일반으로 분류해서 표현합니다"

@@ -1,15 +1,16 @@
 
 export class DicesDialog extends Dialog {
-    constructor(selected, options) {
+    constructor(selected, buttons, options) {
         super(options);
 
         this.selected = selected;
         this.data = {
             title: "Spirit Dice Viewer",
             content: "",
-            buttons: {}
+            buttons: buttons
         };
 
+        game.kamigakari.SpiritDiceViewer.push(this);
     }
 
       /** @override */

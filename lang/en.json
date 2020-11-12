@@ -118,6 +118,10 @@
     "KG.MagicAttack": "Magic Attack",
     "KG.UseTalent": "Use Talent",
     "KG.CalcDamage": "Calc Damage",
+    "KG.DisableTiming": "Disable Timing",
+    "KG.AfterDamage": "After Damage",
+    "KG.AfterRound": "After Round",
+    "KG.AfterBattle": "After Battle",
 
     "SETTINGS.TalentClassify": "Talent Classify",
     "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common."

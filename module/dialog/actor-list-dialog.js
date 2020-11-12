@@ -50,10 +50,7 @@ export class ActorListDialog extends Dialog {
 
     async _submit() {
         var selected = $("#actor-select-dialog").val();
-        var dialog = new DicesDialog(selected);
-
-        game.kamigakari.SpiritDiceViewer.push(dialog);
-        dialog.render(true);
+        var dialog = new DicesDialog(selected, {}).render(true);
     }
 
 }

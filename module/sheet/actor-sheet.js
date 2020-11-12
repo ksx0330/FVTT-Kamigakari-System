@@ -344,51 +344,8 @@ export class KamigakariActorSheet extends ActorSheet {
   _echoItemDescription(event) {
     event.preventDefault();
     const li = $(event.currentTarget).parents('.item');
-    const item = this.actor.getOwnedItem(li[0].dataset.itemId);
 
-    let title = item.data.name;
-    let description = item.data.data.description;
-
-    if (item.data.type == 'talent') {
-      description = `<table style="text-align: center;">
-                      <tr>
-                        <th>${game.i18n.localize("KG.Timing")}</th>
-                        <th>${game.i18n.localize("KG.Range")}</th>
-                        <th>${game.i18n.localize("KG.Target")}</th>
-                        <th>${game.i18n.localize("KG.Cost")}</th>
-                      </tr>
-
-                      <tr>
-                        <td>${item.data.data.timing}</td>
-                        <td>${item.data.data.range}</td>
-                        <td>${item.data.data.target}</td>
-                        <td>${item.data.data.cost}</td>
-                      </tr>
-                    </table>${description}`
-      description += `<button type="button" class="use-talent" data-actor-id="${this.actor.id}" data-item-id="${item.id}">${game.i18n.localize("KG.UseTalent")}</button>`
-
-      if (item.data.data.roll != '-')
-        description += `<button type="button" class="calc-damage" data-actor-id="${this.actor.id}" >${game.i18n.localize("KG.CalcDamage")}</button>`
-    }
-
-    // Render the roll.
-    let template = 'systems/kamigakari/templates/chat/chat-move.html';
-    let templateData = {
-      title: title,
-      details: description
-    };
-
-    // GM rolls.
-    let chatData = {
-      user: game.user._id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor })
-    };
-
-    renderTemplate(template, templateData).then(content => {
-      chatData.content = content;
-      ChatMessage.create(chatData);
-    });
-
+    this.actor._echoItemDescription(li[0].dataset.itemId);
   }
 
   async _useItem(event) {

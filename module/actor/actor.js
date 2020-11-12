@@ -40,24 +40,24 @@ export class KamigakariActor extends Actor {
 
     for (let i of this.items) {
       if (i.type == 'race')
-        race = i.data.data;
+        race = i;
       else if (i.type == 'style' && i.data.data.main)
-        mainStyle = i.data.data;
+        mainStyle = i;
       else if (i.type == 'talent' && i.data.data.active)
-        talents.push(i.data.data);
+        talents.push(i);
       else if (i.type == 'equipment')
-        equipment.push(i.data.data);
+        equipment.push(i);
     }
 
     if (race != null)
-      values = this._updateData(values, race.attributes[race.type]);
+      values = this._updateData(values, race.data.data.attributes[race.data.data.type]);
 
     if (mainStyle != null)
-      values = this._updateData(values, mainStyle.attributes);
+      values = this._updateData(values, mainStyle.data.data.attributes);
 
     for (var item of talents) {
-      values = this._updateData(values, item.attributes);
-      roll = (item.roll != undefined && item.roll != '-') ? item.roll : roll;
+      values = this._updateData(values, item.data.data.attributes);
+      roll = (item.data.data.roll != undefined && item.data.data.roll != '-') ? item.data.data.roll : roll;
     }
 
     values["acc"].value += values["str"].value;
@@ -74,7 +74,7 @@ export class KamigakariActor extends Actor {
     values["base"].value = (values["base"].value == 0) ? 1 : values["base"].value;
 
     for (var item of equipment)
-      values = this._updateData(values, item.attributes);
+      values = this._updateData(values, item.data.data.attributes);
 
 
     this.data.data.attributes.move.battle = Math.ceil( (values['init'].value + 5) / 3 );
@@ -103,6 +103,7 @@ export class KamigakariActor extends Actor {
     for (const [key, value] of Object.entries(values))
       this.data.data.attributes[key].value = value.value;
 
+    this.activeTalent = talents;
   }
 
   _updateData(values, attributes) {
@@ -112,6 +113,7 @@ export class KamigakariActor extends Actor {
 
     return values;
   }
+
 
   async _rollDice(a, l) {
     let dice = null;
@@ -183,7 +185,61 @@ export class KamigakariActor extends Actor {
     ChatMessage.create(chatData);
 
     await this.update({"data.attributes.destruction.value": 0});
+
+    for (let item of this.activeTalent)
+      if (item.data.data.disable == 'damage')
+        item.update({"data.active": false});
   }
 
+  _echoItemDescription(itemId) {
+    const item = this.getOwnedItem(itemId);
+
+    let title = item.data.name;
+    let description = item.data.data.description;
+
+    if (item.data.type == 'talent') {
+      if (item.data.img != 'icons/svg/mystery-man.svg')
+        title = `<img src="${item.data.img}" width="40" height="40">&nbsp&nbsp${title}` 
+
+      description = `<table style="text-align: center;">
+                      <tr>
+                        <th>${game.i18n.localize("KG.Timing")}</th>
+                        <th>${game.i18n.localize("KG.Range")}</th>
+                        <th>${game.i18n.localize("KG.Target")}</th>
+                        <th>${game.i18n.localize("KG.Cost")}</th>
+                      </tr>
+
+                      <tr>
+                        <td>${item.data.data.timing}</td>
+                        <td>${item.data.data.range}</td>
+                        <td>${item.data.data.target}</td>
+                        <td>${item.data.data.cost}</td>
+                      </tr>
+                    </table>${description}`
+      description += `<button type="button" class="use-talent" data-actor-id="${this.id}" data-item-id="${item.id}">${game.i18n.localize("KG.UseTalent")}</button>`
+
+      if (item.data.data.roll != '-')
+        description += `<button type="button" class="calc-damage" data-actor-id="${this.id}" >${game.i18n.localize("KG.CalcDamage")}</button>`
+    }
+
+    // Render the roll.
+    let template = 'systems/kamigakari/templates/chat/chat-move.html';
+    let templateData = {
+      title: title,
+      details: description
+    };
+
+    // GM rolls.
+    let chatData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this })
+    };
+
+    renderTemplate(template, templateData).then(content => {
+      chatData.content = content;
+      ChatMessage.create(chatData);
+    });
+
+  }
 
 }

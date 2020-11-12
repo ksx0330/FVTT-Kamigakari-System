@@ -1,6 +1,6 @@
 <form class="{{cssClass}} item-form" autocomplete="off">
   <header class="sheet-header flexrow">
-      {{!-- <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/> --}}
+      <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
       <div class="header-fields">
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" ></h1>
       </div>
@@ -106,6 +106,15 @@
             <div style="float: right">
               <span style="position: relative; top: -5px;">{{localize "KG.Active"}}</span> 
               <input type="checkbox" name="data.active" {{#if data.active}} checked {{/if}}>
+              <span style="position: relative; top: -5px;">{{localize "KG.DisableTiming"}}</span> 
+              <select style="position: relative; top: -5px;" name="data.disable" data-dtype="String">
+                {{#select data.disable}}
+                <option value="-">-</option>
+                <option value="damage">{{localize "KG.AfterDamage"}}</option>
+                <option value="round">{{localize "KG.AfterRound"}}</option>
+                <option value="battle">{{localize "KG.AfterBattle"}}</option>
+                {{/select}}
+              </select>
             </div>
           </div>
           <header class="attributes-header flexrow">

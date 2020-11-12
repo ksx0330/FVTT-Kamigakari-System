@@ -184,6 +184,7 @@
       "talent"
     ],
     "active": false,
+    "disable": "-",
     "roll": "-",
     "attributes": {},
     "talentType": "",

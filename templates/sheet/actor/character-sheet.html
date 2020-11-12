@@ -413,9 +413,10 @@
                   <ol class="items-list">
                   {{#each actor.talents as |item id|}}
                     <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
-                      {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
                       <h4 class="item-name">
-                        <span class="echo-item"><i class="fas fa-book"></i></span> 
+                        <span class="echo-item">
+                            <i class="fas fa-book"></i>
+                        </span> 
                         <span class="item-label">[{{item.data.condition}}] {{item.name}} |
                         <b>{{localize "KG.Timing"}}</b> : {{item.data.timing}} |
                         <b>{{localize "KG.Range"}}</b> : {{item.data.range}} |
