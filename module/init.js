@@ -207,9 +207,7 @@ async function setSpiritDice() {
 
 function influence() {
 	const speaker = ChatMessage.getSpeaker();
-	let actor;
-	if (speaker.token) actor = game.actors.tokens[speaker.token];
-	if (!actor) actor = game.actors.get(speaker.actor);
+	let actor = game.actors.get(speaker.actor);
 
 	if (actor == null) {
 		alert("You must use actor");
