@@ -63,3 +63,6 @@ Changelog
 
 0.5.1 - Add Talant Classify Option
   * Add talent classify option
+
+0.5.2 - Bug fix
+  * Fix Spirit Dice viewer not working
