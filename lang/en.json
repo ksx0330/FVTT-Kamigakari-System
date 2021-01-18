@@ -128,7 +128,11 @@
     "KG.AfterRound": "After Round",
     "KG.AfterBattle": "After Battle",
     "KG.RangePD": "※ Ranged PD",
-    
+    "KG.DamageReduce": "Damage Reduce",
+    "KG.Half": "Half",
+    "KG.AddArmor": "Add Armor",
+    "KG.AddBarrier": "Add Barrier",
+    "KG.ApplyDamage": "Apply Damage",
 
     "SETTINGS.TalentClassify": "Talent Classify",
     "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common."

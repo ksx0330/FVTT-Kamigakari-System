@@ -217,18 +217,74 @@ export class KamigakariActor extends Actor {
 
   async _rollDamage() {
     const actorData = this.data.data;
-    let formula = actorData.attributes.damage.high + " * " + actorData.attributes.damage.rank + " + " + actorData.attributes.damage.add  
-    let roll = new Roll(formula, this.getRollData());
-    roll.roll();
+    new Dialog({
+        title: game.i18n.localize("KG.CalcDamage"),
+        content: `<p>
+                    <h2 style="text-align: center;">${actorData.attributes.damage.high} X ${actorData.attributes.damage.rank} + ${actorData.attributes.damage.add}</h2>
 
-    let chatData = {"content": await roll.render(), "speaker": ChatMessage.getSpeaker({ actor: this.actor })};
-    ChatMessage.create(chatData);
+                    <table>
+                      <tr>
+                        <th>Weakness</th>
+                        <td><input type="checkbox" id="weak"></td>
 
-    await this.update({"data.attributes.destruction.value": 0});
+                        <th>Add Rank</th>
+                        <td ><input type="text" id="rank" style="width: 40px; text-align: center;"></td>
+                      </tr>
 
-    for (let item of this.activeTalent)
-      if (item.data.data.disable == 'damage')
-        item.update({"data.active": false});
+                      <tr>
+                        <th>Add Damage</th>
+                        <td colspan="3"><input type="text" id="add"></td>
+                      </tr>
+
+                      <tr>
+                        <th>Reduce Armor</th>
+                        <td><input type="text" id="armor_reduce"></td>
+                        <th>Ignore Armor</th>
+                        <td><input type="checkbox" id="armor_ignore"></td>
+                      </tr>
+
+                      <tr>
+                        <th>Reduce Barrier</th>
+                        <td><input type="text" id="barrier_reduce"></td>
+                        <th>Ignore Barrier</th>
+                        <td><input type="checkbox" id="barrier_ignore"></td>
+                      </tr>
+
+                    </table>
+                  </p>`,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: async () => {
+              let rank = actorData.attributes.damage.rank + Number($("#rank").val());
+              if ($("#weak").is(":checked"))
+                rank += 1;
+              rank = (rank > 10) ? 10 : rank;
+
+              let formula = actorData.attributes.damage.high + " * " + rank + " + " + actorData.attributes.damage.add + "+" + $("#add").val()  
+              let roll = new Roll(formula, this.getRollData());
+              roll.roll();
+
+              let content = await roll.render();
+              content += `<br><button type="button" class="apply-damage" data-damage="${roll.total}" data-armor-reduce="${$("#armor_reduce").val()}" data-armor-ignore="${$("#armor_ignore").is(":checked")}" data-barrier-reduce="${$("#barrier_reduce").val()}" data-barrier-ignore="${$("#barrier_ignore").is(":checked")}">${game.i18n.localize("KG.ApplyDamage")}</button>`
+
+              let chatData = {"content": content, "speaker": ChatMessage.getSpeaker({ actor: this.actor })};
+              ChatMessage.create(chatData);
+
+              await this.update({"data.attributes.destruction.value": 0});
+
+              for (let item of this.activeTalent)
+                if (item.data.data.disable == 'damage')
+                  item.update({"data.active": false});
+
+
+            }
+          }
+        },
+        default: "confirm"
+    }).render(true);    
+
   }
 
   _echoItemDescription(itemId) {

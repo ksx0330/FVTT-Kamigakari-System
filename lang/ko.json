@@ -129,6 +129,11 @@
     "KG.AfterBattle": "전투 종료 이후",
     "KG.RangePD": "※ 원거리 무기 물D",
     "KG.AddRoll": "추가 수정치가 있다면 입력해주세요",
+    "KG.DamageReduce": "대미지 감소",
+    "KG.Half": "반감",
+    "KG.AddArmor": "장갑 추가",
+    "KG.AddBarrier": "결계 추가",
+    "KG.ApplyDamage": "대미지 적용",
 
     "SETTINGS.TalentClassify": "탤런트 분류",
     "SETTINGS.TalentClassifyDesc": "탤런트를 종족, 칭호, 일반으로 분류해서 표현합니다"
