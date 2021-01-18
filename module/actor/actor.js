@@ -16,6 +16,11 @@ export class KamigakariActor extends Actor {
       "int": { "value": this.data.data.attributes.int.add },
       "wil": { "value": this.data.data.attributes.wil.add },
       "lck": { "value": this.data.data.attributes.lck.add },
+      "str_roll": { "value": 0 },
+      "agi_roll": { "value": 0 },
+      "int_roll": { "value": 0 },
+      "wil_roll": { "value": 0 },
+      "lck_roll": { "value": 0 },
       "acc": { "value": 0 },
       "eva": { "value": 0 },
       "cnj": { "value": 0 },
@@ -29,7 +34,8 @@ export class KamigakariActor extends Actor {
       "hp": { "value": 0 },
       "rank": { "value": 0 },
       "base": { "value": 0 },
-      "add": { "value": 0 }
+      "add": { "value": 0 },
+      "rangePD": { "value": 0 }
     }
 
     let race = null;
@@ -76,6 +82,9 @@ export class KamigakariActor extends Actor {
     for (var item of equipment)
       values = this._updateData(values, item.data.data.attributes);
 
+    if (values["rangePD"].value != 0)
+        values["pd"].value = values["rangePD"].value;
+    delete values.rangePD;
 
     this.data.data.attributes.move.battle = Math.ceil( (values['init'].value + 5) / 3 );
     this.data.data.attributes.move.full = values['init'].value + 5;
@@ -99,6 +108,20 @@ export class KamigakariActor extends Actor {
     delete values.base;
     delete values.rank;
     delete values.add;
+
+    this.data.data.attributes['str'].roll = values["str_roll"].value;
+    this.data.data.attributes['agi'].roll = values["agi_roll"].value;
+    this.data.data.attributes['int'].roll = values["int_roll"].value;
+    this.data.data.attributes['wil'].roll = values["wil_roll"].value;
+    this.data.data.attributes['lck'].roll = values["lck_roll"].value;
+
+    delete values.str_roll;
+    delete values.agi_roll;
+    delete values.int_roll;
+    delete values.wil_roll;
+    delete values.lck_roll;
+
+    console.log(values);
 
     for (const [key, value] of Object.entries(values))
       this.data.data.attributes[key].value = value.value;
@@ -125,6 +148,8 @@ export class KamigakariActor extends Actor {
     const ability = actorData.attributes[a];
     dice = ability.dice;
     formula = `${dice}6+${ability.value}`;
+    if (ability.roll != undefined)
+        formula += '+' + ability.roll;
 
     if (actorData.attributes.transcend != null && actorData.attributes.transcend.value != 0) {
       formula = Number(actorData.attributes.transcend.value) + Number(dice.charAt(0)) + "D6 + " + ability.value;

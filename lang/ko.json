@@ -30,6 +30,11 @@
     "KG.CNJ": "발동",
     "KG.RES": "저항",
     "KG.INS": "간파",
+    "KG.STRRoll": "체력 달성치",
+    "KG.AGIRoll": "민첩 달성치",
+    "KG.INTRoll": "지능 달성치",
+    "KG.WILRoll": "정신 달성치",
+    "KG.LCKRoll": "행운 달성치",
     "KG.PD": "물D",
     "KG.MD": "마D",
     "KG.Init": "행동치",
@@ -122,6 +127,7 @@
     "KG.AfterDamage": "대미지 산출 이후",
     "KG.AfterRound": "라운드 종료 이후",
     "KG.AfterBattle": "전투 종료 이후",
+    "KG.RangePD": "※ 원거리 무기 물D",
 
     "SETTINGS.TalentClassify": "탤런트 분류",
     "SETTINGS.TalentClassifyDesc": "탤런트를 종족, 칭호, 일반으로 분류해서 표현합니다"
