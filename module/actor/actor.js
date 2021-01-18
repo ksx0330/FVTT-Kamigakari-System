@@ -121,8 +121,6 @@ export class KamigakariActor extends Actor {
     delete values.wil_roll;
     delete values.lck_roll;
 
-    console.log(values);
-
     for (const [key, value] of Object.entries(values))
       this.data.data.attributes[key].value = value.value;
 
@@ -137,8 +135,23 @@ export class KamigakariActor extends Actor {
     return values;
   }
 
-
   async _rollDice(a, l) {
+    new Dialog({
+        title: game.i18n.localize("KG.AddRoll"),
+        content: "<p><input type='text' id='add'></p>",
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: () => this._doRollDice(a, l, $("#add").val())
+          }
+        },
+        default: "confirm"
+    }).render(true);
+
+  }
+
+  async _doRollDice(a, l, p) {
     let dice = null;
     let formula = null;
     let flavorText = null;
@@ -148,13 +161,15 @@ export class KamigakariActor extends Actor {
     const ability = actorData.attributes[a];
     dice = ability.dice;
     formula = `${dice}6+${ability.value}`;
-    if (ability.roll != undefined)
-        formula += '+' + ability.roll;
-
     if (actorData.attributes.transcend != null && actorData.attributes.transcend.value != 0) {
       formula = Number(actorData.attributes.transcend.value) + Number(dice.charAt(0)) + "D6 + " + ability.value;
       await this.update({'data.attributes.transcend.value': 0});
     }
+    if (ability.roll != undefined)
+        formula += '+' + ability.roll;
+
+    if (p == undefined || p != "")
+      formula += "+" + p;
 
     templateData = {
       title: l
