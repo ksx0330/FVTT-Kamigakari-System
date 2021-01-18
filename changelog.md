@@ -70,3 +70,7 @@ Changelog
 0.5.3 - Macro & Talent Update
   * Talent can set in macro hotbar
   * Add conditional setting that automatically turns talent activation into inactive
+
+0.5.4 - Add Talent's option
+  * Add roll only options (STR, AGI, INT, WIL, LCK)
+  * Add ranged weapon's ※ pd option in equipment sheet option
