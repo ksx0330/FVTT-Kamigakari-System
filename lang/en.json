@@ -133,6 +133,17 @@
     "KG.AddArmor": "Add Armor",
     "KG.AddBarrier": "Add Barrier",
     "KG.ApplyDamage": "Apply Damage",
+    "KG.Weakness": "Weakness",
+    "KG.Half": "Half",
+    "KG.AddRank": "Add Rank",
+    "KG.AddDamage": "Add Damage",
+    "KG.DamageType": "Type",
+    "KG.Physical": "Physical",
+    "KG.Magical": "Magical",
+    "KG.ReduceArmor": "Reduce Armor",
+    "KG.IgnoreArmor": "Ignore Armor",
+    "KG.ReduceBarrier": "Reduce Barrier",
+    "KG.IgnoreBarrier": "Ignore Barrier",
 
     "SETTINGS.TalentClassify": "Talent Classify",
     "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common."

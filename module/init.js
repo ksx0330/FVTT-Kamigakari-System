@@ -184,6 +184,47 @@ async function chatListeners(html) {
       actor._rollDamage();
     });
 
+    html.on('click', '.apply-damage', async ev => {
+      event.preventDefault();
+      const data = ev.currentTarget.dataset;
+      const targets = game.users.get(game.user.id).targets;
+
+      console.log(data);
+      for (var target of targets) {
+        let actor = target.actor;
+        let actorData = actor.data.data;
+
+        let armor = actorData.attributes.armor.value + actorData.attributes.defense.armor;
+        let barrier = actorData.attributes.barrier.value + actorData.attributes.defense.barrier;
+
+        let reduce = actorData.attributes.defense.reduce;
+        let half = actorData.attributes.defense.half;
+
+        if (data.armorIgnore == "true")
+          armor = 0;
+        else
+          armor = (armor - data.armorReduce < 0) ? 0 : armor - data.armorReduce;
+
+        if (data.barrierIgnore == "true")
+          barrier = 0;
+        else
+          barrier = (barrier - data.barrierReduce < 0) ? 0 : barrier - data.barrierReduce;
+
+        let damage = data.damage;
+        if (data.type == "acc")
+          damage -= armor;
+        else if (data.type == "cnj")
+          damage -= barrier
+
+        damage -= reduce;
+        damage = (half) ? Math.ceil(damage / 2.0) : damage;
+        damage = (damage < 0) ? 0 : damage;
+
+        await actor.update({"data.attributes.hp.value": actorData.attributes.hp.value - damage});
+      }
+
+    });
+
 }
 
 async function setSpiritDice() {
