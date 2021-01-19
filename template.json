@@ -152,6 +152,13 @@
       },
       "move": {
         "value": 0
+      },
+
+      "defense": {
+        "armor": 0,
+        "barrier": 0,
+        "reduce": 0,
+        "half": false
       }
 
     },

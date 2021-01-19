@@ -74,3 +74,8 @@ Changelog
 0.5.4 - Add Talent's option
   * Add roll only options (STR, AGI, INT, WIL, LCK)
   * Add ranged weapon's ※ pd option in equipment sheet option
+
+0.6.0 - Detail damage option calculation
+  * Add damage calculating option
+  * Add the feature to apply damage to the targets
+

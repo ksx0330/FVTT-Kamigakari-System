@@ -119,7 +119,7 @@ export class KamigakariActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-	activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
 
     // Everything below here is only needed if the sheet is editable
@@ -175,6 +175,17 @@ export class KamigakariActorSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
+
+    html.find(".defense-refresh").on('click', async ev => {
+      await this.actor.update({
+        "data.attributes.defense.armor": 0, 
+        "data.attributes.defense.barrier": 0, 
+        "data.attributes.defense.reduce": 0, 
+        "data.attributes.defense.half": false
+      });
+
+      console.log(this.actor);
+    });
 
   }
 

@@ -117,6 +117,7 @@
               <a class="item" data-tab="description">{{localize "KG.Description"}}</a>
               <a class="item" data-tab="attack">{{localize "KG.Attack"}}</a>
               <a class="item" data-tab="materials">{{localize "KG.Materials"}}</a>
+              <a class="item" data-tab="defense">{{localize "KG.DamageReduce"}}</a>
           </nav>
 
           {{!-- Sheet Body --}}
@@ -189,6 +190,41 @@
                 </div>
               </section>
             </div>
+
+            {{!-- Biography Tab --}}
+            <div class="tab description" data-group="primary" data-tab="defense">
+              <div class="sheet-tab">
+                <div class="cell">
+                  <h2 class="cell--title">
+                    <label>{{localize "KG.DamageReduce"}}</label>
+                    <div class="item-controls">
+                      <button class="item-control defense-refresh">
+                        <i class="fas fa-redo"></i>
+                      </button>
+                    </div>
+                  </h2>
+                  <table>
+                    <tr>
+                      <th>{{localize "KG.AddArmor"}}</th>
+                      <td><input type="text" name="data.attributes.defense.armor" value="{{data.attributes.defense.armor}}" data-dtype="Number"></td>
+                    </tr>
+                    <tr>
+                      <th>{{localize "KG.AddBarrier"}}</th>
+                      <td><input type="text" name="data.attributes.defense.barrier" value="{{data.attributes.defense.barrier}}" data-dtype="Number"></td>
+                    </tr>
+                    <tr>
+                      <th>{{localize "KG.DamageReduce"}}</th>
+                      <td><input type="text" name="data.attributes.defense.reduce" value="{{data.attributes.defense.reduce}}" data-dtype="Number"></td>
+                    </tr>
+                    <tr>
+                      <th>{{localize "KG.Half"}}</th>
+                      <td><input type="checkbox" name="data.attributes.defense.half" {{#if data.attributes.defense.half}} checked{{/if}}></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
           </section>
 
         </section>
