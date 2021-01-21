@@ -79,3 +79,6 @@ Changelog
   * Add damage calculating option
   * Add the feature to apply damage to the targets
 
+0.6.1 - Update damage apply
+  * Damage can be applied for each enemy with a damage option set
+

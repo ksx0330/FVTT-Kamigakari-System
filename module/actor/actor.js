@@ -225,29 +225,8 @@ export class KamigakariActor extends Actor {
                     <h2 style="text-align: center;">${actorData.attributes.damage.high} X ${actorData.attributes.damage.rank} + ${actorData.attributes.damage.add}</h2>
 
                     <table>
-                      <colgroup>
-                        <col width="30%">
-                        <col width="10%">
-                        <col width="15%">
-                        <col width="10%">
-                        <col width="30%">
-                        <col width="5%">
-                      </colgroup>
 
                       <tr>
-                        <th>${game.i18n.localize("KG.Weakness")}</th>
-                        <td><input type="checkbox" id="weak"></td>
-
-                        <th>${game.i18n.localize("KG.Half")}</th>
-                        <td><input type="checkbox" id="half"></td>
-
-                        <th>${game.i18n.localize("KG.AddRank")}</th>
-                        <td ><input type="text" id="rank"></td>
-                      </tr>
-
-                      <tr>
-                        <th>${game.i18n.localize("KG.AddDamage")}</th>
-                        <td colspan="3"><input type="text" id="add" style="margin-left: 5px; width: 90%;"></td>
                         <th>${game.i18n.localize("KG.DamageType")}</th>
                         <td>
                           <select id="type">
@@ -255,18 +234,27 @@ export class KamigakariActor extends Actor {
                             <option value="cnj">${game.i18n.localize("KG.Magical")}</option>
                           </select>
                         </td>
+
+                        <th>${game.i18n.localize("KG.AddRank")}</th>
+                        <td ><input type="text" id="rank"></td>
+                      </tr>
+
+                      <tr>
+                        <th>${game.i18n.localize("KG.AddDamage")}</th>
+                        <td colspan="3"><input type="text" id="add"></td>
+
                       </tr>
 
                       <tr>
                         <th>${game.i18n.localize("KG.ReduceArmor")}</th>
-                        <td colspan="3"><input type="text" id="armor_reduce" style="margin-left: 5px; width: 90%;"></td>
+                        <td><input type="text" id="armor_reduce"></td>
                         <th>${game.i18n.localize("KG.IgnoreArmor")}</th>
                         <td><input type="checkbox" id="armor_ignore"></td>
                       </tr>
 
                       <tr>
                         <th>${game.i18n.localize("KG.ReduceBarrier")}</th>
-                        <td colspan="3"><input type="text" id="barrier_reduce" style="margin-left: 5px; width: 90%;"></td>
+                        <td><input type="text" id="barrier_reduce"></td>
                         <th>${game.i18n.localize("KG.IgnoreBarrier")}</th>
                         <td><input type="checkbox" id="barrier_ignore"></td>
                       </tr>
@@ -281,19 +269,16 @@ export class KamigakariActor extends Actor {
             label: "Confirm",
             callback: async () => {
               let rank = actorData.attributes.damage.rank + Number($("#rank").val());
-              if ($("#weak").is(":checked"))
-                rank += 1;
               rank = (rank > 10) ? 10 : rank;
 
               let formula = actorData.attributes.damage.high + " * " + rank + " + " + actorData.attributes.damage.add + "+" + $("#add").val()
-              if ($("#half").is(":checked"))
-                formula = "ceil((" + formula + ")/2)";
+
 
               let roll = new Roll(formula, this.getRollData());
               roll.roll();
 
               let content = await roll.render();
-              content += `<br><button type="button" class="apply-damage" data-type="${$("#type option:selected").val()}" data-damage="${roll.total}" data-armor-reduce="${$("#armor_reduce").val()}" data-armor-ignore="${$("#armor_ignore").is(":checked")}" data-barrier-reduce="${$("#barrier_reduce").val()}" data-barrier-ignore="${$("#barrier_ignore").is(":checked")}">${game.i18n.localize("KG.ApplyDamage")}</button>`
+              content += `<br><button type="button" class="apply-damage" data-type="${$("#type option:selected").val()}" data-damage="${roll.total}" data-rank="${rank}" data-high="${actorData.attributes.damage.high}" data-armor-reduce="${$("#armor_reduce").val()}" data-armor-ignore="${$("#armor_ignore").is(":checked")}" data-barrier-reduce="${$("#barrier_reduce").val()}" data-barrier-ignore="${$("#barrier_ignore").is(":checked")}">${game.i18n.localize("KG.ApplyDamage")}</button>`
 
               let chatData = {"content": content, "speaker": ChatMessage.getSpeaker({ actor: this.actor })};
               ChatMessage.create(chatData);
