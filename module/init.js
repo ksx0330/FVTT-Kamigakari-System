@@ -189,39 +189,79 @@ async function chatListeners(html) {
       const data = ev.currentTarget.dataset;
       const targets = game.users.get(game.user.id).targets;
 
-      console.log(data);
-      for (var target of targets) {
-        let actor = target.actor;
-        let actorData = actor.data.data;
+      new Dialog({
+          title: game.i18n.localize("KG.ApplyDamage"),
+          content: `<p>
+                      <h2 style="text-align: center;">${data.damage}</h2>
 
-        let armor = actorData.attributes.armor.value + actorData.attributes.defense.armor;
-        let barrier = actorData.attributes.barrier.value + actorData.attributes.defense.barrier;
+                      <table>
+                        <tr>
+                          <th>${game.i18n.localize("KG.Weakness")}</th>
+                          <td><input type="checkbox" id="weak"></td>
 
-        let reduce = actorData.attributes.defense.reduce;
-        let half = actorData.attributes.defense.half;
+                          <th>${game.i18n.localize("KG.Half")}</th>
+                          <td><input type="checkbox" id="half"></td>
 
-        if (data.armorIgnore == "true")
-          armor = 0;
-        else
-          armor = (armor - data.armorReduce < 0) ? 0 : armor - data.armorReduce;
+                          <th>${game.i18n.localize("KG.AddDamage")}</th>
+                          <td><input type="text" id="add" style="margin-left: 5px; width: 90%;"></td>
+                        </tr>
 
-        if (data.barrierIgnore == "true")
-          barrier = 0;
-        else
-          barrier = (barrier - data.barrierReduce < 0) ? 0 : barrier - data.barrierReduce;
+                      </table>
 
-        let damage = data.damage;
-        if (data.type == "acc")
-          damage -= armor;
-        else if (data.type == "cnj")
-          damage -= barrier
+                    </p>`,
+          buttons: {
+            confirm: {
+              icon: '<i class="fas fa-check"></i>',
+              label: "Confirm",
+              callback: async () => {
+                let damage = Number(data.damage) + Number($("#add").val());
+                if (data.rank < 10 && $("#weak").is(":checked"))
+                  damage += Number(data.high);
+                if ($("#half").is(":checked"))
+                  damage = Math.ceil(damage / 2.0);
 
-        damage -= reduce;
-        damage = (half) ? Math.ceil(damage / 2.0) : damage;
-        damage = (damage < 0) ? 0 : damage;
+                for (var target of targets) {
+                  let actor = target.actor;
+                  let actorData = actor.data.data;
 
-        await actor.update({"data.attributes.hp.value": actorData.attributes.hp.value - damage});
-      }
+                  let armor = actorData.attributes.armor.value + actorData.attributes.defense.armor;
+                  let barrier = actorData.attributes.barrier.value + actorData.attributes.defense.barrier;
+
+                  let reduce = actorData.attributes.defense.reduce;
+                  let half = actorData.attributes.defense.half;
+
+                  if (data.armorIgnore == "true")
+                    armor = 0;
+                  else
+                    armor = (armor - data.armorReduce < 0) ? 0 : armor - data.armorReduce;
+
+                  if (data.barrierIgnore == "true")
+                    barrier = 0;
+                  else
+                    barrier = (barrier - data.barrierReduce < 0) ? 0 : barrier - data.barrierReduce;
+
+                  if (data.type == "acc")
+                    damage -= armor;
+                  else if (data.type == "cnj")
+                    damage -= barrier
+
+                  damage -= reduce;
+                  damage = (half) ? Math.ceil(damage / 2.0) : damage;
+                  damage = (damage < 0) ? 0 : damage;
+
+                  await actor.update({"data.attributes.hp.value": actorData.attributes.hp.value - damage});
+                  let chatData = {"content": actor.name + " (-" + damage + ")", "speaker": ChatMessage.getSpeaker({ actor: actor })};
+                  ChatMessage.create(chatData);
+                }
+
+
+              }
+            }
+          },
+          default: "confirm"
+      }).render(true);    
+
+
 
     });
 
