@@ -6,16 +6,51 @@
         </div>
     </header>
 
-    <div class="resource margin-top-10">
-        <label>{{localize "KG.Quantity"}}</label>
-        <input type="text" name="data.quantity" value="{{data.quantity}}" data-dtype="Number"/>
-    </div>
+      <div class="sheet-tab margin-top-10">
+        <div class="sheet-wrapper">
+          <section class="sheet-attributes">
 
-    <div class="cell cell--bio">
-        <label class="cell--title">{{localize "KG.Description"}}</label>
-        {{!-- We're avoiding WYSIWYGs... for now... --}}
-        {{!-- {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}} --}}
-        <textarea class="biography" name="data.description" rows="5" title="Hey there! Who are you!?"
-                data-dtype="String">{{data.description}}</textarea>
-    </div>
+            <div class="cell cell--talent">
+              <label for="data.class" class="cell--title">{{localize "KG.Class"}}</label>
+              <select name="data.class" data-dtype="String" class="width-100">
+                {{#select data.class}}
+                <option value="consumables">{{localize "KG.Consumables"}}</option>
+                <option value="sacraments">{{localize "KG.Sacraments"}}</option>
+                {{/select}}
+              </select>  
+            </div>
+
+            <div class="cell cell--talent">
+              <label for="data.usage" class="cell--title">{{localize "KG.Usage"}}</label>
+              <select name="data.usage" data-dtype="String" class="width-100">
+                {{#select data.usage}}
+                <option value="-">-</option>
+                <option value="{{localize "KG.Other"}}">{{localize "KG.Other"}}</option>
+                <option value="{{localize "KG.Rest"}}">{{localize "KG.Rest"}}</option>
+                <option value="{{localize "KG.Anomalies"}}">{{localize "KG.Anomalies"}}</option>
+                {{/select}}
+              </select>  
+            </div>
+
+            <div class="cell cell--talent">
+              <label for="data.price" class="cell--title">{{localize "KG.Price"}}</label>
+              <input type="text" name="data.price" value="{{data.price}}" data-dtype="Number"/>
+            </div>
+
+            <div class="cell cell--talent">
+              <label for="data.quantity" class="cell--title">{{localize "KG.Quantity"}}</label>
+              <input type="text" name="data.quantity" value="{{data.quantity}}" data-dtype="String"/>
+            </div>
+
+          </section>
+
+          <div class="cell cell--bio">
+            <label class="cell--title">{{localize "KG.Description"}}</label>
+            {{!-- We're avoiding WYSIWYGs... for now... --}}
+            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+          </div>
+
+        </div>
+      </div>
+
 </form>

@@ -216,14 +216,18 @@
     "templates": [
         "base"
     ],
-    "quantity": 1
+    "quantity": 1,
+    "class": "consumables",
+    "usage": "-",
+    "cost": 0
   },
   "attackOption": {
     "templates": [
       "base",
       "talent"
     ],
-    "formula": ""
+    "formula": "",
+    "resist": ""
   },
   "race": {
     "templates": [

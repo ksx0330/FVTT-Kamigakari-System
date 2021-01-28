@@ -144,6 +144,14 @@
     "KG.IgnoreArmor": "Ignore Armor",
     "KG.ReduceBarrier": "Reduce Barrier",
     "KG.IgnoreBarrier": "Ignore Barrier",
+    "KG.Usage": "Usage",
+    "KG.Sacraments": "Sacraments",
+    "KG.Consumables": "Consumables",
+    "KG.SacramentItem": "Sacrament Item",
+    "KG.ConsumableItem": "Consumable Item",
+    "KG.Other": "Other",
+    "KG.Rest": "Rest",
+    "KG.Anomalies": "Anomalies",
 
     "SETTINGS.TalentClassify": "Talent Classify",
     "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common."

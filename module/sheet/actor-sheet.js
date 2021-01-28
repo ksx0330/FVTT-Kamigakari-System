@@ -52,6 +52,8 @@ export class KamigakariActorSheet extends ActorSheet {
     const commonTalents = [];
 
     const equipmentItems = [];
+    const consumableItems = [];
+    const sacramentItems =[];
     const commonItems = [];
 
     const bonds = [];
@@ -87,8 +89,18 @@ export class KamigakariActorSheet extends ActorSheet {
 
       else if (i.type =='equipment')
         equipmentItems.push(i);
-      else if (i.type == 'item')
-        commonItems.push(i);
+      else if (i.type == 'item') {
+        switch (i.data.class) {
+          case 'sacraments':
+            sacramentItems.push(i);
+            break;
+
+          default:
+            consumableItems.push(i);
+            break;
+        }
+
+      }
       else if (i.type == 'bond')
         bonds.push(i);
 
@@ -109,7 +121,8 @@ export class KamigakariActorSheet extends ActorSheet {
         actorData.talents = talents;
 
     actorData.equipmentItems = equipmentItems;
-    actorData.commonItems = commonItems;
+    actorData.sacramentItems = sacramentItems;
+    actorData.consumableItems = consumableItems;
 
     actorData.bonds = bonds;
 
@@ -304,7 +317,11 @@ export class KamigakariActorSheet extends ActorSheet {
     const type = header.dataset.type;
     const data = duplicate(header.dataset);
 
-    data.talentType = data.talenttype;
+    if (type == 'item')
+      data.class = data.talenttype;
+    else
+      data.talentType = data.talenttype;
+
     const name = `New ${type.capitalize()}`;
     const itemData = {
       name: name,

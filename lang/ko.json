@@ -145,6 +145,14 @@
     "KG.IgnoreArmor": "장갑 무시",
     "KG.ReduceBarrier": "결계 감소",
     "KG.IgnoreBarrier": "결계 무시",
+    "KG.Usage": "용도",
+    "KG.Sacraments": "상비",
+    "KG.Consumables": "소비",
+    "KG.SacramentItem": "상비 아이템",
+    "KG.ConsumableItem": "소비 아이템",
+    "KG.Other": "그 외",
+    "KG.Rest": "소휴식",
+    "KG.Anomalies": "법칙장해",
 
     "SETTINGS.TalentClassify": "탤런트 분류",
     "SETTINGS.TalentClassifyDesc": "탤런트를 종족, 칭호, 일반으로 분류해서 표현합니다"
