@@ -82,3 +82,6 @@ Changelog
 0.6.1 - Update damage apply
   * Damage can be applied for each enemy with a damage option set
 
+0.6.2 - Item speicialize
+  * Items are divided into SacramentItem and ConsumableItem.
+
