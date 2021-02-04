@@ -85,3 +85,6 @@ Changelog
 0.6.2 - Item speicialize
   * Items are divided into SacramentItem and ConsumableItem.
 
+0.6.3 - Typo correction
+  * Armor -> Guard / Barrier -> Barrier
+
