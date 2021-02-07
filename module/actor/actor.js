@@ -51,7 +51,7 @@ export class KamigakariActor extends Actor {
         mainStyle = i;
       else if (i.type == 'talent' && i.data.data.active)
         talents.push(i);
-      else if (i.type == 'equipment')
+      else if (i.type == 'equipment' && i.data.data.equipment)
         equipment.push(i);
     }
 
@@ -329,6 +329,11 @@ export class KamigakariActor extends Actor {
         description += `<button type="button" class="calc-damage" data-actor-id="${this.id}" >${game.i18n.localize("KG.CalcDamage")}</button>`
     }
 
+    else if (item.data.type == 'item') {
+      description += `<button type="button" class="use-item" data-actor-id="${this.id}" data-item-id="${item.id}">${game.i18n.localize("KG.UseItem")}</button>`
+    }
+
+
     // Render the roll.
     let template = 'systems/kamigakari/templates/chat/chat-move.html';
     let templateData = {
@@ -348,5 +353,39 @@ export class KamigakariActor extends Actor {
     });
 
   }
+
+  async _useItem(item) {
+    if (item.data.data.quantity > 0) {
+      await item.update({'data.quantity': item.data.data.quantity - 1});
+
+      // Render the roll.
+      let template = 'systems/kamigakari/templates/chat/chat-move.html';
+      let templateData = {
+        title: game.i18n.localize("KG.UseItem") + ": " + item.data.name,
+        details: item.data.data.description
+      };
+  
+      // GM rolls.
+      let chatData = {
+        user: game.user._id,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor })
+      };
+  
+      renderTemplate(template, templateData).then(content => {
+        chatData.content = content;
+        ChatMessage.create(chatData);
+      });
+
+      const macro = game.macros.entities.find(m => (m.data.name === item.data.data.macro));
+      if (macro != undefined)
+          macro.execute();
+      else if (item.data.data.macro != "")
+          alert("Do not find this macro: " + item.data.data.macro);
+
+    }
+  
+  }
+
+
 
 }

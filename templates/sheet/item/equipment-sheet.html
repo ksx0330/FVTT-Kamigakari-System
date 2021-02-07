@@ -58,7 +58,12 @@
 
       {{!-- Attributes Tab --}}
       <div class="tab attributes" data-group="primary" data-tab="attributes">
-          <header class="attributes-header flexrow">
+          <div style="float: right">
+            <label for="data.equipment">{{localize "KG.Equipment"}}</label>
+            <input type="checkbox" name="data.equipment" {{#if data.equipment}} checked {{/if}}">
+          </div>
+
+          <header class="attributes-header flexrow width-100">
               <span class="attribute-key">{{localize "KG.Attributes"}}</span>
               <span class="attribute-value">{{localize "KG.Value"}}</span>
               <a class="attribute-control" data-action="create" data-type="attributes"><i class="fas fa-plus"></i></a>

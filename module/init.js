@@ -144,6 +144,14 @@ Hooks.on("renderChatLog", (app, html, data) => chatListeners(html));
 Hooks.on("renderChatPopout", (app, html, data) => chatListeners(html));
 
 async function chatListeners(html) {
+    html.on('click', '.use-item', async ev => {
+      event.preventDefault();
+      const data = ev.currentTarget.dataset;
+      const actor = game.actors.get(data.actorId);
+      const item = actor.getOwnedItem(data.itemId);
+      actor._useItem(item);
+    });
+
     html.on('click', '.use-talent', async ev => {
       event.preventDefault();
       const data = ev.currentTarget.dataset;
@@ -159,6 +167,7 @@ async function chatListeners(html) {
           callback: async () => {
             const actor = game.actors.get(data.actorId);
             const item = actor.getOwnedItem(data.itemId);
+            const macro = game.macros.entities.find(m => (m.data.name === item.data.data.macro));
 
             await item.update({"data.active": true});
             if (item.data.data.roll == 'acc')
@@ -167,6 +176,11 @@ async function chatListeners(html) {
               actor._rollDice('cnj', game.i18n.localize("KG.AbilityCNJ"));
 
             ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
+
+            if (macro != undefined)
+                macro.execute();
+            else if (item.data.data.macro != "")
+                alert("Do not find this macro: " + item.data.data.macro);
           }
 
         }

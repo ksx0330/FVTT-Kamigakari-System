@@ -746,3 +746,8 @@
   flex: 5;
 }
 
+.kamigakari .macro-input {
+  width: calc(100% - 50px);
+  margin: 5px 0;
+}
+

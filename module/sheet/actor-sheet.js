@@ -381,28 +381,7 @@ export class KamigakariActorSheet extends ActorSheet {
     const useButton = $(event.currentTarget);
     const item = this.actor.getOwnedItem(useButton.parents('.item')[0].dataset.itemId);
 
-    if (item.data.data.quantity > 0) {
-      await item.update({'data.quantity': item.data.data.quantity - 1});
-
-      // Render the roll.
-      let template = 'systems/kamigakari/templates/chat/chat-move.html';
-      let templateData = {
-        title: game.i18n.localize("KG.UseItem") + ": " + item.data.name,
-        details: item.data.data.description
-      };
-  
-      // GM rolls.
-      let chatData = {
-        user: game.user._id,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor })
-      };
-  
-      renderTemplate(template, templateData).then(content => {
-        chatData.content = content;
-        ChatMessage.create(chatData);
-      });
-
-    }
+    this.actor._useItem(item);
   
   }
 

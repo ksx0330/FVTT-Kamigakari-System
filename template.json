@@ -197,7 +197,8 @@
     "talentType": "",
     "class": "",
     "classType": "",
-    "condition": ""
+    "condition": "",
+    "macro": ""
   },
   "equipment": {
     "templates": [
@@ -207,6 +208,7 @@
     "restrict": "",
     "mode": "",
     "price": 0,
+    "equipment": true,
     "attributes": {},
     "additional": {},
     "material": {}
@@ -219,7 +221,8 @@
     "quantity": 1,
     "class": "consumables",
     "usage": "-",
-    "cost": 0
+    "cost": 0,
+    "macro": ""
   },
   "attackOption": {
     "templates": [

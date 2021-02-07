@@ -94,6 +94,11 @@
       {{!-- Attributes Tab --}}
       <div class="tab attributes" data-group="primary" data-tab="attributes">
           <div>
+            <label for="data.macro">{{localize "KG.Macro"}}</label>
+            <input type="text" name="data.macro" class="macro-input" data-dtype="String" value="{{data.macro}}">
+          </div>
+
+          <div>
             <label for="data.roll" class="">{{localize "KG.Roll"}}</label>
             <select class="" name="data.roll" data-dtype="String">
               {{#select data.roll}}

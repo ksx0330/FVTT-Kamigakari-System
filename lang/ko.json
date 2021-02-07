@@ -153,6 +153,7 @@
     "KG.Other": "그 외",
     "KG.Rest": "소휴식",
     "KG.Anomalies": "법칙장해",
+    "KG.Macro": "매크로",
 
     "SETTINGS.TalentClassify": "탤런트 분류",
     "SETTINGS.TalentClassifyDesc": "탤런트를 종족, 칭호, 일반으로 분류해서 표현합니다"

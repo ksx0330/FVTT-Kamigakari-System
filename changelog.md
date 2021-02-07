@@ -88,3 +88,8 @@ Changelog
 0.6.3 - Typo correction
   * Armor -> Guard / Barrier -> Barrier
 
+0.6.4 - Use talent, item's macro
+  * Add talent's macro when use talent
+  * Add item's macro when use item
+  * Add Euipment toggle
+
