@@ -221,7 +221,7 @@
     "quantity": 1,
     "class": "consumables",
     "usage": "-",
-    "cost": 0,
+    "price": 0,
     "macro": ""
   },
   "attackOption": {
