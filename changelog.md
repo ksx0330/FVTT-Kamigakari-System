@@ -93,3 +93,5 @@ Changelog
   * Add item's macro when use item
   * Add Euipment toggle
 
+0.6.5 - Bug fix
+  * Fix an issue where the price was not included when copying an item
