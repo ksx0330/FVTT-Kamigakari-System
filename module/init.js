@@ -254,17 +254,18 @@ async function chatListeners(html) {
                   else
                     barrier = (barrier - data.barrierReduce < 0) ? 0 : barrier - data.barrierReduce;
 
+                  var realDamage = damage;
                   if (data.type == "acc")
-                    damage -= armor;
+                    realDamage -= armor;
                   else if (data.type == "cnj")
-                    damage -= barrier
+                    realDamage -= barrier
 
-                  damage -= reduce;
-                  damage = (half) ? Math.ceil(damage / 2.0) : damage;
-                  damage = (damage < 0) ? 0 : damage;
+                  realDamage -= reduce;
+                  realDamage = (half) ? Math.ceil(realDamage / 2.0) : realDamage;
+                  realDamage = (realDamage < 0) ? 0 : realDamage;
 
-                  await actor.update({"data.attributes.hp.value": actorData.attributes.hp.value - damage});
-                  let chatData = {"content": actor.name + " (-" + damage + ")", "speaker": ChatMessage.getSpeaker({ actor: actor })};
+                  await actor.update({"data.attributes.hp.value": actorData.attributes.hp.value - realDamage});
+                  let chatData = {"content": actor.name + " (-" + realDamage + ")", "speaker": ChatMessage.getSpeaker({ actor: actor })};
                   ChatMessage.create(chatData);
                 }
 
