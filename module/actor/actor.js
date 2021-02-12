@@ -333,6 +333,27 @@ export class KamigakariActor extends Actor {
       description += `<button type="button" class="use-item" data-actor-id="${this.id}" data-item-id="${item.id}">${game.i18n.localize("KG.UseItem")}</button>`
     }
 
+    else if (item.data.type == 'attackOption') {
+      description = `<table style="text-align: center;">
+                      <tr>
+                        <th>${game.i18n.localize("KG.Timing")}</th>
+                        <th>${game.i18n.localize("KG.Range")}</th>
+                        <th>${game.i18n.localize("KG.Target")}</th>
+                        <th>${game.i18n.localize("KG.RES")}</th>
+                      </tr>
+
+                      <tr>
+                        <td>${item.data.data.timing}</td>
+                        <td>${item.data.data.range}</td>
+                        <td>${item.data.data.target}</td>
+                        <td>${item.data.data.resist}</td>
+                      </tr>
+                    </table>${description}`
+
+      if (item.data.data.formula != '')
+        description += `<a class="inline-roll" data-title="${item.data.name}" data-formula="${item.data.data.formula}">${game.i18n.localize("KG.RollAttack")}</a>`
+    }
+
 
     // Render the roll.
     let template = 'systems/kamigakari/templates/chat/chat-move.html';

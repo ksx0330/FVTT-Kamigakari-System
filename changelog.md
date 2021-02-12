@@ -98,3 +98,7 @@ Changelog
 
 0.6.6 - Bug fix
   * Fix an issue in which damage decreases when targeting more than one body when calculating damage
+
+0.6.7 - Add Item Macro Sample & AttackOption echo
+  * Add sample compendium of heal macro
+  * Add detail of attackOption's echo
