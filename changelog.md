@@ -95,3 +95,6 @@ Changelog
 
 0.6.5 - Bug fix
   * Fix an issue where the price was not included when copying an item
+
+0.6.6 - Bug fix
+  * Fix an issue in which damage decreases when targeting more than one body when calculating damage
