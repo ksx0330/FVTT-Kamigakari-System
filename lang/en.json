@@ -128,6 +128,7 @@
     "KG.AfterRound": "After Round",
     "KG.AfterBattle": "After Battle",
     "KG.RangePD": "※ Ranged PD",
+    "KG.AddRoll": "Please input additional modifiers",
     "KG.DamageReduce": "Damage Reduce",
     "KG.Half": "Half",
     "KG.AddArmor": "Add Guard",
@@ -155,5 +156,7 @@
     "KG.Macro": "Macro",
 
     "SETTINGS.TalentClassify": "Talent Classify",
-    "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common."
+    "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common.",
+    "SETTINGS.RollAddon": "Add Modifier",
+    "SETTINGS.RollAddonDesc": "When you roll, a dialog box appears where you can enter additional modifiers."
 }

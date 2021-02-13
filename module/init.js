@@ -54,6 +54,15 @@ Hooks.once("init", async function() {
         config: true
     });
 
+    game.settings.register("kamigakari", "rollAddon", {
+        name: "SETTINGS.RollAddon",
+        hint: "SETTINGS.RollAddonDesc",
+        scope: "world",
+        type: Boolean,
+        default: false,
+        config: true
+    });
+
 });
 
 Hooks.on('createActor', async (actor, options, id) => {

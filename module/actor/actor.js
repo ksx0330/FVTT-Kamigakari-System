@@ -138,18 +138,22 @@ export class KamigakariActor extends Actor {
   }
 
   async _rollDice(a, l) {
-    new Dialog({
-        title: game.i18n.localize("KG.AddRoll"),
-        content: "<p><input type='text' id='add'></p>",
-        buttons: {
-          confirm: {
-            icon: '<i class="fas fa-check"></i>',
-            label: "Confirm",
-            callback: () => this._doRollDice(a, l, $("#add").val())
-          }
-        },
-        default: "confirm"
-    }).render(true);
+    var rollAddon = game.settings.get("kamigakari", "rollAddon");
+    if (rollAddon) {
+      new Dialog({
+          title: game.i18n.localize("KG.AddRoll"),
+          content: "<p><input type='text' id='add'></p>",
+          buttons: {
+            confirm: {
+              icon: '<i class="fas fa-check"></i>',
+              label: "Confirm",
+              callback: () => this._doRollDice(a, l, $("#add").val())
+            }
+          },
+          default: "confirm"
+      }).render(true);
+    } else
+      this._doRollDice(a, l, 0);
 
   }
 

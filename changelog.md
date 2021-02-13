@@ -102,3 +102,6 @@ Changelog
 0.6.7 - Add Item Macro Sample & AttackOption echo
   * Add sample compendium of heal macro
   * Add detail of attackOption's echo
+
+0.6.8 - Add an Option of add modifier
+  * Add config of additional modifier when roll
