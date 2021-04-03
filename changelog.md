@@ -106,7 +106,7 @@ Changelog
 0.6.8 - Add an Option of add modifier
   * Add config of additional modifier when roll
 
-0.7.0 - Update some sheet
+0.8.0 - Update some sheet
   * Add facade sheet
   * Add equipment on/off checkbox in actor sheet
   * Add level textbox in talent sheet
