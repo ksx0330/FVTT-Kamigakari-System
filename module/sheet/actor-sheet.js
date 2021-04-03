@@ -45,6 +45,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
     const race = [];
     const style = [];
+    const facade = [];
 
     const talents = [];
     const raceTalents = [];
@@ -106,11 +107,15 @@ export class KamigakariActorSheet extends ActorSheet {
 
       else if (i.type == 'attackOption')
         attackOptions.push(i);
+
+      else if (i.type == 'facade')
+        facade.push(i);
     }
 
     // Assign and return
     actorData.race = race;
     actorData.style = style;
+    actorData.facade = facade;
 
 
     if (actorData.talentClassify) {
@@ -157,6 +162,14 @@ export class KamigakariActorSheet extends ActorSheet {
       const item = this.actor.getOwnedItem(li.dataset.itemId);
       await item.update({'data.active': !item.data.data.active});
     });
+
+    html.find('.active-equipment').on('click', async ev => {
+      event.preventDefault();
+      const li = event.currentTarget.closest(".item");
+      const item = this.actor.getOwnedItem(li.dataset.itemId);
+      await item.update({'data.equipment': !item.data.data.equipment});
+    });
+
 
     html.find('.rollable-ability').on('click', this._onAbilityRoll.bind(this));
     html.find('.spirit-dice').on('click', this._onChargeSpirit.bind(this, html));

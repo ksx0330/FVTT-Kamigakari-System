@@ -269,6 +269,17 @@
             {{!-- Biography Tab --}}
             <div class="tab description" data-group="primary" data-tab="description">
               <div class="sheet-tab">
+
+                <label class="title">{{localize "KG.Facade"}}: 
+                {{#each actor.facade as |item id|}}
+                  <span class="item" data-item-id="{{item._id}}">
+                    <label>{{item.name}}</label>
+                    <span><a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></span>
+                  </span>
+                {{/each}}
+                </label>
+
                 <div class="cell cell--bio">
                   <label class="cell--title">{{localize "KG.Biography"}}</label>
                   {{!-- We're avoiding WYSIWYGs... for now... --}}
@@ -467,6 +478,9 @@
                   <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
                     {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
                     <h4 class="item-name"><span class="echo-item"><i class="fas fa-book"></i></span> <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                    <h4 class="item-addon">
+                      <input type="checkbox" class="active-equipment" {{#if item.data.equipment}} checked {{/if}}>
+                    </h4>
                     <div class="item-controls">
                       <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>

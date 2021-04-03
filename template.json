@@ -171,7 +171,7 @@
 
 },
 "Item": {
-  "types": ["talent", "equipment", "item", "attackOption", "race", "style", "bond"],
+  "types": ["talent", "equipment", "item", "attackOption", "race", "style", "facade", "bond"],
   "templates": {
     "base": {
       "name": "",
@@ -198,7 +198,8 @@
     "class": "",
     "classType": "",
     "condition": "",
-    "macro": ""
+    "macro": "",
+    "level": 1
   },
   "equipment": {
     "templates": [
@@ -325,6 +326,29 @@
         "value": 0
       }
     }
+  },
+  "facade": {
+    "templates": [
+      "base"
+    ],
+    "attributes": {
+        "str_roll": {
+          "value": 0
+        },
+        "agi_roll": {
+          "value": 0
+        },
+        "int_roll": {
+          "value": 0
+        },
+        "wil_roll": {
+          "value": 0
+        },
+        "lck_roll": {
+          "value": 0
+        }
+    }
+
   },
   "bond": {
     "templates": [

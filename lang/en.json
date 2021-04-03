@@ -154,6 +154,7 @@
     "KG.Rest": "Rest",
     "KG.Anomalies": "Anomalies",
     "KG.Macro": "Macro",
+    "KG.Facade": "Facade",
 
     "SETTINGS.TalentClassify": "Talent Classify",
     "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common.",

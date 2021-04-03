@@ -43,6 +43,7 @@ export class KamigakariActor extends Actor {
     let roll = '-';
     let talents = [];
     let equipment = [];
+    let facade = [];
 
     for (let i of this.items) {
       if (i.type == 'race')
@@ -53,6 +54,8 @@ export class KamigakariActor extends Actor {
         talents.push(i);
       else if (i.type == 'equipment' && i.data.data.equipment)
         equipment.push(i);
+      else if (i.type == 'facade')
+        facade.push(i);
     }
 
     if (race != null)
@@ -65,6 +68,10 @@ export class KamigakariActor extends Actor {
       values = this._updateData(values, item.data.data.attributes);
       roll = (item.data.data.roll != undefined && item.data.data.roll != '-') ? item.data.data.roll : roll;
     }
+
+    for (var item of facade)
+      values = this._updateData(values, item.data.data.attributes);
+
 
     values["acc"].value += values["str"].value;
     values["eva"].value += values["agi"].value;
