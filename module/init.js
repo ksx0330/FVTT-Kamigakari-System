@@ -252,16 +252,18 @@ async function chatListeners(html) {
 
                   let reduce = actorData.attributes.defense.reduce;
                   let half = actorData.attributes.defense.half;
-
+                  
                   if (data.armorIgnore == "true")
                     armor = 0;
                   else
                     armor = (armor - data.armorReduce < 0) ? 0 : armor - data.armorReduce;
+                  armor = (data.armorHalf == "true") ? Math.ceil(armor / 2.0) : armor;
 
                   if (data.barrierIgnore == "true")
                     barrier = 0;
                   else
                     barrier = (barrier - data.barrierReduce < 0) ? 0 : barrier - data.barrierReduce;
+                  barrier = (data.barrierHalf == "true") ? Math.ceil(barrier / 2.0) : barrier;
 
                   var realDamage = damage;
                   if (data.type == "acc")
