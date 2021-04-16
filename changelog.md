@@ -110,3 +110,7 @@ Changelog
   * Add facade sheet
   * Add equipment on/off checkbox in actor sheet
   * Add level textbox in talent sheet
+
+0.8.1 - Add Half options, bug fix
+  * Add half options of damage calculation
+  * Fix dice don't rolling bug when rollmode is Whisper, Blind, Roll  
