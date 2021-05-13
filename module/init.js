@@ -189,7 +189,11 @@ async function chatListeners(html) {
             if (macro != undefined)
                 macro.execute();
             else if (item.data.data.macro != "")
-                alert("Do not find this macro: " + item.data.data.macro);
+                new Dialog({
+                    title: "macro",
+                    content: `Do not find this macro: ${item.data.data.macro}`,
+                    buttons: {}
+                }).render(true);
           }
 
         }
@@ -300,15 +304,38 @@ async function setSpiritDice() {
 	if (!actor) actor = game.actors.get(speaker.actor);
 
 	if (actor == null) {
-		alert("You must use actor");
+        new Dialog({
+            title: "alert",
+            content: `You must use actor`,
+            buttons: {}
+        }).render(true);
 		return;
 	}
 
-	var answer = prompt("Whay do you want to change?\n ex) 4, 5");
-	if (!isNaN(answer) && answer != null && answer >= 1) {
-        var dices = new Array(Number(answer)).fill(0);
-		await actor.update({'data.attributes.spirit_dice.value': dices });
-	}
+  new Dialog({
+      title: 'Spirit Dice',
+      content: `
+        <h2>Whay do you want to change?\n ex) 4, 5</h2>
+        <div style="margin: 4px 0;"><input type="number" id="dice-num"></div>
+        <script>$("#dice-num").focus()</script>
+      `,
+      buttons: {
+        confirm: {
+          icon: '<i class="fas fa-check"></i>',
+          label: "Confirm",
+          callback: async () => {
+            var answer = $("#dice-num").val();
+
+            console.log(answer);
+	          if (!isNaN(answer) && answer != null && answer >= 1) {
+                var dices = new Array(Number(answer)).fill(0);
+		            await actor.update({'data.attributes.spirit_dice.value': dices });
+            }
+          }
+        }
+      },
+      default: "confirm"
+  }).render(true);
 
 }
 
@@ -317,14 +344,22 @@ function influence() {
 	let actor = game.actors.get(speaker.actor);
 
 	if (actor == null) {
-		alert("You must use actor");
+        new Dialog({
+            title: "alert",
+            content: `You must use actor`,
+            buttons: {}
+        }).render(true);
 		return;
 	}
 
 	var m = game.messages["entities"].filter(element => element.data.speaker.alias == actor.data.name && element.data.content.indexOf("<span class=\"dice-rolls\">") != -1);
 
 	if (m.length == 0) {
-		alert("Unusual Approach.");
+        new Dialog({
+            title: "alert",
+            content: `Unusual Approach`,
+            buttons: {}
+        }).render(true);
 		return;
 	}
 	var d = $(m[m.length - 1].data.content);

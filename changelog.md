@@ -114,3 +114,6 @@ Changelog
 0.8.1 - Add Half options, bug fix
   * Add half options of damage calculation
   * Fix dice don't rolling bug when rollmode is Whisper, Blind, Roll  
+
+0.8.2 - Change prompt -> dialog
+  * change prompt, comfirm, alert to dialog

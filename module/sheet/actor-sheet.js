@@ -291,14 +291,28 @@ export class KamigakariActorSheet extends ActorSheet {
     const index = a.dataset.index;
     const oriValue = dices[index];
 
-    const answer = confirm(game.i18n.localize("KG.UseSpiritAlert") + "\n" + oriValue);
-    if (answer) {
-      dices[index] = 0;
-      await this.actor.update({"data.attributes.spirit_dice.value": dices});
+    new Dialog({
+        title: 'Use Spirit Dice',
+        content: `
+          <h2>${game.i18n.localize("KG.UseSpiritAlert")}</h2>
+          <h3 style="text-align: center">${oriValue}</h3>
+        `,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: async () => {
+              dices[index] = 0;
+              await this.actor.update({"data.attributes.spirit_dice.value": dices});
 
-      var context = game.i18n.localize("KG.UseSpiritMessage") ;
-      ChatMessage.create({content: context + " " + oriValue, speaker: ChatMessage.getSpeaker({actor: this.actor})});
-    }
+              var context = game.i18n.localize("KG.UseSpiritMessage") ;
+              ChatMessage.create({content: context + " " + oriValue, speaker: ChatMessage.getSpeaker({actor: this.actor})});
+            }
+          }
+        },
+        default: "confirm"
+    }).render(true);
+
   }
 
   async _onChangeSpirit(html, event) {
@@ -308,14 +322,34 @@ export class KamigakariActorSheet extends ActorSheet {
     const index = a.dataset.index;
     const oriValue = dices[index];
 
-    const answer = prompt(game.i18n.localize("KG.ChangeSpiritAlert"));
-    if (!isNaN(answer) && answer != null && Number(answer) >= 1 && Number(answer) <= 6) {
-      dices[index] = Number(answer);
-      await this.actor.update({"data.attributes.spirit_dice.value": dices});
+    new Dialog({
+        title: 'Change Spirit Dice',
+        content: `
+          <h2>${game.i18n.localize("KG.ChangeSpiritAlert")}</h2>
+          <div style="margin: 4px 0;"><input type="number" id="dice-num"/></div>
+          <script>$("#dice-num").focus()</script>
+        `,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: async () => {
+              var answer = $("#dice-num").val();
 
-      var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
-      ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: this.actor})});
-    }
+              if (!isNaN(answer) && answer != null && Number(answer) >= 1 && Number(answer) <= 6) {
+                dices[index] = Number(answer);
+                await this.actor.update({"data.attributes.spirit_dice.value": dices});
+
+                var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
+                ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: this.actor})});
+              }
+
+            }
+          }
+        },
+        default: "confirm"
+    }).render(true);
+
   }
 
     /* -------------------------------------------- */
@@ -400,45 +434,65 @@ export class KamigakariActorSheet extends ActorSheet {
 
   /* Spirit Burn */
   async _transcend(event) {
-    const answer = prompt(game.i18n.localize("KG.TranscendAlert"));
-    if (!isNaN(answer) && answer != null && answer >= 1 && answer <= 3) {
-      await this.actor.update({'data.attributes.transcend.value': answer});
+    new Dialog({
+        title: 'Change Spirit Dice',
+        content: `
+          <h2>${game.i18n.localize("KG.TranscendAlert")}</h2>
+          <div style="margin: 4px 0;"><input type="number" id="dice-num"/></div>
+          <script>$("#dice-num").focus()</script>
+        `,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: async () => {
+              var answer = $("#dice-num").val();
 
-      let templateData = {
-        title: game.i18n.localize("KG.Transcend")
-      };
-  
-      // Render the roll.
-      let template = 'systems/kamigakari/templates/chat/chat-move.html';
-      // GM rolls.
-      let chatData = {
-        user: game.user._id,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor })
-      };
-  
-      let rollMode = game.settings.get("core", "rollMode");
-      if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-      if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
-      if (rollMode === "blindroll") chatData["blind"] = true;
-  
-      let roll = new Roll(answer + "d6");
-      roll.roll();
+              if (!isNaN(answer) && answer != null && answer >= 1 && answer <= 3) {
+                await this.actor.update({'data.attributes.transcend.value': answer});
 
-      roll.render().then(r => {
-        templateData.rollDw = r;
-        renderTemplate(template, templateData).then(content => {
-          chatData.content = content;
-          if (game.dice3d) {
-            game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
+                let templateData = {
+                  title: game.i18n.localize("KG.Transcend")
+                };
+            
+                // Render the roll.
+                let template = 'systems/kamigakari/templates/chat/chat-move.html';
+                // GM rolls.
+                let chatData = {
+                  user: game.user._id,
+                  speaker: ChatMessage.getSpeaker({ actor: this.actor })
+                };
+            
+                let rollMode = game.settings.get("core", "rollMode");
+                if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+                if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+                if (rollMode === "blindroll") chatData["blind"] = true;
+            
+                let roll = new Roll(answer + "d6");
+                roll.roll();
+
+                roll.render().then(r => {
+                  templateData.rollDw = r;
+                  renderTemplate(template, templateData).then(content => {
+                    chatData.content = content;
+                    if (game.dice3d) {
+                      game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
+                    }
+                    else {
+                      chatData.sound = CONFIG.sounds.dice;
+                      ChatMessage.create(chatData);
+                    }
+                  });
+                });
+                await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll.result});
+              }
+
+            }
           }
-          else {
-            chatData.sound = CONFIG.sounds.dice;
-            ChatMessage.create(chatData);
-          }
-        });
-      });
-      await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll.result});
-    }
+        },
+        default: "confirm"
+    }).render(true);
+
   }
 
   async _vitalIgnition(event) {

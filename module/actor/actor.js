@@ -424,7 +424,11 @@ export class KamigakariActor extends Actor {
       if (macro != undefined)
           macro.execute();
       else if (item.data.data.macro != "")
-          alert("Do not find this macro: " + item.data.data.macro);
+          new Dialog({
+              title: "alert",
+              content: `Do not find this macro: ${item.data.data.macro}`,
+              buttons: {}
+          }).render(true);
 
     }
   

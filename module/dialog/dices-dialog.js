@@ -71,31 +71,65 @@ export class DicesDialog extends Dialog {
     async _onUseSpirit(actor, key, oriValue) {
         event.preventDefault();
 
-        const answer = confirm(actor.name + " - " + game.i18n.localize("KG.UseSpiritAlert") + "\n" + oriValue);
-        if (answer) {
-            var dices = JSON.parse(JSON.stringify(actor.data.data.attributes.spirit_dice.value));
+        new Dialog({
+            title: 'Use Spirit Dice',
+            content: `
+              <h2>${actor.name} - ${game.i18n.localize("KG.UseSpiritAlert")}</h2>
+              <h3 style="text-align: center">${oriValue}</h3>
+            `,
+            buttons: {
+              confirm: {
+                icon: '<i class="fas fa-check"></i>',
+                label: "Confirm",
+                callback: async () => {
+                  var dices = JSON.parse(JSON.stringify(actor.data.data.attributes.spirit_dice.value));
 
-            dices[key] = 0;
-            await actor.update({"data.attributes.spirit_dice.value": dices});
+                  dices[key] = 0;
+                  await actor.update({"data.attributes.spirit_dice.value": dices});
 
-            var context = game.i18n.localize("KG.UseSpiritMessage") ;
-            ChatMessage.create({content: context + " " + oriValue, speaker: ChatMessage.getSpeaker({actor: actor})});
-        }
+                  var context = game.i18n.localize("KG.UseSpiritMessage") ;
+                  ChatMessage.create({content: context + " " + oriValue, speaker: ChatMessage.getSpeaker({actor: actor})});
+                }
+              }
+            },
+            default: "confirm"
+        }).render(true);
+
     }
 
     async _onChangeSpirit(actor, key, oriValue) {
         event.preventDefault();
 
-        const answer = prompt(actor.name + " - " + game.i18n.localize("KG.ChangeSpiritAlert"));
-        if (!isNaN(answer) && answer != null && answer >= 1 && answer <= 6) {
-            var dices = JSON.parse(JSON.stringify(actor.data.data.attributes.spirit_dice.value));
+        new Dialog({
+            title: 'Change Spirit Dice',
+            content: `
+              <h2>${actor.name} - ${game.i18n.localize("KG.ChangeSpiritAlert")}</h2>
+              <div style="margin: 4px 0;"><input type="number" id="dice-num"/></div>
+              <script>$("#dice-num").focus()</script>
+            `,
+            buttons: {
+              confirm: {
+                icon: '<i class="fas fa-check"></i>',
+                label: "Confirm",
+                callback: async () => {
+                  var answer = $("#dice-num").val();
 
-            dices[key] = answer;
-            await actor.update({"data.attributes.spirit_dice.value": dices});
+                  if (!isNaN(answer) && answer != null && answer >= 1 && answer <= 6) {
+                      var dices = JSON.parse(JSON.stringify(actor.data.data.attributes.spirit_dice.value));
 
-            var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
-            ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: actor})});
-        }
+                      dices[key] = answer;
+                      await actor.update({"data.attributes.spirit_dice.value": dices});
+
+                      var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
+                      ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: actor})});
+                  }
+
+                }
+              }
+            },
+            default: "confirm"
+        }).render(true);
+
     }
 
 }
