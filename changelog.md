@@ -117,3 +117,6 @@ Changelog
 
 0.8.2 - Change prompt -> dialog
   * change prompt, comfirm, alert to dialog
+
+0.8.3 - Update Spirit Dice viewer
+  * Add overflow in Spirit Dice viewer

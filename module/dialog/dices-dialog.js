@@ -35,7 +35,7 @@ export class DicesDialog extends Dialog {
             var actor = game.actors.get(id);
             var spiritDice = actor.data.data.attributes.spirit_dice.value;
 
-            actors.push({id: id,name: actor.name, spiritDice: spiritDice});
+            actors.push({id: id,name: actor.name, spiritDice: spiritDice, overflow: actor.data.data.attributes.overflow.value});
         }
 
         return {
@@ -51,6 +51,22 @@ export class DicesDialog extends Dialog {
         super.activateListeners(html);
 
         html.find('.spirit').on('mousedown', this._onRouteSpiritDice.bind(this, html));
+
+        html.find('.add--overflow').on('click', async ev => {
+          const add = Number(ev.currentTarget.dataset.add);
+          var target = $(event.currentTarget);
+          var actor = game.actors.get(target.parent()[0].dataset.id);
+
+          const overflow = actor.data.data.attributes.overflow.value;
+
+          if (overflow + add < 0)
+            return;
+
+          await actor.update({"data.attributes.overflow.value": overflow + add});
+          let chatData = {"content": "Overflow : " + overflow + "->" + (overflow + add) };
+          ChatMessage.create(chatData);
+        });
+
     }
 
 

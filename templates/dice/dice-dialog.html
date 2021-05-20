@@ -11,6 +11,15 @@
             <img class="spirit" width=45 height=45 data-key={{key}} data-value={{value}} src="systems/kamigakari/assets/dice/{{value}}.PNG">
             {{/each}}
             </div>
+
+            <b style="float: left; padding: 5px 0;">{{localize "KG.Overflow"}}</b>
+
+            <div style="text-align: right;" data-id="{{id}}">
+                <button type="button" class="add--overflow" data-add="-1" style="width: 8%"> - </button>
+                <span style="width: 8%; padding: 5px 0; height: 100%">{{overflow}}</span>
+                <button type="button" class="add--overflow" data-add="+1" style="width: 8%"> + </button>
+
+            </div>
         </div>
     {{/each}}
     </div>
