@@ -30,17 +30,37 @@ export class KamigakariActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
-    const data = super.getData();
-    data.dtypes = ["String", "Number", "Boolean"];
+  async getData(options) {
+    let isOwner = false;
+    let isEditable = this.isEditable;
+    let data = super.getData(options);
+    let items = {};
+    let actorData = {};
 
-    this._prepareCharacterItems(data);
+    isOwner = this.document.isOwner;
+    isEditable = this.isEditable;
+
+    // The Actor's data
+    actorData = this.actor.data.toObject(false);
+    data.actor = actorData;
+    data.data = actorData.data;
+
+    // Owned Items
+    data.items = actorData.items;
+    for ( let i of data.items ) {
+      const item = this.actor.items.get(i._id);
+      i.labels = item.labels;
+    }
+    data.items.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    
+
+    data.dtypes = ["String", "Number", "Boolean"];
+    this._prepareCharacterItems(actorData, data.items);
 
     return data;
   }
 
-  _prepareCharacterItems(sheetData) {
-    const actorData = sheetData.actor;
+  _prepareCharacterItems(actorData, items) {
     actorData.talentClassify = game.settings.get("kamigakari", "talentClassify")
 
     const race = [];
@@ -61,7 +81,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
     const attackOptions = [];
 
-    for (let i of sheetData.items) {
+    for (let i of items) {
       let item = i.data;
       i.img = i.img || DEFAULT_TOKEN;
       if (i.type == 'race')
@@ -117,7 +137,6 @@ export class KamigakariActorSheet extends ActorSheet {
     actorData.style = style;
     actorData.facade = facade;
 
-
     if (actorData.talentClassify) {
         actorData.raceTalents = raceTalents;
         actorData.styleTalents = styleTalents;
@@ -159,14 +178,14 @@ export class KamigakariActorSheet extends ActorSheet {
     html.find('.active-check').on('click', async ev => {
       event.preventDefault();
       const li = event.currentTarget.closest(".item");
-      const item = this.actor.getOwnedItem(li.dataset.itemId);
+      const item = this.actor.items.get(li.dataset.itemId);
       await item.update({'data.active': !item.data.data.active});
     });
 
     html.find('.active-equipment').on('click', async ev => {
       event.preventDefault();
       const li = event.currentTarget.closest(".item");
-      const item = this.actor.getOwnedItem(li.dataset.itemId);
+      const item = this.actor.items.get(li.dataset.itemId);
       await item.update({'data.equipment': !item.data.data.equipment});
     });
 
@@ -193,7 +212,7 @@ export class KamigakariActorSheet extends ActorSheet {
     // Use Item
     html.find(".use-item").click(this._useItem.bind(this));
 
-    if (this.actor.owner) {
+    if (this.document.isOwner) {
       let handler = ev => this._onDragStart(ev);
       html.find('li.item').each((i, li) => {
         if (li.classList.contains("inventory-header")) return;
@@ -358,7 +377,7 @@ export class KamigakariActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  _onItemCreate(event) {
+  async _onItemCreate(event) {
     event.preventDefault();
     const header = event.currentTarget;
     const type = header.dataset.type;
@@ -376,7 +395,7 @@ export class KamigakariActorSheet extends ActorSheet {
       data: data
     };
     delete itemData.data["type"];
-    return this.actor.createOwnedItem(itemData);
+    await this.actor.createEmbeddedDocuments('Item', [itemData], {});
   }
 
   /* -------------------------------------------- */
@@ -389,7 +408,7 @@ export class KamigakariActorSheet extends ActorSheet {
   _onItemEdit(event) {
     event.preventDefault();
     const li = event.currentTarget.closest(".item");
-    const item = this.actor.getOwnedItem(li.dataset.itemId);
+    const item = this.actor.items.get(li.dataset.itemId);
     item.sheet.render(true);
   }
 
@@ -403,7 +422,8 @@ export class KamigakariActorSheet extends ActorSheet {
   _onItemDelete(event) {
     event.preventDefault();
     const li = event.currentTarget.closest(".item");
-    this.actor.deleteOwnedItem(li.dataset.itemId);
+    let item = this.actor.items.get(li.dataset.itemId);
+    item.delete();
   }
 
   _showItemDetails(event) {
@@ -426,7 +446,7 @@ export class KamigakariActorSheet extends ActorSheet {
   async _useItem(event) {
     event.preventDefault();
     const useButton = $(event.currentTarget);
-    const item = this.actor.getOwnedItem(useButton.parents('.item')[0].dataset.itemId);
+    const item = this.actor.items.get(useButton.parents('.item')[0].dataset.itemId);
 
     this.actor._useItem(item);
   

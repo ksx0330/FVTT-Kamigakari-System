@@ -160,7 +160,7 @@ export class KamigakariActor extends Actor {
           default: "confirm"
       }).render(true);
     } else
-      this._doRollDice(a, l, 0);
+      await this._doRollDice(a, l, 0);
 
   }
 
@@ -192,17 +192,17 @@ export class KamigakariActor extends Actor {
     let template = 'systems/kamigakari/templates/chat/chat-move.html';
     // GM rolls.
     let chatData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this })
     };
 
     let rollMode = game.settings.get("core", "rollMode");
     if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+    if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
     if (rollMode === "blindroll") chatData["blind"] = true;
 
     let roll = new Roll(formula);
-    roll.roll();
+    roll.roll({async: false});
 
     let high = 0, count = 0;
     for (let side of roll.terms[0].results) {
@@ -294,11 +294,12 @@ export class KamigakariActor extends Actor {
               let rank = actorData.attributes.damage.rank + Number($("#rank").val());
               rank = (rank > 10) ? 10 : rank;
 
-              let formula = actorData.attributes.damage.high + " * " + rank + " + " + actorData.attributes.damage.add + "+" + $("#add").val()
-
+              let formula = actorData.attributes.damage.high + " * " + rank + " + " + actorData.attributes.damage.add;
+              if ($("#add").val() != "")
+                formula += "+" + $("#add").val();
 
               let roll = new Roll(formula, this.getRollData());
-              roll.roll();
+              roll.roll({async: false});
 
               let content = await roll.render();
               content += `<br><button type="button" class="apply-damage" data-type="${$("#type option:selected").val()}" data-damage="${roll.total}" data-rank="${rank}" data-high="${actorData.attributes.damage.high}" data-armor-reduce="${$("#armor_reduce").val()}" data-armor-half="${$("#armor_half").is(":checked")}" data-armor-ignore="${$("#armor_ignore").is(":checked")}" data-barrier-reduce="${$("#barrier_reduce").val()}" data-barrier-half="${$("#barrier_half").is(":checked")}" data-barrier-ignore="${$("#barrier_ignore").is(":checked")}">${game.i18n.localize("KG.ApplyDamage")}</button>`
@@ -322,7 +323,7 @@ export class KamigakariActor extends Actor {
   }
 
   _echoItemDescription(itemId) {
-    const item = this.getOwnedItem(itemId);
+    const item = this.items.get(itemId);
 
     let title = item.data.name;
     let description = item.data.data.description;
@@ -387,7 +388,7 @@ export class KamigakariActor extends Actor {
 
     // GM rolls.
     let chatData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this })
     };
 
@@ -411,7 +412,7 @@ export class KamigakariActor extends Actor {
   
       // GM rolls.
       let chatData = {
-        user: game.user._id,
+        user: game.user.id,
         speaker: ChatMessage.getSpeaker({ actor: this.actor })
       };
   

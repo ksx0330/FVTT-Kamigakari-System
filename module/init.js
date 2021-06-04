@@ -26,7 +26,7 @@ Hooks.once("init", async function() {
 
     Roll.TOOLTIP_TEMPLATE = "systems/kamigakari/templates/dice/tooltip.html";
 
-    CONFIG.Actor.entityClass = KamigakariActor;
+    CONFIG.Actor.documentClass = KamigakariActor;
 
     // Register sheet application classes
     Actors.unregisterSheet("core", ActorSheet);
@@ -157,7 +157,7 @@ async function chatListeners(html) {
       event.preventDefault();
       const data = ev.currentTarget.dataset;
       const actor = game.actors.get(data.actorId);
-      const item = actor.getOwnedItem(data.itemId);
+      const item = actor.items.get(data.itemId);
       actor._useItem(item);
     });
 
@@ -175,8 +175,8 @@ async function chatListeners(html) {
           label: "Use",
           callback: async () => {
             const actor = game.actors.get(data.actorId);
-            const item = actor.getOwnedItem(data.itemId);
-            const macro = game.macros.entities.find(m => (m.data.name === item.data.data.macro));
+            const item = actor.items.get(data.itemId);
+            const macro = game.macros.contents.find(m => (m.data.name === item.data.data.macro));
 
             await item.update({"data.active": true});
             if (item.data.data.roll == 'acc')
