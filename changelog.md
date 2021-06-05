@@ -120,3 +120,7 @@ Changelog
 
 0.8.3 - Update Spirit Dice viewer
   * Add overflow in Spirit Dice viewer
+
+0.8.4 - Bug fix
+  * Combat tracker is not working
+  * Talent's Disable timing is not working when setted after round, after battle

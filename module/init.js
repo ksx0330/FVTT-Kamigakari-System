@@ -34,13 +34,7 @@ Hooks.once("init", async function() {
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("kamigakari", KamigakariItemSheet, {makeDefault: true});
 
-    // Patch Core Functions
-    Combat.prototype._getInitiativeFormula = function(combatant) {
-        const actor = combatant.actor;
-        const init = actor.data.data.attributes.init.value;
-
-        return "" + init;
-    };
+    CONFIG.Combat.initiative.formula = "@attributes.init.value"
 
     KgRegisterHelpers.init();
 
@@ -124,11 +118,11 @@ Hooks.on("getSceneControlButtons", function(controls) {
 });
 
 Hooks.on("deleteCombat", async function (data, delta) {
-    console.log(data);
-    console.log(delta);
     for (let turn of data.turns) {
+	if (turn.actor.type == "enemy")
+	    continue;
+	
         for (let item of turn.actor.activeTalent) {
-            console.log(item);
             if (item.data.data.disable == 'battle')
                 await item.update({"data.active": false});
         }
@@ -140,6 +134,9 @@ Hooks.on("updateCombat", async function (data, delta) {
 
     if (Object.keys(delta).some((k) => k === "round")) {
         for (let turn of data.turns) {
+	    if (turn.actor.type == "enemy")
+		continue;
+	    
             for (let item of turn.actor.activeTalent)
                 if (item.data.data.disable == 'round')
                     await item.update({"data.active": false});
