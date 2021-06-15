@@ -124,3 +124,6 @@ Changelog
 0.8.4 - Bug fix
   * Combat tracker is not working
   * Talent's Disable timing is not working when setted after round, after battle
+  
+0.8.6 - Bug fix
+  * Fix Concept Destruction bug

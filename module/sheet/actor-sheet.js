@@ -590,7 +590,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
     console.log(roll);
 
-    await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll.results[0], 'data.attributes.destruction.value': roll.results[2]});
+    await this.actor.update({'data.attributes.spirit.value': this.actor.data.data.attributes.spirit.value - roll.terms[0].total, 'data.attributes.destruction.value': roll.terms[2].total});
 
   }
 
