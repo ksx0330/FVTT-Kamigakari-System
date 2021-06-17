@@ -127,3 +127,6 @@ Changelog
   
 0.8.6 - Bug fix
   * Fix Concept Destruction bug
+
+0.8.7 - Layout update
+  * Few layout enhancement of sheets(Thanks jbblily)
