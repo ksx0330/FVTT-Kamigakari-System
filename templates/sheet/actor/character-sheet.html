@@ -270,7 +270,7 @@
             <div class="tab description" data-group="primary" data-tab="description">
               <div class="sheet-tab">
 
-                <label class="title">{{localize "KG.Facade"}}: 
+                <label class="title">{{localize "KG.Facade"}} : 
                 {{#each actor.facade as |item id|}}
                   <span class="item" data-item-id="{{item._id}}">
                     <label>{{item.name}}</label>
@@ -278,10 +278,11 @@
                           <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></span>
                   </span>
                 {{/each}}
+                    <hr>
                 </label>
 
                 <div class="cell cell--bio">
-                  <label class="cell--title">{{localize "KG.Biography"}}</label>
+                  <label class="cell--title">{{localize "KG.Biography"}} : </label>
                   {{!-- We're avoiding WYSIWYGs... for now... --}}
                   {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}}
 
@@ -315,15 +316,18 @@
                     <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
                       {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
                       <h4 class="item-name">
-                        <span class="echo-item"><i class="fas fa-book"></i></span> 
-                        <span class="item-label">[{{item.data.condition}}] {{item.name}} |
-                        <b>{{localize "KG.Timing"}}</b> : {{item.data.timing}} |
-                        <b>{{localize "KG.Range"}}</b> : {{item.data.range}} |
-                        <b>{{localize "KG.Target"}}</b> : {{item.data.target}} |
-                        <b>{{localize "KG.Cost"}}</b> : {{item.data.cost}}
-
-                            <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
-
+                        <span class="echo-item" style="float:left;">
+                            <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
+                        </span> 
+                        <span class="item-label">[{{item.data.condition}}] {{item.name}}<br>
+                        <span style="color : gray; font-size : smaller;">
+                        {{localize "KG.Timing"}} : {{item.data.timing}} / 
+                        {{localize "KG.Range"}} : {{item.data.range}} / 
+                        {{localize "KG.Target"}} : {{item.data.target}} / 
+                        {{localize "KG.Cost"}} : {{item.data.cost}}
+                            <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
+                     </span></span>
+                   </h4>
                       <h4 class="item-addon">
                         <input type="checkbox" class="active-check" {{#if item.data.active}} checked {{/if}}>
                       </h4>
@@ -352,14 +356,18 @@
                     <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
                       {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
                       <h4 class="item-name">
-                        <span class="echo-item"><i class="fas fa-book"></i></span> 
-                        <span class="item-label">[{{item.data.condition}}] {{item.name}} |
-                        <b>{{localize "KG.Timing"}}</b> : {{item.data.timing}} |
-                        <b>{{localize "KG.Range"}}</b> : {{item.data.range}} |
-                        <b>{{localize "KG.Target"}}</b> : {{item.data.target}} |
-                        <b>{{localize "KG.Cost"}}</b> : {{item.data.cost}}
-                        <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span>
-                      </h4>
+                        <span class="echo-item" style="float:left;">
+                            <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
+                        </span> 
+                        <span class="item-label">[{{item.data.condition}}] {{item.name}}<br>
+                        <span style="color : gray; font-size : smaller;">
+                        {{localize "KG.Timing"}} : {{item.data.timing}} / 
+                        {{localize "KG.Range"}} : {{item.data.range}} / 
+                        {{localize "KG.Target"}} : {{item.data.target}} / 
+                        {{localize "KG.Cost"}} : {{item.data.cost}}
+                            <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
+                     </span></span>
+                   </h4>
 
                       <h4 class="item-addon">
                         <input type="checkbox" class="active-check" {{#if item.data.active}} checked {{/if}}>
@@ -389,13 +397,18 @@
                     <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
                       {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
                       <h4 class="item-name">
-                        <span class="echo-item"><i class="fas fa-book"></i></span> 
-                        <span class="item-label">[{{item.data.condition}}] {{item.name}} |
-                        <b>{{localize "KG.Timing"}}</b> : {{item.data.timing}} |
-                        <b>{{localize "KG.Range"}}</b> : {{item.data.range}} |
-                        <b>{{localize "KG.Target"}}</b> : {{item.data.target}} |
-                        <b>{{localize "KG.Cost"}}</b> : {{item.data.cost}}
-                        <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                        <span class="echo-item" style="float:left;">
+                            <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
+                        </span> 
+                        <span class="item-label">[{{item.data.condition}}] {{item.name}}<br>
+                        <span style="color : gray; font-size : smaller;">
+                        {{localize "KG.Timing"}} : {{item.data.timing}} / 
+                        {{localize "KG.Range"}} : {{item.data.range}} / 
+                        {{localize "KG.Target"}} : {{item.data.target}} / 
+                        {{localize "KG.Cost"}} : {{item.data.cost}}
+                            <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
+                     </span></span>
+                   </h4>
 
                       <h4 class="item-addon">
                         <input type="checkbox" class="active-check" {{#if item.data.active}} checked {{/if}}>
@@ -425,16 +438,18 @@
                   {{#each actor.talents as |item id|}}
                     <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
                       <h4 class="item-name">
-                        <span class="echo-item">
-                            <i class="fas fa-book"></i>
+                        <span class="echo-item" style="float:left;">
+                            <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
                         </span> 
-                        <span class="item-label">[{{item.data.condition}}] {{item.name}} |
-                        <b>{{localize "KG.Timing"}}</b> : {{item.data.timing}} |
-                        <b>{{localize "KG.Range"}}</b> : {{item.data.range}} |
-                        <b>{{localize "KG.Target"}}</b> : {{item.data.target}} |
-                        <b>{{localize "KG.Cost"}}</b> : {{item.data.cost}}
-
-                            <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                        <span class="item-label">[{{item.data.condition}}] {{item.name}}<br>
+                        <span style="color : gray; font-size : smaller;">
+                        {{localize "KG.Timing"}} : {{item.data.timing}} / 
+                        {{localize "KG.Range"}} : {{item.data.range}} / 
+                        {{localize "KG.Target"}} : {{item.data.target}} / 
+                        {{localize "KG.Cost"}} : {{item.data.cost}}
+                            <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
+                     </span></span>
+                   </h4>
 
                       <h4 class="item-addon">
                         <input type="checkbox" class="active-check" {{#if item.data.active}} checked {{/if}}>
@@ -477,10 +492,19 @@
                 {{#each actor.equipmentItems as |item id|}}
                   <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
                     {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
-                    <h4 class="item-name"><span class="echo-item"><i class="fas fa-book"></i></span> <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                    <h4 class="item-name"><span class="echo-item" style="float:left;">
+                    <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;"></span> 
+                    <span class="item-label">{{item.name}}<br>
+                    <span style="color : gray; font-size : smaller;"> 
+                    {{localize "KG.Form"}} : {{item.data.form}} / 
+                    {{localize "KG.Restrict"}} : {{item.data.restrict}} /
+                    {{localize "KG.Mode"}} : {{item.data.mode}}
+                    <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </span></span></h4>
                     <h4 class="item-addon">
                       <input type="checkbox" class="active-equipment" {{#if item.data.equipment}} checked {{/if}}>
                     </h4>
+
                     <div class="item-controls">
                       <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
@@ -505,7 +529,7 @@
                   <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
                     {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
                     <h4 class="item-name">
-                        <span class="echo-item"><i class="fas fa-book"></i></span> 
+                        <span class="echo-item"><img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;"></span> 
                         <span class="item-label">{{item.name}} ({{item.data.usage}}) X {{item.data.quantity}}
 
                             <span class="item-details-toggle">
@@ -544,7 +568,7 @@
                   <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
                     {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
                     <h4 class="item-name">
-                        <span class="echo-item"><i class="fas fa-book"></i></span> 
+                        <span class="echo-item"><img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;"></i></span> 
                         <span class="item-label">{{item.name}} ({{item.data.usage}}) X {{item.data.quantity}}
 
                             <span class="item-details-toggle">
@@ -586,8 +610,11 @@
                 {{#each actor.bonds as |item id|}}
                   <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
                     {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
-                    <h4 class="item-name"><span class="echo-item"><i class="fas fa-book"></i></span> <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
-                    <div class="item-controls">
+                    <h4 class="item-name">
+                      <span class="echo-item"><img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle; margin-right:10px;"></span> 
+                     <span class="item-label">{{item.name}}<span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span></span></h4>
+                    
+                      <div class="item-controls">
                       <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                     </div>
