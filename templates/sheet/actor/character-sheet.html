@@ -270,7 +270,7 @@
             <div class="tab description" data-group="primary" data-tab="description">
               <div class="sheet-tab">
 
-                <label class="title">{{localize "KG.Facade"}}: 
+                <label class="title">{{localize "KG.Facade"}} : 
                 {{#each actor.facade as |item id|}}
                   <span class="item" data-item-id="{{item._id}}">
                     <label>{{item.name}}</label>
@@ -278,10 +278,11 @@
                           <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a></span>
                   </span>
                 {{/each}}
+                    <hr>
                 </label>
 
                 <div class="cell cell--bio">
-                  <label class="cell--title">{{localize "KG.Biography"}}</label>
+                  <label class="cell--title">{{localize "KG.Biography"}} : </label>
                   {{!-- We're avoiding WYSIWYGs... for now... --}}
                   {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}}
 
