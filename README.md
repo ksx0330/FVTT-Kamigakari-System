@@ -16,6 +16,7 @@ Spirit Macro
 * Set Spirit Dice Pull - You can choose the number of spirit dice.
 * Influence - You can choose multiple dice exchange.
 * Update Enermy to Enemy - When you update from less than 0.4.0. You must run this macro.
+* Get Talent List - Sample macro of using TalentList Dialog.
 
 Features
 -------------
@@ -70,7 +71,7 @@ Image
 <img src="https://user-images.githubusercontent.com/15700174/122645451-98263c00-d155-11eb-8863-bca635ebee2e.png" width="60%">
 
 3. Spirit Dice Viewer
-<img src="https://user-images.githubusercontent.com/15700174/122645466-ac6a3900-d155-11eb-97a6-8a6021309470.png" width="60%">
+<img src="https://user-images.githubusercontent.com/15700174/122645466-ac6a3900-d155-11eb-97a6-8a6021309470.png" width="45%">
 
 4. Influence
 <img src="https://user-images.githubusercontent.com/15700174/94505534-44319b00-0246-11eb-9c35-def8327609b3.png" width="45%">
