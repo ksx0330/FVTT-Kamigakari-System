@@ -49,20 +49,28 @@ Features
   * Click Scene controls' yin-yang icon button.
   * Choose what you want to view spirit dice. (This list is only showed if the characters' default permission is Owner)
 
+* Automatic combat round
+  * When [Timing: Start], [Timing: End], [Timing: Prep], [Timing: Attck], you can click what do you want to action.
+  * When round id ended, your spirit dice is recharged and overflow is removed
+
 Image
 -------------
 1. Character sheet
 <img src="https://user-images.githubusercontent.com/15700174/98834488-9d662e80-2482-11eb-92f3-0bd21328b74e.png" width="60%">
 
-<img src="https://user-images.githubusercontent.com/15700174/98834768-ed44f580-2482-11eb-8f0a-b77792510395.png" width="60%">
+<img src="https://user-images.githubusercontent.com/15700174/122645326-fdc5f880-d154-11eb-9ab3-d768c420ac87.png" width="60%">
 
-<img src="https://user-images.githubusercontent.com/15700174/98834866-0d74b480-2483-11eb-996a-df1cf01e2311.png" width="60%">
+<img src="https://user-images.githubusercontent.com/15700174/122645352-31088780-d155-11eb-9010-d31460aff5eb.png" width="60%">
 
 2. Enermy sheet
-<img src="https://user-images.githubusercontent.com/15700174/93172611-2c4a1980-f766-11ea-901f-07e09b11b0c9.PNG" width="60%">
+<img src="https://user-images.githubusercontent.com/15700174/122645378-58f7eb00-d155-11eb-86e2-12bfb39b057d.png" width="60%">
+
+<img src="https://user-images.githubusercontent.com/15700174/122645426-82b11200-d155-11eb-81af-32dffd042fef.png" width="60%">
+
+<img src="https://user-images.githubusercontent.com/15700174/122645451-98263c00-d155-11eb-8863-bca635ebee2e.png" width="60%">
 
 3. Spirit Dice Viewer
-<img src="https://user-images.githubusercontent.com/15700174/94503911-8d7feb80-0242-11eb-887e-55e659ee916c.PNG" width="60%">
+<img src="https://user-images.githubusercontent.com/15700174/122645466-ac6a3900-d155-11eb-97a6-8a6021309470.png" width="60%">
 
 4. Influence
 <img src="https://user-images.githubusercontent.com/15700174/94505534-44319b00-0246-11eb-9c35-def8327609b3.png" width="45%">
@@ -73,3 +81,9 @@ Image
 <img src="https://user-images.githubusercontent.com/15700174/98834239-4fe9c180-2482-11eb-8c71-b980e9199d45.png" width="45%">
 
 <img src="https://user-images.githubusercontent.com/15700174/98834361-76a7f800-2482-11eb-9488-ddb4a64707b4.png" width="45%">
+
+6. Combat Tracker
+<img src="https://user-images.githubusercontent.com/15700174/122645545-e0455e80-d155-11eb-9512-e5531373258d.png" width="45%">
+
+<img src="https://user-images.githubusercontent.com/15700174/122645573-f5ba8880-d155-11eb-80ba-5605334740b8.png" width="45%">
+
