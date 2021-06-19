@@ -304,7 +304,7 @@ export class KamigakariActor extends Actor {
               let content = await roll.render();
               content += `<br><button type="button" class="apply-damage" data-type="${$("#type option:selected").val()}" data-damage="${roll.total}" data-rank="${rank}" data-high="${actorData.attributes.damage.high}" data-armor-reduce="${$("#armor_reduce").val()}" data-armor-half="${$("#armor_half").is(":checked")}" data-armor-ignore="${$("#armor_ignore").is(":checked")}" data-barrier-reduce="${$("#barrier_reduce").val()}" data-barrier-half="${$("#barrier_half").is(":checked")}" data-barrier-ignore="${$("#barrier_ignore").is(":checked")}">${game.i18n.localize("KG.ApplyDamage")}</button>`
 
-              let chatData = {"content": content, "speaker": ChatMessage.getSpeaker({ actor: this.actor })};
+              let chatData = {"content": content, "speaker": ChatMessage.getSpeaker({ actor: this })};
               ChatMessage.create(chatData);
 
               await this.update({"data.attributes.destruction.value": 0});
@@ -341,7 +341,7 @@ export class KamigakariActor extends Actor {
                       </tr>
 
                       <tr>
-                        <td>${item.data.data.timing}</td>
+                        <td>${(item.data.data.timing != "") ? game.i18n.localize("KG." + item.data.data.timing) : ""}</td>
                         <td>${item.data.data.range}</td>
                         <td>${item.data.data.target}</td>
                         <td>${item.data.data.cost}</td>
@@ -413,7 +413,7 @@ export class KamigakariActor extends Actor {
       // GM rolls.
       let chatData = {
         user: game.user.id,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor })
+        speaker: ChatMessage.getSpeaker({ actor: this })
       };
   
       renderTemplate(template, templateData).then(content => {

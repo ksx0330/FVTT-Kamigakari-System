@@ -2,9 +2,9 @@
   "name": "kamigakari",
   "title": "Kamigakari: God Hunter",
   "description": "Urban fantasy action trpg, Kamigakari System",
-  "version": "0.8.7",
+  "version": "1.0.0",
   "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "0.8.6",
+  "compatibleCoreVersion": "0.8.7",
   "templateVersion": 11,
   "author": "LTaeng",
   "esmodules": ["module/init.js"],
@@ -36,6 +36,13 @@
       "label": "Item Macro",
       "system": "kamigakari",
       "path": "./packs/item-macro.db",
+      "entity": "Macro"
+    },
+    {
+      "name": "Get-Talent-List",
+      "label": "Get Talent List",
+      "system": "kamigakari",
+      "path": "./packs/get-talent-list.db",
       "entity": "Macro"
     }
   ],

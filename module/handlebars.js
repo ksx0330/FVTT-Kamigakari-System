@@ -4,6 +4,8 @@ export class KgRegisterHelpers {
       return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
     });
 
-
+    Handlebars.registerHelper('local', function(arg) {
+      return (arg != "") ? game.i18n.localize("KG." + arg) : "";
+    });
   }
 }

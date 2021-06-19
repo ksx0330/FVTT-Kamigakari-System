@@ -6,7 +6,9 @@ import { KamigakariActor } from "./actor/actor.js";
 import { KamigakariActorSheet } from "./sheet/actor-sheet.js";
 import { InfluenceDialog } from "./dialog/influence-dialog.js";
 import { ActorListDialog } from "./dialog/actor-list-dialog.js";
+import { TalentDialog } from "./dialog/talent-dialog.js";
 import { KgRegisterHelpers } from "./handlebars.js";
+import { KamigakariCombat } from "./combat.js";
 
 import { createWorldbuildingMacro } from "./macro.js";
 
@@ -20,9 +22,10 @@ Hooks.once("init", async function() {
 	game.kamigakari = {
 		influence,
 		setSpiritDice,
-        showSpiritDiceViewer,
-        SpiritDiceViewer: []
-	  };
+		TalentDialog,
+		showSpiritDiceViewer,
+		SpiritDiceViewer: [],
+	};
 
     Roll.TOOLTIP_TEMPLATE = "systems/kamigakari/templates/dice/tooltip.html";
 
@@ -34,6 +37,7 @@ Hooks.once("init", async function() {
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("kamigakari", KamigakariItemSheet, {makeDefault: true});
 
+    CONFIG.Combat.documentClass = KamigakariCombat;
     CONFIG.Combat.initiative.formula = "@attributes.init.value"
 
     KgRegisterHelpers.init();
@@ -61,7 +65,7 @@ Hooks.once("init", async function() {
 
 Hooks.on('createActor', async (actor, options, id) => {
 
-	if (actor.data.data.details.basic == "") {
+	if (actor.isOwner && actor.data.data.details.basic == "") {
 		await actor.update({'data.details.basic': game.i18n.localize("KG.EnermyDefault") })
 	}
 });
@@ -131,6 +135,9 @@ Hooks.on("deleteCombat", async function (data, delta) {
 });
 
 Hooks.on("updateCombat", async function (data, delta) {
+    var close = true;
+    if (delta.round == 0 || delta.active == true)
+	return;
 
     if (Object.keys(delta).some((k) => k === "round")) {
         for (let turn of data.turns) {
@@ -140,8 +147,316 @@ Hooks.on("updateCombat", async function (data, delta) {
             for (let item of turn.actor.activeTalent)
                 if (item.data.data.disable == 'round')
                     await item.update({"data.active": false});
+		    
+	    if (delta.round != 1) {
+		var dices = JSON.parse(JSON.stringify(turn.actor.data.data.attributes.spirit_dice.value));
+		for (var i = 0; i < dices.length; ++i) {
+		    if (dices[i] != 0)
+			continue;
+		    dices[i] = Math.floor(Math.random() * 6) + 1;
+		}
+
+		await turn.actor.update({"data.attributes.spirit_dice.value": dices, "data.attributes.overflow.value": 0});
+	    }
         }
     }
+    
+    
+    var start = new Dialog({
+	title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Start"),
+	content: `
+	    <h2>${game.i18n.localize("KG.ActionQuestion")}</h2>
+	`,
+	buttons: {
+	    action1: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action1"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Start") + ": " + game.i18n.localize("KG.Action1")};
+		    ChatMessage.create(chatData);
+		    
+		    new TalentDialog(game.user.character, "Start").render(true);
+		}
+	    },
+	    action2: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action2"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Start") + ": " + game.i18n.localize("KG.Action2")};
+		    ChatMessage.create(chatData);
+		}
+	    }
+	}
+    }, {top: 300, left: 20});
+    
+    var end = new Dialog({
+	title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.End"),
+	content: `
+	    <h2>${game.i18n.localize("KG.ActionQuestion")}</h2>
+	`,
+	buttons: {
+	    action1: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action1"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.End") + ": " + game.i18n.localize("KG.Action1")};
+		    ChatMessage.create(chatData);
+		    
+		    new TalentDialog(game.user.character, "End").render(true);
+		}
+	    },
+	    action2: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action2"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.End") + ": " + game.i18n.localize("KG.Action2")};
+		    ChatMessage.create(chatData);
+		}
+	    }
+	}
+    }, {top: 300, left: 20});
+    
+    var prep = new Dialog({
+	title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Prep"),
+	content: `
+	    <h2>${game.i18n.localize("KG.ActionQuestion")}</h2>
+	    <style>
+		.battle .dialog-buttons {
+		    flex-direction: column;
+		}
+	    </style>
+	`,
+	buttons: {
+	    action1: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action1"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action1")};
+		    ChatMessage.create(chatData);
+		    
+		    new TalentDialog(game.user.character, "Prep").render(true);
+		    close = false;
+		}
+	    },
+	    action2: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action2"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action2")};
+		    ChatMessage.create(chatData);
+		    
+		    close = true;
+		}
+	    },
+	    action3: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action3"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action3")};
+		    ChatMessage.create(chatData);
+		    
+		    close = false;
+		}
+	    },
+	    action4: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action6"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action6")};
+		    ChatMessage.create(chatData);
+		    
+		    combatant.actor.sheet.render(true);
+		    close = false;
+		}
+	    },
+	    action5: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action7"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action7")};
+		    ChatMessage.create(chatData);
+		    
+		    combatant.actor.sheet.render(true);
+		    close = false;
+		}
+	    },
+	    action6: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action14"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action14")};
+		    ChatMessage.create(chatData);
+		    
+		    close = true;
+		}
+	    }
+	},
+	close: () => {
+	    if (!close) {
+		new Dialog({
+		    title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Prep"),
+		    content: `
+			<h2>${game.i18n.localize("KG.SpentTiming")}</h2>
+		    `,
+		    buttons: {
+			confirm: {
+			    icon: '<i class="fas fa-check"></i>',
+			    label: "Confirm",
+			    callback: () => attack.render(true)
+			},
+			cancel: {
+			    icon: '<i class="fas fa-times"></i>',
+			    label: "Cancel",
+			    callback: () => prep.render(true)
+			}
+		    }
+		}, {top: 300, left: 20}).render(true);
+	    } else
+		attack.render(true);
+	    
+	}
+    }, {classes: ["kamigakari", "dialog", "battle"], top: 300, left: 20});
+    
+    var attack = new Dialog({
+	title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Attack"),
+	content: `
+	    <h2>${game.i18n.localize("KG.ActionQuestion")}</h2>
+	    <style>
+		.battle .dialog-buttons {
+		    flex-direction: column;
+		}
+	    </style>
+	`,
+	buttons: {
+	    action1: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action1"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action1")};
+		    ChatMessage.create(chatData);
+		    
+		    new TalentDialog(game.user.character, "Attack").render(true);
+		    close = false;
+		}
+	    },
+	    action2: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action2"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action2")};
+		    ChatMessage.create(chatData);
+		    
+		    close = true;
+		}
+	    },
+	    action3: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action3"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action3")};
+		    ChatMessage.create(chatData);
+		    close = false;
+		}
+	    },
+	    action4: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action6"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action6")};
+		    ChatMessage.create(chatData);
+		    
+		    combatant.actor.sheet.render(true);
+		    close = false;
+		}
+	    },
+	    action5: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action7"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action7")};
+		    ChatMessage.create(chatData);
+		    
+		    combatant.actor.sheet.render(true);
+		    close = false;
+		}
+	    },
+	    action6: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action9"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action9")};
+		    ChatMessage.create(chatData);
+		    
+		    combatant.actor.sheet.render(true);
+		    close = false;
+		}
+	    },
+	    action7: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action10"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action10")};
+		    ChatMessage.create(chatData);
+		    close = false;
+		}
+	    },
+	    action8: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action11"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action11")};
+		    ChatMessage.create(chatData);
+		    		    
+		    combatant.actor.sheet.render(true);
+		    close = false;
+		}
+	    },
+	    action9: {
+		icon: '<i class="fas fa-check"></i>',
+		label: game.i18n.localize("KG.Action12"),
+		callback: () => {
+		    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action12")};
+		    ChatMessage.create(chatData);
+		    		    
+		    combatant.actor.sheet.render(true);
+		    close = false;
+		}
+	    }
+	},
+	close: () => {
+	    if (!close) {
+		new Dialog({
+		    title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Attack"),
+		    content: `
+			<h2>${game.i18n.localize("KG.SpentTiming")}</h2>
+		    `,
+		    buttons: {
+			confirm: {
+			    icon: '<i class="fas fa-check"></i>',
+			    label: "Confirm"
+			},
+			cancel: {
+			    icon: '<i class="fas fa-times"></i>',
+			    label: "Cancel",
+			    callback: () => attack.render(true)
+			}
+		    }
+		}, {top: 300, left: 20}).render(true);
+	    }
+	    
+	}
+    }, {classes: ["kamigakari", "dialog", "battle"], top: 300, left: 20});
+    
+    
+    
+    var combatant = data.turns[(delta.turn == undefined) ? 0 : delta.turn];
+    if (combatant.data.name == "[" +  game.i18n.localize("KG.Start") + "]" && game.user.name != "Gamemaster")
+	start.render(true);
+    else if (combatant.data.name == "[" +  game.i18n.localize("KG.End") + "]" && game.user.name != "Gamemaster")
+	end.render(true);
+    else if (game.user.character != undefined && game.user.character.id == combatant.actor.id)
+	prep.render(true);
+    
 });
 
 Hooks.on("hotbarDrop", (bar, data, slot) => createWorldbuildingMacro(data, slot));
@@ -174,31 +489,45 @@ async function chatListeners(html) {
             const actor = game.actors.get(data.actorId);
             const item = actor.items.get(data.itemId);
             const macro = game.macros.contents.find(m => (m.data.name === item.data.data.macro));
+	    
+	    new Dialog({
+		title: 'Select Targets',
+		content: `
+		  <h2>${game.i18n.localize("KG.SelectTarget")}</h2>
+		`,
+		buttons: {
+		  confirm: {
+		    icon: '<i class="fas fa-check"></i>',
+		    label: "Confirm",
+		    callback: async () => {
+			await item.update({"data.active": true});
+			if (item.data.data.roll == 'acc')
+			  actor._rollDice('acc', game.i18n.localize("KG.AbilityACC"));
+			else if (item.data.data.roll == 'cnj')
+			  actor._rollDice('cnj', game.i18n.localize("KG.AbilityCNJ"));
 
-            await item.update({"data.active": true});
-            if (item.data.data.roll == 'acc')
-              actor._rollDice('acc', game.i18n.localize("KG.AbilityACC"));
-            else if (item.data.data.roll == 'cnj')
-              actor._rollDice('cnj', game.i18n.localize("KG.AbilityCNJ"));
+			ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
 
-            ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
+			if (macro != undefined)
+			    macro.execute();
+			else if (item.data.data.macro != "")
+			    new Dialog({
+				title: "macro",
+				content: `Do not find this macro: ${item.data.data.macro}`,
+				buttons: {}
+			    }).render(true);
+		    }
+		  }
+		},
+		default: "confirm"
+	    }, {top: 300, left: 20}).render(true);
 
-            if (macro != undefined)
-                macro.execute();
-            else if (item.data.data.macro != "")
-                new Dialog({
-                    title: "macro",
-                    content: `Do not find this macro: ${item.data.data.macro}`,
-                    buttons: {}
-                }).render(true);
           }
 
         }
       }
 
       var dialog = new DicesDialog([data.actorId], buttons).render(true);
-
-
     });
 
     html.on('click', '.calc-damage', async ev => {
@@ -380,3 +709,4 @@ function showSpiritDiceViewer() {
     let dialog = new ActorListDialog(actors)
     dialog.render(true);
 }
+

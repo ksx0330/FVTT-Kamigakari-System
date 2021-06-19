@@ -130,3 +130,10 @@ Changelog
 
 0.8.7 - Layout update
   * Few layout enhancement of sheets(Thanks jbblily)
+
+1.0.0 - Combat Enhancement
+  * Automate actions that can be used for timing
+  * Automate recharge spirit dice when round is ended
+  * Talant sheet's timing change to select box
+  * Add some macros to view character's talent
+  * Some bug fix

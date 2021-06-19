@@ -59,7 +59,17 @@
 
             <div class="cell cell--talent">
               <label for="data.timing" class="cell--title">{{localize "KG.Timing"}}</label>
-              <input type="text" name="data.timing" value="{{data.timing}}" data-dtype="String"/>
+              <select class="width-100" name="data.timing" data-dtype="String">
+                {{#select data.timing}}
+                <option value="Start">{{localize "KG.Start"}}</option>
+                <option value="Prep">{{localize "KG.Prep"}}</option>
+                <option value="Attack">{{localize "KG.Attack"}}</option>
+                <option value="Defense">{{localize "KG.Defense"}}</option>
+                <option value="End">{{localize "KG.End"}}</option>
+                <option value="Constant">{{localize "KG.Constant"}}</option>
+                <option value="Free">{{localize "KG.Free"}}</option>
+                {{/select}}
+              </select>
             </div>
 
             <div class="cell cell--talent">
