@@ -23,6 +23,7 @@ Hooks.once("init", async function() {
 		influence,
 		setSpiritDice,
 		TalentDialog,
+		DicesDialog,
 		showSpiritDiceViewer,
 		SpiritDiceViewer: [],
 	};
