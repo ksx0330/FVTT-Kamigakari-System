@@ -137,3 +137,6 @@ Changelog
   * Talant sheet's timing change to select box
   * Add some macros to view character's talent
   * Some bug fix
+
+1.0.1 - Token Hud Support
+  * Compatibility patch for tokenhud module

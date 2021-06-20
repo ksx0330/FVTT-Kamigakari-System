@@ -22,7 +22,7 @@ export class KamigakariActor extends Actor {
       "wil_roll": { "value": 0 },
       "lck_roll": { "value": 0 },
       "acc": { "value": 0 },
-      "eva": { "value": 0 },
+      "eva": { "value": 0},
       "cnj": { "value": 0 },
       "res": { "value": 0 },
       "ins": { "value": 0 },
@@ -132,6 +132,17 @@ export class KamigakariActor extends Actor {
 
     for (const [key, value] of Object.entries(values))
       this.data.data.attributes[key].value = value.value;
+      
+    this.data.data.attributes['str'].label = game.i18n.localize("KG.AbilitySTR");
+    this.data.data.attributes['agi'].label = game.i18n.localize("KG.AbilityAGI");
+    this.data.data.attributes['int'].label = game.i18n.localize("KG.AbilityINT");
+    this.data.data.attributes['wil'].label = game.i18n.localize("KG.AbilityWIL");
+    this.data.data.attributes['lck'].label = game.i18n.localize("KG.AbilityLCK");
+    this.data.data.attributes['acc'].label = game.i18n.localize("KG.AbilityACC");
+    this.data.data.attributes['eva'].label = game.i18n.localize("KG.AbilityEVA");
+    this.data.data.attributes['cnj'].label = game.i18n.localize("KG.AbilityCNJ");
+    this.data.data.attributes['res'].label = game.i18n.localize("KG.AbilityRES");
+    this.data.data.attributes['ins'].label = game.i18n.localize("KG.AbilityINS");
 
     this.activeTalent = talents;
   }
@@ -144,7 +155,7 @@ export class KamigakariActor extends Actor {
     return values;
   }
 
-  async _rollDice(a, l) {
+  async _rollDice(a) {
     var rollAddon = game.settings.get("kamigakari", "rollAddon");
     if (rollAddon) {
       new Dialog({
@@ -154,17 +165,17 @@ export class KamigakariActor extends Actor {
             confirm: {
               icon: '<i class="fas fa-check"></i>',
               label: "Confirm",
-              callback: () => this._doRollDice(a, l, $("#add").val())
+              callback: () => this._doRollDice(a, $("#add").val())
             }
           },
           default: "confirm"
       }).render(true);
     } else
-      await this._doRollDice(a, l, 0);
+      await this._doRollDice(a, 0);
 
   }
 
-  async _doRollDice(a, l, p) {
+  async _doRollDice(a, p) {
     let dice = null;
     let formula = null;
     let flavorText = null;
@@ -185,7 +196,7 @@ export class KamigakariActor extends Actor {
       formula += "+" + p;
 
     templateData = {
-      title: l
+      title: ability.label
     };
 
     // Render the roll.
@@ -433,6 +444,147 @@ export class KamigakariActor extends Actor {
 
     }
   
+  }
+  
+  
+  /* Spirit Burn */
+  async _transcend() {
+    new Dialog({
+        title: 'Change Spirit Dice',
+        content: `
+          <h2>${game.i18n.localize("KG.TranscendAlert")}</h2>
+          <div style="margin: 4px 0;"><input type="number" id="dice-num"/></div>
+          <script>$("#dice-num").focus()</script>
+        `,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: async () => {
+              var answer = $("#dice-num").val();
+
+              if (!isNaN(answer) && answer != null && answer >= 1 && answer <= 3) {
+                await this.update({'data.attributes.transcend.value': answer});
+
+                let templateData = {
+                  title: game.i18n.localize("KG.Transcend")
+                };
+            
+                // Render the roll.
+                let template = 'systems/kamigakari/templates/chat/chat-move.html';
+                // GM rolls.
+                let chatData = {
+                  user: game.user._id,
+                  speaker: ChatMessage.getSpeaker({ actor: this })
+                };
+            
+                let rollMode = game.settings.get("core", "rollMode");
+                if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+                if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+                if (rollMode === "blindroll") chatData["blind"] = true;
+            
+                let roll = new Roll(answer + "d6");
+                roll.roll();
+
+                roll.render().then(r => {
+                  templateData.rollDw = r;
+                  renderTemplate(template, templateData).then(content => {
+                    chatData.content = content;
+                    if (game.dice3d) {
+                      game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
+                    }
+                    else {
+                      chatData.sound = CONFIG.sounds.dice;
+                      ChatMessage.create(chatData);
+                    }
+                  });
+                });
+                await this.update({'data.attributes.spirit.value': this.data.data.attributes.spirit.value - roll.result});
+              }
+
+            }
+          }
+        },
+        default: "confirm"
+    }).render(true);
+
+  }
+
+  async _vitalIgnition() {
+    let templateData = {
+      title: game.i18n.localize("KG.VitalIgnition")
+    };
+
+    // Render the roll.
+    let template = 'systems/kamigakari/templates/chat/chat-move.html';
+    // GM rolls.
+    let chatData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this })
+    };
+
+    let rollMode = game.settings.get("core", "rollMode");
+    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+    if (rollMode === "blindroll") chatData["blind"] = true;
+
+    let roll = new Roll("2d6");
+    roll.roll();
+    roll.render().then(r => {
+      templateData.rollDw = r;
+      renderTemplate(template, templateData).then(content => {
+        chatData.content = content;
+        if (game.dice3d) {
+          game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
+        }
+        else {
+          chatData.sound = CONFIG.sounds.dice;
+          ChatMessage.create(chatData);
+        }
+      });
+    });
+
+    await this.update({'data.attributes.hp.value': this.data.data.attributes.str.value, 'data.attributes.spirit.value': this.data.data.attributes.spirit.value - roll.result});
+  }
+
+  async _conceptDestruction() {
+    let templateData = {
+      title: game.i18n.localize("KG.ConceptDestruction")
+    };
+
+    // Render the roll.
+    let template = 'systems/kamigakari/templates/chat/chat-move.html';
+    // GM rolls.
+    let chatData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this })
+    };
+
+    let rollMode = game.settings.get("core", "rollMode");
+    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+    if (rollMode === "blindroll") chatData["blind"] = true;
+
+    let roll = new Roll("2d6 + 1d6");
+    roll.roll();
+    await roll.render().then(r => {
+      templateData.rollDw = r;
+      renderTemplate(template, templateData).then(content => {
+        chatData.content = content;
+        if (game.dice3d) {
+          game.dice3d.showForRoll(roll, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));
+        }
+        else {
+          chatData.sound = CONFIG.sounds.dice;
+          ChatMessage.create(chatData);
+        }
+      });
+    });
+
+    console.log(roll);
+
+    await this.update({'data.attributes.spirit.value': this.data.data.attributes.spirit.value - roll.terms[0].total, 'data.attributes.destruction.value': roll.terms[2].total});
+
   }
 
 

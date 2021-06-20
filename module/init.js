@@ -503,9 +503,9 @@ async function chatListeners(html) {
 		    callback: async () => {
 			await item.update({"data.active": true});
 			if (item.data.data.roll == 'acc')
-			  actor._rollDice('acc', game.i18n.localize("KG.AbilityACC"));
+			  actor._rollDice('acc');
 			else if (item.data.data.roll == 'cnj')
-			  actor._rollDice('cnj', game.i18n.localize("KG.AbilityCNJ"));
+			  actor._rollDice('cnj');
 
 			ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
 
