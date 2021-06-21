@@ -140,3 +140,6 @@ Changelog
 
 1.0.1 - Token Hud Support
   * Compatibility patch for tokenhud module
+
+1.0.2 - Bug fix
+  * Fix that combat initiative is not rolled when first time

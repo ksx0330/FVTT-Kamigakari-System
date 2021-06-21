@@ -4,7 +4,6 @@ export class KamigakariCombat extends Combat {
   /** @inheritdoc */
   async _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
-    if ( !this.collection.viewed ) ui.combat.initialize({combat: this});
     if (game.user.id != userId)
       return;
     
@@ -22,6 +21,8 @@ export class KamigakariCombat extends Combat {
     
     await this.createEmbeddedDocuments("Combatant", [{actorId: battle.id, name: startLabel, initiative: 99}], {});
     await this.createEmbeddedDocuments("Combatant", [{actorId: battle.id, name: endLabel, initiative: -1}], {});
+    
+    if ( !this.collection.viewed ) ui.combat.initialize({combat: this});
   }
 	
   /** @Override */
