@@ -189,5 +189,7 @@
     "SETTINGS.TalentClassify": "탤런트 분류",
     "SETTINGS.TalentClassifyDesc": "탤런트를 종족, 칭호, 일반으로 분류해서 표현합니다",
     "SETTINGS.RollAddon": "수정치 추가",
-    "SETTINGS.RollAddonDesc": "롤을 할 때 추가 수정치를 입력할 수 있는 다이얼로그가 나옵니다."
+    "SETTINGS.RollAddonDesc": "롤을 할 때 추가 수정치를 입력할 수 있는 다이얼로그가 나옵니다.",
+    "SETTINGS.TimingDialog": "타이밍 다이얼로그",
+    "SETTINGS.TimingDialogDesc": "[개시], [종료], [준비], [공격] 타이밍이 생겼을 때, 액션 다이얼로그를 생성한다."
 }

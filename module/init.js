@@ -47,16 +47,25 @@ Hooks.once("init", async function() {
     game.settings.register("kamigakari", "talentClassify", {
         name: "SETTINGS.TalentClassify",
         hint: "SETTINGS.TalentClassifyDesc",
-        scope: "world",
+        scope: "client",
         type: Boolean,
         default: true,
         config: true
+    });
+    
+    game.settings.register("kamigakari", "timingDialog", {
+	name: "SETTINGS.TimingDialog",
+	hint: "SETTINGS.TimingDialogDesc",
+	scope: "client",
+	type: Boolean,
+	default: true,
+	config: true
     });
 
     game.settings.register("kamigakari", "rollAddon", {
         name: "SETTINGS.RollAddon",
         hint: "SETTINGS.RollAddonDesc",
-        scope: "world",
+        scope: "client",
         type: Boolean,
         default: false,
         config: true
@@ -162,6 +171,10 @@ Hooks.on("updateCombat", async function (data, delta) {
         }
     }
     
+    if (!game.settings.get("kamigakari", "timingDialog"))
+	return;
+    if (game.user.character === undefined || game.user.character.type === "enemy")
+	return;
     
     var start = new Dialog({
 	title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Start"),
@@ -451,11 +464,11 @@ Hooks.on("updateCombat", async function (data, delta) {
     
     
     var combatant = data.turns[(delta.turn == undefined) ? 0 : delta.turn];
-    if (combatant.data.name == "[" +  game.i18n.localize("KG.Start") + "]" && game.user.name != "Gamemaster")
+    if (combatant.data.name == "[" +  game.i18n.localize("KG.Start") + "]")
 	start.render(true);
-    else if (combatant.data.name == "[" +  game.i18n.localize("KG.End") + "]" && game.user.name != "Gamemaster")
+    else if (combatant.data.name == "[" +  game.i18n.localize("KG.End") + "]")
 	end.render(true);
-    else if (game.user.character != undefined && game.user.character.id == combatant.actor.id)
+    else if (game.user.character.id == combatant.actor.id)
 	prep.render(true);
     
 });

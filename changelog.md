@@ -143,3 +143,6 @@ Changelog
 
 1.0.2 - Bug fix
   * Fix that combat initiative is not rolled when first time
+  
+1.0.3 - Add Setting
+  * Add Setting of timing Dialog
