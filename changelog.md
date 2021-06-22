@@ -146,3 +146,6 @@ Changelog
   
 1.0.3 - Add Setting
   * Add Setting of timing Dialog
+  
+1.0.4 - Add Suport
+  * Add suport of Combat carousel
