@@ -6,21 +6,44 @@ export class KamigakariCombat extends Combat {
     super._onCreate(data, options, userId);
     if (game.user.id != userId)
       return;
-    
+      
     var battle = null;
-    var startLabel = "[" + game.i18n.localize("KG.Start") + "]", endLabel = "[" + game.i18n.localize("KG.End") + "]";
+    var startActor = null, startLabel = "[" + game.i18n.localize("KG.Start") + "]";
+    var endActor = null, endLabel = "[" + game.i18n.localize("KG.End") + "]"
+    
+    this.startToken = null
+    this.endToken = null
+    
     for (var a of game.actors) {
-      if (a.data.name == "[battle]") {
-        battle = a;
-        break;
-      }
+      if (a.data.name == startLabel)
+        startActor = a;
+      else if (a.data.name == endLabel)
+        endActor = a;
     }
     
-    if (battle == null)
-      battle = await Actor.create({name: "[battle]", type: "enemy", data: {}});
+    if (startActor == null)
+      startActor = await Actor.create({name: startLabel, type: "enemy", data: {}});
+    if (endActor == null)
+      endActor = await Actor.create({name: endLabel, type: "enemy", data: {}});
+
+
+    var token = null;
+    for (var a of this.scene.tokens) {
+      if (a.data.name == startLabel)
+        this.startToken = a;
+      else if (a.data.name == endLabel)
+        this.endToken = a;
+    }
     
-    await this.createEmbeddedDocuments("Combatant", [{actorId: battle.id, name: startLabel, initiative: 99}], {});
-    await this.createEmbeddedDocuments("Combatant", [{actorId: battle.id, name: endLabel, initiative: -1}], {});
+    if (this.startToken == null)
+      this.startToken = (await this.scene.createEmbeddedDocuments("Token", [{alpha: 0, actorId: startActor.id}], {}))[0];
+    if (this.endToken == null)
+      this.endToken = (await this.scene.createEmbeddedDocuments("Token", [{alpha: 0, actorId: endActor.id}], {}))[0];
+      
+    console.log(this.startToken);
+    console.log(this.endToken);
+
+    await this.createEmbeddedDocuments("Combatant", [{actorId: startActor.id, tokenId: this.startToken.id, name: startLabel, initiative: 99}, {actorId: endActor.id, tokenId: this.endToken.id, name: endLabel, initiative: -1}], {});
     
     if ( !this.collection.viewed ) ui.combat.initialize({combat: this});
   }
@@ -62,5 +85,14 @@ export class KamigakariCombat extends Combat {
   }
 
   /* -------------------------------------------- */	
+  
+   /** @Override */
+  async _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    
+    await this.startToken.delete();
+    await this.endToken.delete();
+  }
+
 	
 }
