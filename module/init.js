@@ -8,6 +8,7 @@ import { InfluenceDialog } from "./dialog/influence-dialog.js";
 import { ActorListDialog } from "./dialog/actor-list-dialog.js";
 import { TalentDialog } from "./dialog/talent-dialog.js";
 import { KgRegisterHelpers } from "./handlebars.js";
+import { KgRegisterSettings } from "./settings.js";
 import { KamigakariCombat } from "./combat.js";
 
 import { createWorldbuildingMacro } from "./macro.js";
@@ -42,34 +43,8 @@ Hooks.once("init", async function() {
     CONFIG.Combat.initiative.formula = "@attributes.init.value"
 
     KgRegisterHelpers.init();
+    KgRegisterSettings.init();
 
-    // Register system settings
-    game.settings.register("kamigakari", "talentClassify", {
-        name: "SETTINGS.TalentClassify",
-        hint: "SETTINGS.TalentClassifyDesc",
-        scope: "client",
-        type: Boolean,
-        default: true,
-        config: true
-    });
-    
-    game.settings.register("kamigakari", "timingDialog", {
-	name: "SETTINGS.TimingDialog",
-	hint: "SETTINGS.TimingDialogDesc",
-	scope: "client",
-	type: Boolean,
-	default: true,
-	config: true
-    });
-
-    game.settings.register("kamigakari", "rollAddon", {
-        name: "SETTINGS.RollAddon",
-        hint: "SETTINGS.RollAddonDesc",
-        scope: "client",
-        type: Boolean,
-        default: false,
-        config: true
-    });
 
 });
 
@@ -149,7 +124,7 @@ Hooks.on("updateCombat", async function (data, delta) {
     if (delta.round == 0 || delta.active == true)
 	return;
 
-    if (Object.keys(delta).some((k) => k === "round")) {
+    if (Object.keys(delta).some((k) => k === "round") && game.settings.get("kamigakari", "autoSpiritDiceCharge")) {
         for (let turn of data.turns) {
 	    if (turn.actor.type == "enemy")
 		continue;
@@ -171,8 +146,7 @@ Hooks.on("updateCombat", async function (data, delta) {
         }
     }
     
-    if (!game.settings.get("kamigakari", "timingDialog"))
-	return;
+
     if (game.user.character === undefined || game.user.character.type === "enemy")
 	return;
     
@@ -461,14 +435,12 @@ Hooks.on("updateCombat", async function (data, delta) {
 	}
     }, {classes: ["kamigakari", "dialog", "battle"], top: 300, left: 20});
     
-    
-    
     var combatant = data.turns[(delta.turn == undefined) ? 0 : delta.turn];
-    if (combatant.data.name == "[" +  game.i18n.localize("KG.Start") + "]")
+    if (combatant.data.name == "[" +  game.i18n.localize("KG.Start") + "]" && game.settings.get("kamigakari", "startTimingDialog"))
 	start.render(true);
-    else if (combatant.data.name == "[" +  game.i18n.localize("KG.End") + "]")
+    else if (combatant.data.name == "[" +  game.i18n.localize("KG.End") + "]" && game.settings.get("kamigakari", "endTimingDialog"))
 	end.render(true);
-    else if (game.user.character.id == combatant.actor.id)
+    else if (game.user.character.id == combatant.actor.id && game.settings.get("kamigakari", "mainTimingDialog"))
 	prep.render(true);
     
 });

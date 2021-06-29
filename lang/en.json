@@ -190,6 +190,12 @@
     "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common.",
     "SETTINGS.RollAddon": "Add Modifier",
     "SETTINGS.RollAddonDesc": "When you roll, a dialog box appears where you can enter additional modifiers.",
-    "SETTINGS.TimingDialog": "Timing Dialog",
-    "SETTINGS.TimingDialogDesc": "When [Start], [End], [Prep] and [Attack] timings are created, an action dialog is generated."
+    "SETTINGS.StartTimingDialog": "Show Start Timing Dialog",
+    "SETTINGS.StartTimingDialogDesc": "When [Start] timing is created, an action dialog is generated",
+    "SETTINGS.EndTimingDialog": "Show End Timing Dialog",
+    "SETTINGS.EndTimingDialogDesc": "When [End] timing is created, an action dialog is generated",
+    "SETTINGS.MainTimingDialog": "Show Prep & Attack Timing Dialog",
+    "SETTINGS.MainTimingDialogDesc": "When [Prep], [Attack] timings are created, an action dialog is generated",
+    "SETTINGS.AutoSpiritDiceCharge": "Automatic Charge Spirit Dice",
+    "SETTINGS.AutoSpiritDiceChargeDesc": "Automatic charge spirit dice when round is ended"
 }
