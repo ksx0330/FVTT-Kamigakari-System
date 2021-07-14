@@ -153,3 +153,6 @@ Changelog
 1.0.5 - Add Configuration
   * Add option of Timing Dialog
   * Add option of automatic spirit dice charge
+
+1.0.6 - Change dice face
+  * change dice face (thanks jbblily)
