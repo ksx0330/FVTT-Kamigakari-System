@@ -164,6 +164,12 @@
     "KG.End": "종료",
     "KG.Constant": "상시",
     "KG.Free": "특수",
+    "KG.Recovery": "회복",
+    "KG.Quarter": "1/4",
+    "KG.Melee": "육탄공격",
+    "KG.Physical": "물리공격",
+    "KG.Ranged": "사격공격",
+    "KG.Magical": "마법공격",
     
     "KG.UsageTalents": "사용 가능 탤런트",
     "KG.ActionQuestion": "어떤 행동을 하시겠습니까?",

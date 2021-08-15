@@ -1,7 +1,9 @@
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
- */
+ */ 
+import { DamageController } from "../damage.js";
+
 export class KamigakariActorSheet extends ActorSheet {
 
   /** @override */
@@ -162,7 +164,7 @@ export class KamigakariActorSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    html.find('.rollable--damage').on('click', this.actor._rollDamage.bind(this.actor));
+    html.find('.rollable--damage').on('click', ev => DamageController.calcDamage(this.actor, null));
     html.find('.add--overflow').on('click', async ev => {
       const add = Number(ev.currentTarget.dataset.add);
       let overflow = this.actor.data.data.attributes.overflow.value;

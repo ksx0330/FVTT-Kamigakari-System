@@ -12,7 +12,22 @@
 
         <div class="cell cell--talent">
           <label for="data.timing" class="cell--title">{{localize "KG.Timing"}}</label>
-          <input type="text" name="data.timing" value="{{data.timing}}" data-dtype="String"/>
+          <select class="width-100" name="data.timing" data-dtype="String">
+            {{#select data.timing}}
+            <option value="Start">{{localize "KG.Start"}}</option>
+            <option value="Prep">{{localize "KG.Prep"}}</option>
+            <option value="Attack">{{localize "KG.Attack"}}</option>
+            <option value="Melee">{{localize "KG.Melee"}}</option>
+            <option value="Physical">{{localize "KG.Physical"}}</option>
+            <option value="Ranged">{{localize "KG.Ranged"}}</option>
+            <option value="Magical">{{localize "KG.Magical"}}</option>
+            <option value="Defense">{{localize "KG.Defense"}}</option>
+            <option value="End">{{localize "KG.End"}}</option>
+            <option value="Constant">{{localize "KG.Constant"}}</option>
+            <option value="Free">{{localize "KG.Free"}}</option>
+            {{/select}}
+          </select>
+          
         </div>
 
         <div class="cell cell--talent">
@@ -30,6 +45,20 @@
           <input type="text" name="data.resist" value="{{data.resist}}" data-dtype="String"/>
         </div>
 
+        <div class="cell cell--talent">
+          <label for="data.roll" class="cell--title">{{localize "KG.DamageType"}}</label>
+        </div>
+
+        <div class="cell cell--formula">
+          <select class="width-100" name="data.roll" data-dtype="String">
+            {{#select data.roll}}
+            <option value="-">-</option>
+            <option value="acc">{{localize "KG.MartialAttack"}}</option>
+            <option value="cnj">{{localize "KG.MagicAttack"}}</option>
+            {{/select}}
+          </select>
+        </div>
+        
         <div class="cell cell--talent">
           <label for="data.formula" class="cell--title">{{localize "KG.Formula"}}</label>
         </div>

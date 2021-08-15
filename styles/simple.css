@@ -667,17 +667,12 @@ body {
   padding: 0;
 }
 
-.kamigakari .sheet-wrapper .sheet-attributes .cell--talent {
+.kamigakari .sheet-wrapper .sheet-attributes .cell--talent, .kamigakari .sheet-wrapper .sheet-attributes .cell--formula {
   grid-column: span 4;
   padding: 0;
 }
 
-.kamigakari .sheet-wrapper .sheet-attributes .cell--formula {
-  grid-column: span 12;
-  padding: 0;
-}
-
-.kamigakari .sheet-wrapper .sheet-attributes .cell--formula input {
+.kamigakari .sheet-wrapper .sheet-attributes .cell--formula input, .kamigakari .sheet-wrapper .sheet-attributes .cell--formula select {
   height: 34px;
 }
 

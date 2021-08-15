@@ -158,7 +158,8 @@
         "armor": 0,
         "barrier": 0,
         "reduce": 0,
-        "half": false
+        "half": false,
+        "quarter": false
       }
 
     },
@@ -230,6 +231,7 @@
       "base",
       "talent"
     ],
+    "roll": "-",
     "formula": "",
     "resist": ""
   },

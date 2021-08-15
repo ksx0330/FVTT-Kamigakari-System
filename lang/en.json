@@ -164,6 +164,12 @@
     "KG.End": "End",
     "KG.Constant": "Constant",
     "KG.Free": "Free",
+    "KG.Recovery": "Recovery",
+    "KG.Quarter": "1/4",
+    "KG.Melee": "Melee Attack",
+    "KG.Physical": "Physical Attack",
+    "KG.Ranged": "Ranged Attack",
+    "KG.Magical": "Magical Attack",
     
     "KG.UsageTalents": "Usage Talent",
     "KG.ActionQuestion": "What action would you like to take?",

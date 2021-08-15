@@ -52,6 +52,7 @@
   ],
   "gridDistance": 1,
   "gridUnits": "Sq",
+  "socket": true,
   "primaryTokenAttribute": "attributs.hp",
   "url": "https://github.com/ksx0330/FVTT-Kamigakari-System/",
   "manifest": "https://raw.githubusercontent.com/ksx0330/FVTT-Kamigakari-System/master/system.json",
