@@ -19,7 +19,7 @@ export class InfluenceDialog extends Dialog {
             buttons: {
                 "cancel": {
                     icon: '<i class="fas fa-times"></i>',
-                    label: "cancel",
+                    label: "Cancel",
                     callback: () => console.log("Canceled")
                 },
                 "apply": {
