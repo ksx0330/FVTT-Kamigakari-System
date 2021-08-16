@@ -51,11 +51,11 @@ export class InfluenceDialog extends Dialog {
     }
 
     getContent() {
-        var content = `<p>What do you change dice?<br><br>Action Dice - <span id="actionTotal">${this.total}</span><br><div>`;
+        var content = `<h2> ${ game.i18n.localize("KG.InfluenceDialog") }</h2>${ game.i18n.localize("KG.ActionDice")} - <span id="actionTotal">${this.total}</span><br><div>`;
         $(this.actionDice).each(element => {
             content += `<img class="action" width=45 height=45 data-index=${element} data-value=${this.actionDice[element]} src="systems/kamigakari/assets/dice/${this.actionDice[element]}.PNG">`;
         });
-        content += "</div>Spirit Dice<br><div>";
+        content += '</div>${ game.i18n.localize("KG.SpiritDice") }<br><div>';
         for (var i = 0; i < this.spiritDice.length; ++i) {
             content += `<img class="spirit" width=45 height=45 data-key=${i} data-value=${this.spiritDice[i]} src="systems/kamigakari/assets/dice/${this.spiritDice[i]}.PNG">`;
         }
