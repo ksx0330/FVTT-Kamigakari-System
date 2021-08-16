@@ -156,3 +156,10 @@ Changelog
 
 1.0.6 - Change dice face
   * change dice face (thanks jbblily)
+
+1.1.0 - Better Enemy Control
+  * Add support of calculating enemy's damage
+  * Add support of applying damage between enemy and character
+  * Add recovery option when applying damage 
+  * Categorizing enemy's Attack Options (+token-action-hud)
+  
