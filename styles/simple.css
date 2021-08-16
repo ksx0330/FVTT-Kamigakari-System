@@ -42,9 +42,9 @@ body {
 }
 
 .kamigakari .dice-select {
-  border: 3px dotted darksalmon;
-  width: 48px;
-  height: 48px;
+   filter: invert(20%) sepia(85%) saturate(415%) hue-rotate(94deg) brightness(70%) contrast(100%);
+   width:45px;
+   height:45px;
 }
 
 .kamigakari .dice-change {
