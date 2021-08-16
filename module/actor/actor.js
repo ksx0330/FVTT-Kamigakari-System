@@ -1,5 +1,4 @@
 
-
 export class KamigakariActor extends Actor {
 
   prepareData() {
@@ -239,100 +238,6 @@ export class KamigakariActor extends Actor {
     });
   }
 
-  async _rollDamage() {
-    const actorData = this.data.data;
-    new Dialog({
-        title: game.i18n.localize("KG.CalcDamage"),
-        content: `<p>
-                    <h2 style="text-align: center;">${actorData.attributes.damage.high} X ${actorData.attributes.damage.rank} + ${actorData.attributes.damage.add}</h2>
-
-                    <table>
-                      <colgroup>
-                        <col width="25%">
-                        <col width="20%">
-                        <col width="15%">
-                        <col width="10%">
-                        <col width="15%">
-                        <col width="10%">
-                      
-                      </colgroup>
-                      <tr>
-                        <th>${game.i18n.localize("KG.DamageType")}</th>
-                        <td>
-                          <select id="type">
-                            <option value="acc">${game.i18n.localize("KG.Physical")}</option>
-                            <option value="cnj">${game.i18n.localize("KG.Magical")}</option>
-                          </select>
-                        </td>
-
-                        <th>${game.i18n.localize("KG.AddRank")}</th>
-                        <td colspan="3"><input type="text" id="rank"></td>
-                      </tr>
-
-                      <tr>
-                        <th>${game.i18n.localize("KG.AddDamage")}</th>
-                        <td colspan="5"><input type="text" id="add"></td>
-
-                      </tr>
-
-                      <tr style="text-align: center">
-                        <th>${game.i18n.localize("KG.ReduceArmor")}</th>
-                        <td><input type="text" id="armor_reduce"></td>
-                        <th>${game.i18n.localize("KG.HalfArmor")}</th>
-                        <td><input type="checkbox" id="armor_half"></td>
-                        <th>${game.i18n.localize("KG.IgnoreArmor")}</th>
-                        <td><input type="checkbox" id="armor_ignore"></td>
-                      </tr>
-
-                      <tr style="text-align: center">
-                        <th>${game.i18n.localize("KG.ReduceBarrier")}</th>
-                        <td><input type="text" id="barrier_reduce"></td>
-                        <th>${game.i18n.localize("KG.HalfBarrier")}</th>
-                        <td><input type="checkbox" id="barrier_half"></td>
-                        <th>${game.i18n.localize("KG.IgnoreBarrier")}</th>
-                        <td><input type="checkbox" id="barrier_ignore"></td>
-                      </tr>
-
-                    </table>
-
-                    <script>$("#type").val("${actorData.attributes.damage.roll}").prop("selected", true);</script>
-                  </p>`,
-        buttons: {
-          confirm: {
-            icon: '<i class="fas fa-check"></i>',
-            label: "Confirm",
-            callback: async () => {
-              let rank = actorData.attributes.damage.rank + Number($("#rank").val());
-              rank = (rank > 10) ? 10 : rank;
-
-              let formula = actorData.attributes.damage.high + " * " + rank + " + " + actorData.attributes.damage.add;
-              if ($("#add").val() != "")
-                formula += "+" + $("#add").val();
-
-              let roll = new Roll(formula, this.getRollData());
-              roll.roll({async: false});
-
-              let content = await roll.render();
-              content += `<br><button type="button" class="apply-damage" data-type="${$("#type option:selected").val()}" data-damage="${roll.total}" data-rank="${rank}" data-high="${actorData.attributes.damage.high}" data-armor-reduce="${$("#armor_reduce").val()}" data-armor-half="${$("#armor_half").is(":checked")}" data-armor-ignore="${$("#armor_ignore").is(":checked")}" data-barrier-reduce="${$("#barrier_reduce").val()}" data-barrier-half="${$("#barrier_half").is(":checked")}" data-barrier-ignore="${$("#barrier_ignore").is(":checked")}">${game.i18n.localize("KG.ApplyDamage")}</button>`
-
-              let chatData = {"content": content, "speaker": ChatMessage.getSpeaker({ actor: this })};
-              ChatMessage.create(chatData);
-
-              await this.update({"data.attributes.destruction.value": 0});
-
-              for (let item of this.activeTalent)
-                if (item.data.data.disable == 'damage')
-                  item.update({"data.active": false});
-
-
-            }
-          }
-        },
-        default: "confirm"
-    }).render(true);    
-
-  }
-
   _echoItemDescription(itemId) {
     const item = this.items.get(itemId);
 
@@ -378,15 +283,18 @@ export class KamigakariActor extends Actor {
                       </tr>
 
                       <tr>
-                        <td>${item.data.data.timing}</td>
+                        <td>${(item.data.data.timing != "") ? game.i18n.localize("KG." + item.data.data.timing) : ""}</td>
                         <td>${item.data.data.range}</td>
                         <td>${item.data.data.target}</td>
                         <td>${item.data.data.resist}</td>
                       </tr>
+                      
                     </table>${description}`
 
-      if (item.data.data.formula != '')
-        description += `<a class="inline-roll" data-title="${item.data.name}" data-formula="${item.data.data.formula}">${game.i18n.localize("KG.RollAttack")}</a>`
+      if (item.data.data.roll != '-')
+        description += `<button type="button" class="calc-damage" data-actor-id="${this.id}" data-roll="${item.data.data.roll}" data-formula="${item.data.data.formula}">${game.i18n.localize("KG.CalcDamage")}</button>`
+      else if (item.data.data.formula != "")
+        description += `<a class="inline-roll" data-title="${item.data.name}" data-formula="${item.data.data.formula}">${game.i18n.localize("KG.Formula")}</a>`
     }
 
 
