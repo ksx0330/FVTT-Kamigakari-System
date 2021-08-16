@@ -175,8 +175,16 @@ export class DamageController {
                 
                 DamageController.applyDamage(actor, data, defense, realDamage, recovery);
             } else if (actor.type === "character") {
-                Hooks.call("damageApply", {actor, data, realDamage, recovery});
-                game.socket.emit("system.kamigakari", {actorId: actor.id, data, realDamage, recovery});
+                let share = game.user.id;
+                for (let user of game.users)
+                    if (user.active && user.character != null && user.character.id === actor.id) {
+                        share = user.id;
+                        break;
+                    }
+                
+                Hooks.call("damageApply", {actor, data, realDamage, recovery, share});
+                game.socket.emit("system.kamigakari", {actorId: actor.id, data, realDamage, recovery, share});
+
             }
         }
 
@@ -184,13 +192,13 @@ export class DamageController {
     }
     
     static init() {
-        game.socket.on("system.kamigakari", ({actorId, data, realDamage, recovery}) => {
+        game.socket.on("system.kamigakari", ({actorId, data, realDamage, recovery, share}) => {
             let actor = game.actors.get(actorId);
-            Hooks.call("damageApply", {actor, data, realDamage, recovery})
+            Hooks.call("damageApply", {actor, data, realDamage, recovery, share})
         });
         
-        Hooks.on("damageApply", ({actor, data, realDamage, recovery}) => {
-            if (actor.id === game.user.character.id) {
+        Hooks.on("damageApply", ({actor, data, realDamage, recovery, share}) => {
+            if (game.user.id === share) {
                 new Dialog({
                     title: game.i18n.localize("KG.DamageReduce"),
                     content: `<p>
