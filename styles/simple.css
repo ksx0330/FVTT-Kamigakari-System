@@ -600,9 +600,11 @@ body {
 
 .dice-result .dice {
   display: flex;
+  align-items: center;
 }
 
 .dice-result .dice-rolls {
+  display: inline-flex;
   flex: 70%;
 }
 
