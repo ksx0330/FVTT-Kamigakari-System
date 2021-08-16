@@ -191,6 +191,10 @@
     
     "KG.SpentTiming": "이 타이밍을 소비했습니까?",
     "KG.SelectTarget": "탤런트의 대상을 골라주세요.",
+    
+    "KG.Spiritviewer": "영력 주사위 목록",
+    "KG.InfluenceDialog": "어느 눈과 교환하시겠습니까?",
+    "KG.ActionDice": "판정 주사위",
 
     "SETTINGS.TalentClassify": "탤런트 분류",
     "SETTINGS.TalentClassifyDesc": "탤런트를 종족, 칭호, 일반으로 분류해서 표현합니다",
