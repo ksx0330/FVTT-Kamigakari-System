@@ -58,7 +58,7 @@ export class InfluenceDialog extends Dialog {
         for (var i = 0; i < this.spiritDice.length; ++i) {
             content += `<img class="spirit" width=45 height=45 data-key=${i} data-value=${this.spiritDice[i]} src="systems/kamigakari/assets/dice/${this.spiritDice[i]}.PNG">`;
         }
-        content += `</div></div><button class="dice-change">Change</button><br>`
+        content += `</div></div><button type="button" class="dice-change">Change</button><br>`
 
         return content;
     }

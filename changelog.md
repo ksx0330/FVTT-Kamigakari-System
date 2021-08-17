@@ -165,3 +165,6 @@ Changelog
   
 1.1.1 - Change Design
   * Localize dialog & Some minor template change (thanks jbblily)
+  
+1.1.2 - Bug Fix
+  * Fix Influence bug
