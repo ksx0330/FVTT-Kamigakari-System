@@ -163,3 +163,5 @@ Changelog
   * Add recovery option when applying damage 
   * Categorizing enemy's Attack Options (+token-action-hud)
   
+1.1.1 - Change Design
+  * Localize dialog & Some minor template change (thanks jbblily)
