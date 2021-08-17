@@ -1,4 +1,3 @@
-
 export class InfluenceDialog extends Dialog {
     constructor(action, spirit, actor, modScore, options) {
         super(options);
@@ -19,7 +18,7 @@ export class InfluenceDialog extends Dialog {
             buttons: {
                 "cancel": {
                     icon: '<i class="fas fa-times"></i>',
-                    label: "cancel",
+                    label: "Cancel",
                     callback: () => console.log("Canceled")
                 },
                 "apply": {
@@ -51,15 +50,15 @@ export class InfluenceDialog extends Dialog {
     }
 
     getContent() {
-        var content = `<p>What do you change dice?<br><br>Action Dice - <span id="actionTotal">${this.total}</span><br><div>`;
+        var content = `<h2> ${ game.i18n.localize("KG.InfluenceDialog") }</h2> <form><div class="form-group"><label>${  game.i18n.localize("KG.ActionDice") } - <span id="actionTotal">${this.total}</span></label><div>`;
         $(this.actionDice).each(element => {
             content += `<img class="action" width=45 height=45 data-index=${element} data-value=${this.actionDice[element]} src="systems/kamigakari/assets/dice/${this.actionDice[element]}.PNG">`;
         });
-        content += "</div>Spirit Dice<br><div>";
+        content += `</div></div><div class="form-group"><label>${ game.i18n.localize("KG.SpiritDice") }</label><div>`;
         for (var i = 0; i < this.spiritDice.length; ++i) {
             content += `<img class="spirit" width=45 height=45 data-key=${i} data-value=${this.spiritDice[i]} src="systems/kamigakari/assets/dice/${this.spiritDice[i]}.PNG">`;
         }
-        content += `</div><button class="dice-change">Change</button><br>`
+        content += `</div></div><button class="dice-change">Change</button><br>`
 
         return content;
     }

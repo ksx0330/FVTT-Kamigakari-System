@@ -191,6 +191,10 @@
     
     "KG.SpentTiming": "Did you spent this timing?",
     "KG.SelectTarget": "Select talent's Target",
+    
+    "KG.Spiritviewer": "Spirit Dice Viewer",
+    "KG.InfluenceDialog": "Choose 2 dices to exchange",
+    "KG.ActionDice": "Action Dice",
 
     "SETTINGS.TalentClassify": "Talent Classify",
     "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common.",
