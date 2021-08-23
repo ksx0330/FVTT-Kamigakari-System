@@ -170,6 +170,10 @@
     "KG.Physical": "물리공격",
     "KG.Ranged": "사격공격",
     "KG.Magical": "마법공격",
+    "KG.Used": "사용됨",
+    "KG.ResetTiming": "횟수 리셋",
+    "KG.NotCheck": "체크 안한다",
+    "KG.AfterSession": "세션 종료 이후",
     
     "KG.UsageTalents": "사용 가능 탤런트",
     "KG.ActionQuestion": "어떤 행동을 하시겠습니까?",

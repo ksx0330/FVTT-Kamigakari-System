@@ -15,9 +15,17 @@ export class DamageController {
 
                 await actor.update({"data.attributes.destruction.value": 0});
 
-                for (let item of actor.activeTalent)
-                    if (item.data.data.disable == 'damage')
-                        item.update({"data.active": false});
+                for (let item of actor.activeTalent) {
+                  let updates = {};
+                  if (item.data.data.active.disable == 'damage')
+                      updates["data.active.state"] = false;
+                  
+                  if (item.data.data.used.disable == 'damage')
+                      updates["data.used.state"] = 0;
+                  
+                  await item.update(updates);
+                  
+                }
                         
                 return {rank: rank, high: actorData.attributes.damage.high, formula: formula};
             });

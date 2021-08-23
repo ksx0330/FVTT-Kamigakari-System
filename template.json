@@ -191,8 +191,15 @@
       "base",
       "talent"
     ],
-    "active": false,
-    "disable": "-",
+    "active": {
+      "state": false,
+      "disable": "-"
+    },
+    "used": {
+      "state": 0,
+      "disable": "-"
+    },
+    "getTarget": false,
     "roll": "-",
     "attributes": {},
     "talentType": "",

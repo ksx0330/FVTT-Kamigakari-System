@@ -170,6 +170,10 @@
     "KG.Physical": "Physical Attack",
     "KG.Ranged": "Ranged Attack",
     "KG.Magical": "Magical Attack",
+    "KG.Used": "Used",
+    "KG.ResetTiming": "Reset Timing",
+    "KG.NotCheck": "Not Check",
+    "KG.AfterSession": "After Session",
     
     "KG.UsageTalents": "Usage Talent",
     "KG.ActionQuestion": "What action would you like to take?",

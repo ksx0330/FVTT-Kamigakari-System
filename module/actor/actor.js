@@ -49,7 +49,7 @@ export class KamigakariActor extends Actor {
         race = i;
       else if (i.type == 'style' && i.data.data.main)
         mainStyle = i;
-      else if (i.type == 'talent' && i.data.data.active)
+      else if (i.type == 'talent' && i.data.data.active.state)
         talents.push(i);
       else if (i.type == 'equipment' && i.data.data.equipment)
         equipment.push(i);

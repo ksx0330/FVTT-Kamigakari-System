@@ -168,3 +168,8 @@ Changelog
   
 1.1.2 - Bug Fix
   * Fix Influence bug
+
+1.2.0 - Add Talent's Features
+  * Add a text vox that records  the number of uses of the talent
+  * Add a checkbox to determine whether targeting when using talent
+  * Add an End Scene, End Session macro that reset talent's active and used

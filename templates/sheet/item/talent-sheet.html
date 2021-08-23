@@ -110,33 +110,67 @@
       {{!-- Attributes Tab --}}
       <div class="tab attributes" data-group="primary" data-tab="attributes">
           <div>
-            <label for="data.macro">{{localize "KG.Macro"}}</label>
-            <input type="text" name="data.macro" class="macro-input" data-dtype="String" value="{{data.macro}}">
-          </div>
-
-          <div>
-            <label for="data.roll" class="">{{localize "KG.Roll"}}</label>
-            <select class="" name="data.roll" data-dtype="String">
-              {{#select data.roll}}
-              <option value="-">-</option>
-              <option value="acc">{{localize "KG.MartialAttack"}}</option>
-              <option value="cnj">{{localize "KG.MagicAttack"}}</option>
-              {{/select}}
-            </select>
-
-            <div style="float: right">
-              <span style="position: relative; top: -5px;">{{localize "KG.Active"}}</span> 
-              <input type="checkbox" name="data.active" {{#if data.active}} checked {{/if}}>
-              <span style="position: relative; top: -5px;">{{localize "KG.DisableTiming"}}</span> 
-              <select style="position: relative; top: -5px;" name="data.disable" data-dtype="String">
-                {{#select data.disable}}
-                <option value="-">-</option>
-                <option value="damage">{{localize "KG.AfterDamage"}}</option>
-                <option value="round">{{localize "KG.AfterRound"}}</option>
-                <option value="battle">{{localize "KG.AfterBattle"}}</option>
-                {{/select}}
-              </select>
+            <table>
+              <tr>
+                <th><label for="data.macro">{{localize "KG.Macro"}}</label></th>
+                <td colspan="5"><input type="text" name="data.macro" data-dtype="String" value="{{data.macro}}"></td>
+              </tr>
+              
+              <tr>
+                <th><label for="data.roll" class="">{{localize "KG.Roll"}}</label></th>
+                <td>
+                  <select class="" name="data.roll" data-dtype="String">
+                    {{#select data.roll}}
+                    <option value="-">-</option>
+                    <option value="acc">{{localize "KG.MartialAttack"}}</option>
+                    <option value="cnj">{{localize "KG.MagicAttack"}}</option>
+                    {{/select}}
+                  </select>
+                </td>
+                
+                <th><span>{{localize "KG.Active"}}</span></th>
+                <td><input type="checkbox" name="data.active.state" {{#if data.active.state}} checked {{/if}}></td>
+                <th><span>{{localize "KG.DisableTiming"}}</span></th>
+                <td>
+                  <select name="data.active.disable" data-dtype="String">
+                    {{#select data.active.disable}}
+                    <option value="-">-</option>
+                    <option value="notCheck">{{localize "KG.NotCheck"}}</option>
+                    <option value="damage">{{localize "KG.AfterDamage"}}</option>
+                    <option value="round">{{localize "KG.AfterRound"}}</option>
+                    <option value="battle">{{localize "KG.AfterBattle"}}</option>
+                    {{/select}}
+                  </select>
+                </td>
+                
+              </tr>
+              
+              <tr>
+                <th><span>{{localize "KG.Target"}}</span> </th>
+                <td><input type="checkbox" name="data.getTarget" {{#if data.getTarget}} checked {{/if}}></td>
+                
+                <th><span>{{localize "KG.Used"}}</span></th>
+                <td><input type="number" class="checkbox-input" name="data.used.state" value="{{data.used.state}}" {{#ifEquals data.used.disable "notCheck"}} disabled {{/ifEquals}}></td>
+                <th><span>{{localize "KG.ResetTiming"}}</span></th>
+                <td>
+                  <select name="data.used.disable" data-dtype="String">
+                    {{#select data.used.disable}}
+                    <option value="-">-</option>
+                    <option value="notCheck">{{localize "KG.NotCheck"}}</option>
+                    <option value="round">{{localize "KG.AfterRound"}}</option>
+                    <option value="battle">{{localize "KG.AfterBattle"}}</option>
+                    <option value="session">{{localize "KG.AfterSession"}}</option>
+                    {{/select}}
+                  </select>
+                </td>
+                
+              </tr>
+            </table>
+            
+            <div>
+             
             </div>
+
           </div>
           <header class="attributes-header flexrow">
               <span class="attribute-key">{{localize "KG.Attributes"}}</span>
@@ -182,6 +216,7 @@
               </li>
           {{/each}}
           </ol>
+          
       </div>
 
 

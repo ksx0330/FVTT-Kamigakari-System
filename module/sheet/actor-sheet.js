@@ -181,7 +181,14 @@ export class KamigakariActorSheet extends ActorSheet {
       event.preventDefault();
       const li = event.currentTarget.closest(".item");
       const item = this.actor.items.get(li.dataset.itemId);
-      await item.update({'data.active': !item.data.data.active});
+      await item.update({'data.active.state': !item.data.data.active.state});
+    });
+    
+    html.find('.used-input').on('change', async ev => {
+      event.preventDefault();
+      const li = event.currentTarget.closest(".item");
+      const item = this.actor.items.get(li.dataset.itemId);
+      await item.update({'data.used.state': +$(event.currentTarget).val()});
     });
 
     html.find('.active-equipment').on('click', async ev => {

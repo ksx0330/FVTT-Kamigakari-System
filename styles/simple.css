@@ -768,8 +768,10 @@ body {
   flex: 5;
 }
 
-.kamigakari .macro-input {
-  width: calc(100% - 50px);
-  margin: 5px 0;
+.kamigakari .checkbox-input {
+  width: 22px;
+  height: 22px;
+  margin: 3px 5px;
+  text-align: center;
 }
 

@@ -112,8 +112,14 @@ Hooks.on("deleteCombat", async function (data, delta) {
         continue;
     
         for (let item of turn.actor.activeTalent) {
-            if (item.data.data.disable == 'battle')
-                await item.update({"data.active": false});
+            let updates = {};
+            if (item.data.data.active.disable == 'battle')
+                updates["data.active.state"] = false;
+            
+            if (item.data.data.used.disable == 'battle')
+                updates["data.used.state"] = 0;
+            
+            await item.update(updates);
         }
     }
   
@@ -129,9 +135,16 @@ Hooks.on("updateCombat", async function (data, delta) {
             if (turn.actor.type == "enemy")
             continue;
             
-            for (let item of turn.actor.activeTalent)
-                if (item.data.data.disable == 'round')
-                    await item.update({"data.active": false});
+            for (let item of turn.actor.activeTalent) {
+                let updates = {};
+                if (item.data.data.active.disable == 'round')
+                    updates["data.active.state"] = false;
+                
+                if (item.data.data.used.disable == 'round')
+                    updates["data.used.state"] = 0;
+                
+                await item.update(updates);
+            }
                 
             if (delta.round != 1) {
                 var dices = JSON.parse(JSON.stringify(turn.actor.data.data.attributes.spirit_dice.value));
@@ -475,38 +488,50 @@ async function chatListeners(html) {
                     const actor = game.actors.get(data.actorId);
                     const item = actor.items.get(data.itemId);
                     const macro = game.macros.contents.find(m => (m.data.name === item.data.data.macro));
+                    
+                    let confirm = async () => {
+                        let updates = {};
+                        if (item.data.data.used.disable != 'notCheck')
+                            updates["data.active.state"] = true;
+                        if (item.data.data.used.disable != 'notCheck')
+                            updates["data.used.state"] = item.data.data.used.state + 1;
+                        await item.update(updates);
+                        
+                        if (item.data.data.roll == 'acc')
+                            actor._rollDice('acc');
+                        else if (item.data.data.roll == 'cnj')
+                            actor._rollDice('cnj');
+
+                        ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
+
+                        if (macro != undefined)
+                            macro.execute();
+                        else if (item.data.data.macro != "")
+                            new Dialog({
+                                title: "macro",
+                                content: `Do not find this macro: ${item.data.data.macro}`,
+                                buttons: {}
+                            }).render(true);
+                    }
         
-                    new Dialog({
-                        title: 'Select Targets',
-                        content: `
-                          <h2>${game.i18n.localize("KG.SelectTarget")}</h2>
-                        `,
-                        buttons: {
-                            confirm: {
-                                icon: '<i class="fas fa-check"></i>',
-                                label: "Confirm",
-                                callback: async () => {
-                                    await item.update({"data.active": true});
-                                    if (item.data.data.roll == 'acc')
-                                        actor._rollDice('acc');
-                                    else if (item.data.data.roll == 'cnj')
-                                        actor._rollDice('cnj');
-
-                                    ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
-
-                                    if (macro != undefined)
-                                        macro.execute();
-                                    else if (item.data.data.macro != "")
-                                        new Dialog({
-                                            title: "macro",
-                                            content: `Do not find this macro: ${item.data.data.macro}`,
-                                            buttons: {}
-                                        }).render(true);
+                    if (!item.data.data.getTarget)
+                        confirm();
+                    else {
+                        new Dialog({
+                            title: 'Select Targets',
+                            content: `
+                              <h2>${game.i18n.localize("KG.SelectTarget")}</h2>
+                            `,
+                            buttons: {
+                                confirm: {
+                                    icon: '<i class="fas fa-check"></i>',
+                                    label: "Confirm",
+                                    callback: confirm
                                 }
-                            }
-                        },
-                        default: "confirm"
-                    }, {top: 300, left: 20}).render(true);
+                            },
+                            default: "confirm"
+                        }, {top: 300, left: 20}).render(true);
+                    }
                 }
 
             }
