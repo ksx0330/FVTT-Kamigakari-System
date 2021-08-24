@@ -114,11 +114,11 @@ Hooks.on("deleteCombat", async function (data, delta) {
         for (let item of turn.actor.items) {
             let updates = {};
             if (item.data.data.active != undefined)
-            if (item.data.data.active.disable == 'battle')
+            if (item.data.data.active.disable == 'damage' || item.data.data.active.disable == 'round' || item.data.data.active.disable == 'battle')
                 updates["data.active.state"] = false;
             
             if (item.data.data.used != undefined)
-            if (item.data.data.used.disable == 'battle')
+            if (item.data.data.used.disable == 'round' || item.data.data.used.disable == 'battle')
                 updates["data.used.state"] = 0;
             
             await item.update(updates);
@@ -140,7 +140,7 @@ Hooks.on("updateCombat", async function (data, delta) {
             for (let item of turn.actor.items) {
                 let updates = {};
                 if (item.data.data.active != undefined)
-                if (item.data.data.active.disable == 'round')
+                if (item.data.data.active.disable == 'damage' || item.data.data.active.disable == 'round')
                     updates["data.active.state"] = false;
                 
                 if (item.data.data.used != undefined)
