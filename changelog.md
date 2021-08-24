@@ -173,3 +173,6 @@ Changelog
   * Add a text vox that records  the number of uses of the talent
   * Add a checkbox to determine whether targeting when using talent
   * Add an End Scene, End Session macro that reset talent's active and used
+
+1.2.1 - Buf Fix
+  * Fixed an issue where used is not reset when the talent is disabled
