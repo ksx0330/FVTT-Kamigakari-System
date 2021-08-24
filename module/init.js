@@ -491,7 +491,7 @@ async function chatListeners(html) {
                     
                     let confirm = async () => {
                         let updates = {};
-                        if (item.data.data.used.disable != 'notCheck')
+                        if (item.data.data.active.disable != 'notCheck')
                             updates["data.active.state"] = true;
                         if (item.data.data.used.disable != 'notCheck')
                             updates["data.used.state"] = item.data.data.used.state + 1;
