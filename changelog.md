@@ -174,5 +174,8 @@ Changelog
   * Add a checkbox to determine whether targeting when using talent
   * Add an End Scene, End Session macro that reset talent's active and used
 
-1.2.1 - Buf Fix
+1.2.1 - Bug Fix
   * Fixed an issue where used is not reset when the talent is disabled
+
+1.2.2 - Update English translation
+  * Update English translation (thanks NotoriusNeo)
