@@ -619,6 +619,14 @@ body {
   flex: 0 0 40px;
 }
 
+.kamigakari .item-controls .white-btn {
+  border: none;
+}
+
+.kamigakari .item-controls .white-btn * {
+  color: white;
+}
+
 .kamigakari .item-form .sheet-header {
   margin-bottom: 10px;
 }

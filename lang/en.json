@@ -50,6 +50,8 @@
     "KG.ChangeSpiritAlert": "Change Spirit Die To:",
     "KG.ChangeSpiritMessage": "Spirit Die Changed!",
     "KG.TalentCreate": "Create new talent",
+    "KG.RaceCreate": "Create new ancestry",
+    "KG.StyleCreate": "Create new facet",
     "KG.Description": "Description",
     "KG.Details": "Details",
     "KG.RaceTalents": "Ancestry Talents",
@@ -211,5 +213,15 @@
     "SETTINGS.MainTimingDialog": "Show Prep & Attack Timing Dialog",
     "SETTINGS.MainTimingDialogDesc": "When [Prep], [Attack] timings are created, an action dialog is generated",
     "SETTINGS.AutoSpiritDiceCharge": "Automatic Charge Spirit Dice",
-    "SETTINGS.AutoSpiritDiceChargeDesc": "Automatic charge spirit dice when round is ended"
+    "SETTINGS.AutoSpiritDiceChargeDesc": "Automatic charge spirit dice when round is ended",
+
+    "ITEM.TypeTalent": "Talent",
+    "ITEM.TypeEquipment": "Equipment",
+    "ITEM.TypeItem": "Item",
+    "ITEM.TypeAttackoption": "Attack Option",
+    "ITEM.TypeRace": "Ancestry",
+    "ITEM.TypeStyle": "Facet",
+    "ITEM.TypeFacade": "Facade",
+    "ITEM.TypeBond": "Bond"
+
 }

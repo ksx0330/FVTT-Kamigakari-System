@@ -50,6 +50,8 @@
     "KG.ChangeSpiritAlert": "어떤 눈으로 바꿀 것입니까?",
     "KG.ChangeSpiritMessage": "영력 주사위가 바뀌었습니다.",
     "KG.TalentCreate": "새 탤런트 생성",
+    "KG.RaceCreate": "새 종족 생성",
+    "KG.StyleCreate": "새 칭호 생성",
     "KG.Description": "소개",
     "KG.Details": "상세",
     "KG.RaceTalents": "종족 탤런트",
@@ -211,5 +213,14 @@
     "SETTINGS.MainTimingDialog": "준비/공격 타이밍 다이얼로그",
     "SETTINGS.MainTimingDialogDesc": "[준비], [공격] 타이밍이 생겼을 때, 액션 다이얼로그를 생성한다.",
     "SETTINGS.AutoSpiritDiceCharge": "영력 주사위 자동 충전",
-    "SETTINGS.AutoSpiritDiceChargeDesc": "라운드가 종료되었을 때 자동으로 영력 주사위를 채운다."
+    "SETTINGS.AutoSpiritDiceChargeDesc": "라운드가 종료되었을 때 자동으로 영력 주사위를 채운다.",
+
+    "ITEM.TypeTalent": "탤런트",
+    "ITEM.TypeEquipment": "장비",
+    "ITEM.TypeItem": "아이템",
+    "ITEM.TypeAttackoption": "공격 옵션",
+    "ITEM.TypeRace": "종족",
+    "ITEM.TypeStyle": "칭호",
+    "ITEM.TypeFacade": "겉직업",
+    "ITEM.TypeBond": "감정"
 }

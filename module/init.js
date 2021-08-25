@@ -46,6 +46,7 @@ Hooks.once("init", async function() {
     KgRegisterHelpers.init();
     KgRegisterSettings.init();
     DamageController.init(); 
+
 });
 
 Hooks.on('createActor', async (actor, options, id) => {

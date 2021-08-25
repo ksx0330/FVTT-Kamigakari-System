@@ -179,3 +179,7 @@ Changelog
 
 1.2.2 - Update English translation
   * Update English translation (thanks NotoriusNeo)
+
+1.2.3 - Update Ancestry & Facet
+  * Add buttons that allows you to add annestry and facet from the character sheet
+  * Add localization when creating item

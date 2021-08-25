@@ -100,7 +100,14 @@
             </div>
 
             <div class="cell cell--detail">
-              <label for="data.attributes.overflow.value" class="cell--title">{{localize "KG.Race"}}<i class="fas fa-heart attribute-icon"></i></label>
+              <label for="data.attributes.overflow.value" class="cell--title">{{localize "KG.Race"}}
+                <div class="item-controls">
+                  <button class="item-control item-create white-btn" title='{{localize "KG.RaceCreate"}}' data-type="race">
+                    <i class="fas fa-plus" style="color: white;"></i>
+                  </button>
+                </div>
+              
+              </label>
               <table>
               {{#each actor.race as |item id|}}
                 <tr class="item" data-item-id="{{item._id}}">
@@ -112,7 +119,14 @@
 
               </table>
 
-              <label for="data.attributes.overflow.value" class="cell--title">{{localize "KG.Style"}}<i class="fas fa-heart attribute-icon"></i></label>
+              <label for="data.attributes.overflow.value" class="cell--title">{{localize "KG.Style"}}
+                <div class="item-controls">
+                  <button class="item-control item-create white-btn" title='{{localize "KG.StyleCreate"}}' data-type="style">
+                    <i class="fas fa-plus" style="color: white;"></i>
+                  </button>
+                </div>
+              
+              </label>
               <table>
               {{#each actor.style as |item id|}}
                 <tr class="item" data-item-id="{{item._id}}">
