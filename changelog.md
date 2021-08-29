@@ -183,3 +183,6 @@ Changelog
 1.2.3 - Update Ancestry & Facet
   * Add buttons that allows you to add annestry and facet from the character sheet
   * Add localization when creating item
+
+1.2.4 - Update actor's limited permission
+  * Modify to show only the basics if you have limited permissions when viewing Enemy sheets

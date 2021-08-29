@@ -42,6 +42,8 @@ export class KamigakariActorSheet extends ActorSheet {
     isOwner = this.document.isOwner;
     isEditable = this.isEditable;
 
+    data.isView = !this.actor.limited;
+
     // The Actor's data
     actorData = this.actor.data.toObject(false);
     data.actor = actorData;

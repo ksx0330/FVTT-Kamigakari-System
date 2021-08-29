@@ -21,6 +21,7 @@
             <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
             <textarea name="data.details.basic">{{data.details.basic}}</textarea>
           </div>
+          {{#if isView}}
           <section class="sheet-attributes">
 
             <div class="cell cell--sub-stat">
@@ -226,7 +227,7 @@
             </div>
 
           </section>
-
+        {{/if}}
         </section>
 
     </div>
