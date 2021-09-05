@@ -18,41 +18,9 @@ Spirit Macro
 * Update Enermy to Enemy - When you update from less than 0.4.0. You must run this macro.
 * Get Talent List - Sample macro of using TalentList Dialog.
 
-Features
+Usage
 -------------
-* Use Spirit Dice
-  * Charge spirit dice -> Click "Spirit Dice" tab
-  * Change spirit dice -> Left click you want to change dice icon
-  * Use spirit dice -> Right click you want to use dice icon
-  
-* Automatic calc Main Stat, Battle Stat, Damage
-  * Insert race sheet and style sheet to actor sheet
-  
-* Automatic Main Stat, Battle Stat, Damage roll
-  * Click Main Stat, Battle Stat, Damage label
-  
-* Automatic Spirit burn roll
-  * Transcend -> Click butten, and input dice number. and roll by Main Stat, Battle Stat.
-  * Vital Ignition -> Click button.
-  * Concept Destruction -> Click button. first result is using crest, second result is added rank.
-  
-* Talent's active checkbox
-  * When checking active checkbox, talent's attribute data is adding to actor sheet.
-  * When use talent or this talent is passive talent, you check active checkbox.
-  
-* Influence
-  * Roll by Main Stat, Battle Stat. 
-  * Click yin-yang icon button. 
-  * Change action dice and spirit dice. 
-  * Click apply button.
-
-* Spirit Dice Viewer
-  * Click Scene controls' yin-yang icon button.
-  * Choose what you want to view spirit dice. (This list is only showed if the characters' default permission is Owner)
-
-* Automatic combat round
-  * When [Timing: Start], [Timing: End], [Timing: Prep], [Timing: Attck], you can click what do you want to action.
-  * When round id ended, your spirit dice is recharged and overflow is removed
+https://github.com/ksx0330/FVTT-Kamigakari-System/wiki
 
 Image
 -------------
