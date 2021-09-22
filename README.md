@@ -14,7 +14,7 @@ Spirit Macro
 * Influence - You can choose multiple dice exchange.
 * Get Talent List - Sample macro of using TalentList Dialog.
 
-Features
+Usage
 -------------
 * Use Spirit Dice
   * Charge spirit dice -> Click "Spirit Dice" tab
@@ -50,6 +50,10 @@ Features
 * Automatic combat round
   * When [Timing: Start], [Timing: End], [Timing: Prep], [Timing: Attck], you can click what do you want to action.
   * When round id ended, your spirit dice is recharged and overflow is removed
+
+Wiki
+-------------
+https://github.com/ksx0330/FVTT-Kamigakari-System/wiki
 
 Image
 -------------
