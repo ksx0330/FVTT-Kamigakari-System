@@ -204,8 +204,8 @@
 
     "SETTINGS.TalentClassify": "Talent Classify",
     "SETTINGS.TalentClassifyDesc": "Talent is classified into race, style, and common.",
-    "SETTINGS.RollAddon": "Add Modifier",
-    "SETTINGS.RollAddonDesc": "When you roll, a dialog box appears where you can enter additional modifiers.",
+    "SETTINGS.RollAddon": "Always Add Modifier",
+    "SETTINGS.RollAddonDesc": "When you roll, Even if you don't press Ctrl, a dialog box appears where you can enter additional modifiers.",
     "SETTINGS.StartTimingDialog": "Show Start Timing Dialog",
     "SETTINGS.StartTimingDialogDesc": "When [Start] timing is created, an action dialog is generated",
     "SETTINGS.EndTimingDialog": "Show End Timing Dialog",

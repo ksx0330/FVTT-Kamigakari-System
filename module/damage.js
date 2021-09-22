@@ -181,7 +181,7 @@ export class DamageController {
                 defense.half = actorData.attributes.defense.half;
                 defense.quarter = actorData.attributes.defense.quarter;
                 
-                DamageController.applyDamage(actor, data, defense, realDamage, recovery);
+                await DamageController.applyDamage(actor, data, defense, realDamage, recovery);
             } else if (actor.type === "character") {
                 let share = game.user.id;
                 for (let user of game.users)
@@ -189,9 +189,17 @@ export class DamageController {
                         share = user.id;
                         break;
                     }
-                
-                Hooks.call("damageApply", {actor, data, realDamage, recovery, share});
-                game.socket.emit("system.kamigakari", {actorId: actor.id, data, realDamage, recovery, share});
+                    
+                if (share == game.user.id)
+                    Hooks.call("applyDamage", { actor, data: { data, realDamage, recovery } });
+                else {
+                    game.socket.emit("system.kamigakari", { id: "applyDamage", sender: game.user.id, receiver: share, data: {
+                       actorId: actor.id,
+                       data,
+                       realDamage,
+                       recovery
+                    } });
+                }
 
             }
         }
@@ -200,62 +208,58 @@ export class DamageController {
     }
     
     static init() {
-        game.socket.on("system.kamigakari", ({actorId, data, realDamage, recovery, share}) => {
-            let actor = game.actors.get(actorId);
-            Hooks.call("damageApply", {actor, data, realDamage, recovery, share})
-        });
         
-        Hooks.on("damageApply", ({actor, data, realDamage, recovery, share}) => {
-            if (game.user.id === share) {
-                new Dialog({
-                    title: game.i18n.localize("KG.DamageReduce"),
-                    content: `<p>
-                              <h2 style="text-align: center;">[${actor.name}] ${realDamage}</h2>
-                              <table>
-                                <tr>
-                                  <th>${game.i18n.localize("KG.AddArmor")}</th>
-                                  <td><input type="text" id="armor" ></td>
-                                </tr>
-                                <tr>
-                                  <th>${game.i18n.localize("KG.AddBarrier")}</th>
-                                  <td><input type="text" id="barrier" ></td>
-                                </tr>
-                                <tr>
-                                  <th>${game.i18n.localize("KG.DamageReduce")}</th>
-                                  <td><input type="text" id="reduce"></td>
-                                </tr>
-                                <tr>
-                                  <th>${game.i18n.localize("KG.Half")}</th>
-                                  <td><input type="checkbox" id="half" ></td>
-                                </tr>
-                                <tr>
-                                  <th>${game.i18n.localize("KG.Quarter")}</th>
-                                  <td><input type="checkbox" id="quarter" ></td>
-                                </tr>
+        Hooks.on("applyDamage", ({actor, data}) => {
+            let damage = (data.recovery) ? "+" + data.realDamage : "-" + data.realDamage;
+            
+            new Dialog({
+                title: game.i18n.localize("KG.DamageReduce"),
+                content: `<p>
+                          <h2 style="text-align: center;">[${actor.name}] ${damage}</h2>
+                          <table>
+                            <tr>
+                              <th>${game.i18n.localize("KG.AddArmor")}</th>
+                              <td><input type="text" id="armor" ></td>
+                            </tr>
+                            <tr>
+                              <th>${game.i18n.localize("KG.AddBarrier")}</th>
+                              <td><input type="text" id="barrier" ></td>
+                            </tr>
+                            <tr>
+                              <th>${game.i18n.localize("KG.DamageReduce")}</th>
+                              <td><input type="text" id="reduce"></td>
+                            </tr>
+                            <tr>
+                              <th>${game.i18n.localize("KG.Half")}</th>
+                              <td><input type="checkbox" id="half" ></td>
+                            </tr>
+                            <tr>
+                              <th>${game.i18n.localize("KG.Quarter")}</th>
+                              <td><input type="checkbox" id="quarter" ></td>
+                            </tr>
 
-                              </table>
+                          </table>
 
-                            </p>`,
-                    buttons: {
-                        confirm: {
-                            icon: '<i class="fas fa-check"></i>',
-                            label: "Confirm",
-                            callback: () => {
-                                let defense = {};
-                                defense.armor = ($("#armor").val() == "") ? 0 : +$("#armor").val();
-                                defense.barrier = ($("#barrier").val() == "") ? 0 : +$("#barrier").val();
-                                defense.reduce = $("#reduce").is(":checked");
-                                defense.half = $("#half").is(":checked");
-                                defense.quarter = $("#quarter").is(":checked");
-                                
-                                DamageController.applyDamage(actor, data, defense, realDamage, recovery);
-                                
-                            }
+                        </p>`,
+                buttons: {
+                    confirm: {
+                        icon: '<i class="fas fa-check"></i>',
+                        label: "Confirm",
+                        callback: () => {
+                            let defense = {};
+                            defense.armor = ($("#armor").val() == "") ? 0 : +$("#armor").val();
+                            defense.barrier = ($("#barrier").val() == "") ? 0 : +$("#barrier").val();
+                            defense.reduce = $("#reduce").is(":checked");
+                            defense.half = $("#half").is(":checked");
+                            defense.quarter = $("#quarter").is(":checked");
+                            
+                            DamageController.applyDamage(actor, data.data, defense, data.realDamage, data.recovery);
+                            
                         }
-                    },
-                    default: "confirm"
-                }).render(true); 
-            }
+                    }
+                },
+                default: "confirm"
+            }).render(true); 
                 
         })
         

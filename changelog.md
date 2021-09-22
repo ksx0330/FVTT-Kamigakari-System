@@ -186,3 +186,8 @@ Changelog
 
 1.2.4 - Update actor's limited permission
   * Modify to show only the basics if you have limited permissions when viewing Enemy sheets
+
+1.2.5 - Add Ctrl option when rolling the dice.
+  * When you press Ctrl and roll a dice, update so that a modifier dialog comes out.
+  * Remove some macros
+  * Some code changed

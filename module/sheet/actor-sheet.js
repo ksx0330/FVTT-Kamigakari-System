@@ -285,9 +285,10 @@ export class KamigakariActorSheet extends ActorSheet {
     event.preventDefault();
     const a = event.target.parentElement;
     const data = a.dataset;
+    const ctrlClick = event.ctrlKey;
 
     if (data['ability'] != null)
-      await this.actor._rollDice(data['ability']);
+      await this.actor._rollDice(data['ability'], ctrlClick);
 
   }
 

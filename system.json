@@ -2,7 +2,7 @@
   "name": "kamigakari",
   "title": "Kamigakari: God Hunter",
   "description": "Urban fantasy action trpg, Kamigakari System",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "0.8.9",
   "templateVersion": 12,
@@ -22,13 +22,6 @@
       "label": "Basic Talents",
       "system": "kamigakari",
       "path": "./packs/basic-talents.db",
-      "entity": "Item"
-    },
-    {
-      "name": "Common-Talents",
-      "label": "Common Talents",
-      "system": "kamigakari",
-      "path": "./packs/common-talents.db",
       "entity": "Item"
     },
     {

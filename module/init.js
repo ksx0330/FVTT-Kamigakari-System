@@ -10,6 +10,7 @@ import { TalentDialog } from "./dialog/talent-dialog.js";
 import { KgRegisterHelpers } from "./handlebars.js";
 import { KgRegisterSettings } from "./settings.js";
 import { KamigakariCombat } from "./combat.js";
+import { SocketController } from "./socket.js";
 import { DamageController } from "./damage.js";
 
 import { createWorldbuildingMacro } from "./macro.js";
@@ -45,7 +46,9 @@ Hooks.once("init", async function() {
 
     KgRegisterHelpers.init();
     KgRegisterSettings.init();
+    SocketController.init();
     DamageController.init(); 
+    
 
 });
 
@@ -480,6 +483,7 @@ async function chatListeners(html) {
     html.on('click', '.use-talent', async ev => {
         event.preventDefault();
         const data = ev.currentTarget.dataset;
+        const ctrlClick = event.ctrlKey;
 
         const buttons = {
             "cancel": {
@@ -503,9 +507,9 @@ async function chatListeners(html) {
                         await item.update(updates);
                         
                         if (item.data.data.roll == 'acc')
-                            actor._rollDice('acc');
+                            actor._rollDice('acc', ctrlClick);
                         else if (item.data.data.roll == 'cnj')
-                            actor._rollDice('cnj');
+                            actor._rollDice('cnj', ctrlClick);
 
                         ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
 
@@ -642,7 +646,7 @@ function influence() {
 }
 
 function showSpiritDiceViewer() {
-    var actors = game.data.actors.filter(element => element.type == "character" && (element.permission['default'] == 3 ) );
+    var actors = game.data.actors.filter(e => e.type == "character" && (e.permission['default'] == 3 || e.permission[game.user.id] == 3) );
 
     let dialog = new ActorListDialog(actors)
     dialog.render(true);

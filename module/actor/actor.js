@@ -154,23 +154,24 @@ export class KamigakariActor extends Actor {
     return values;
   }
 
-  async _rollDice(a) {
-    var rollAddon = game.settings.get("kamigakari", "rollAddon");
-    if (rollAddon) {
-      new Dialog({
-          title: game.i18n.localize("KG.AddRoll"),
-          content: "<p><input type='text' id='add'></p>",
-          buttons: {
-            confirm: {
-              icon: '<i class="fas fa-check"></i>',
-              label: "Confirm",
-              callback: () => this._doRollDice(a, $("#add").val())
-            }
-          },
-          default: "confirm"
-      }).render(true);
-    } else
-      await this._doRollDice(a, 0);
+  async _rollDice(a, ctrlClick) {
+    if (!ctrlClick && !game.settings.get("kamigakari", "rollAddon")) {
+      await this._doRollDice(a, undefined); 
+      return;
+    }
+    
+    new Dialog({
+        title: game.i18n.localize("KG.AddRoll"),
+        content: `<p><input type='text' id='add'></p><script>$("#add").focus()</script>`,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: () => this._doRollDice(a, $("#add").val())
+          }
+        },
+        default: "confirm"
+    }).render(true);
 
   }
 
@@ -191,8 +192,8 @@ export class KamigakariActor extends Actor {
     if (ability.roll != undefined)
         formula += '+' + ability.roll;
 
-    if (p == undefined || p != "")
-      formula += "+" + p;
+    if (p != null && p != "")
+      formula += (p < 0) ? `${p}` : `+${p}`;
 
     templateData = {
       title: ability.label

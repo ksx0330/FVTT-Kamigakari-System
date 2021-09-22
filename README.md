@@ -7,15 +7,11 @@ Installation Instructions
 To install the Kamigakari system for Foundry Virtual Tabletop, simply paste the following URL into the Install System
 dialog on the Setup menu of the application.
 
-**When you update from less than 0.4.0. You must run "Update Enermy to Enemy" macro**
-
-https://raw.githubusercontent.com/ksx0330/FVTT-Kamigakari-System/master/system.json
 
 Spirit Macro
 -------------
 * Set Spirit Dice Pull - You can choose the number of spirit dice.
 * Influence - You can choose multiple dice exchange.
-* Update Enermy to Enemy - When you update from less than 0.4.0. You must run this macro.
 * Get Talent List - Sample macro of using TalentList Dialog.
 
 Features
@@ -30,6 +26,7 @@ Features
   
 * Automatic Main Stat, Battle Stat, Damage roll
   * Click Main Stat, Battle Stat, Damage label
+  * If you click while pressing Ctrl, a modifier dialog comes out.
   
 * Automatic Spirit burn roll
   * Transcend -> Click butten, and input dice number. and roll by Main Stat, Battle Stat.
