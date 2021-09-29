@@ -34,7 +34,12 @@ export class KamigakariActor extends Actor {
       "rank": { "value": 0 },
       "base": { "value": 0 },
       "add": { "value": 0 },
-      "rangePD": { "value": 0 }
+      "rangePD": { "value": 0 },
+      "reduce_armor": { "value": 0 },
+      "reduce_barrier": { "value": 0 },
+      "reduce_damage": { "value": 0 },
+      "reduce_half": { "value": 0 },
+      "reduce_quarter": { "value": 0 }
     }
 
     let race = null;
@@ -91,6 +96,18 @@ export class KamigakariActor extends Actor {
     if (values["rangePD"].value != 0)
         values["pd"].value = values["rangePD"].value;
     delete values.rangePD;
+    
+    this.data.data.attributes.reduce.armor = values["reduce_armor"].value;
+    this.data.data.attributes.reduce.barrier = values["reduce_barrier"].value;
+    this.data.data.attributes.reduce.damage = values["reduce_damage"].value;
+    this.data.data.attributes.reduce.half = values["reduce_half"].value;
+    this.data.data.attributes.reduce.quarter = values["reduce_quarter"].value;
+    
+    delete values.reduce_armor;
+    delete values.reduce_barrier;
+    delete values.reduce_damage;
+    delete values.reduce_half;
+    delete values.reduce_quarter; 
 
     this.data.data.attributes.move.battle = Math.ceil( (values['init'].value + 5) / 3 );
     this.data.data.attributes.move.full = values['init'].value + 5;

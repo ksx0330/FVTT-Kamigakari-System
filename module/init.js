@@ -7,11 +7,12 @@ import { KamigakariActorSheet } from "./sheet/actor-sheet.js";
 import { InfluenceDialog } from "./dialog/influence-dialog.js";
 import { ActorListDialog } from "./dialog/actor-list-dialog.js";
 import { TalentDialog } from "./dialog/talent-dialog.js";
+import { KamigakariCombat } from "./combat/combat.js";
+import { DamageController } from "./combat/damage.js";
 import { KgRegisterHelpers } from "./handlebars.js";
 import { KgRegisterSettings } from "./settings.js";
-import { KamigakariCombat } from "./combat.js";
 import { SocketController } from "./socket.js";
-import { DamageController } from "./damage.js";
+import { DisableHooks } from "./disable-hooks.js";
 
 import { createWorldbuildingMacro } from "./macro.js";
 
@@ -49,6 +50,7 @@ Hooks.once("init", async function() {
     SocketController.init();
     DamageController.init(); 
     
+    DisableHooks.init();
 
 });
 
@@ -111,23 +113,15 @@ Hooks.on("getSceneControlButtons", function(controls) {
 });
 
 Hooks.on("deleteCombat", async function (data, delta) {
-    for (let turn of data.turns) {
-    if (turn.actor.type == "enemy")
-        continue;
+    let actors = data.turns.reduce( (acc, i) => {
+        if (i.actor.type == "enemy")
+            return acc;
+        
+        acc.push(i.actor);
+        return acc; 
+    }, []);
     
-        for (let item of turn.actor.items) {
-            let updates = {};
-            if (item.data.data.active != undefined)
-            if (item.data.data.active.disable == 'damage' || item.data.data.active.disable == 'round' || item.data.data.active.disable == 'battle')
-                updates["data.active.state"] = false;
-            
-            if (item.data.data.used != undefined)
-            if (item.data.data.used.disable == 'round' || item.data.data.used.disable == 'battle')
-                updates["data.used.state"] = 0;
-            
-            await item.update(updates);
-        }
-    }
+    Hooks.call("afterCombat", actors);
   
 });
 
@@ -137,32 +131,26 @@ Hooks.on("updateCombat", async function (data, delta) {
     return;
 
     if (Object.keys(delta).some((k) => k === "round") && game.settings.get("kamigakari", "autoSpiritDiceCharge")) {
-        for (let turn of data.turns) {
-            if (turn.actor.type == "enemy")
-            continue;
+        let actors = data.turns.reduce( (acc, i) => {
+            if (i.actor.type == "enemy")
+                return acc;
             
-            for (let item of turn.actor.items) {
-                let updates = {};
-                if (item.data.data.active != undefined)
-                if (item.data.data.active.disable == 'damage' || item.data.data.active.disable == 'round')
-                    updates["data.active.state"] = false;
-                
-                if (item.data.data.used != undefined)
-                if (item.data.data.used.disable == 'round')
-                    updates["data.used.state"] = 0;
-                
-                await item.update(updates);
-            }
-                
-            if (delta.round != 1) {
-                var dices = JSON.parse(JSON.stringify(turn.actor.data.data.attributes.spirit_dice.value));
+            acc.push(i.actor);
+            return acc; 
+        }, []);
+        
+        Hooks.call("afterRound", actors);
+        
+        if (delta.round != 1) {
+            for (let actor of actors) {
+                var dices = JSON.parse(JSON.stringify(actor.data.data.attributes.spirit_dice.value));
                 for (var i = 0; i < dices.length; ++i) {
                     if (dices[i] != 0)
                     continue;
                     dices[i] = Math.floor(Math.random() * 6) + 1;
                 }
 
-                await turn.actor.update({"data.attributes.spirit_dice.value": dices, "data.attributes.overflow.value": 0});
+                await actor.update({"data.attributes.spirit_dice.value": dices, "data.attributes.overflow.value": 0});
             }
         }
     }

@@ -2,7 +2,7 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */ 
-import { DamageController } from "../damage.js";
+import { DamageController } from "../combat/damage.js";
 
 export class KamigakariActorSheet extends ActorSheet {
 

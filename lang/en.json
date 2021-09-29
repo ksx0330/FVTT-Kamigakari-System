@@ -127,6 +127,7 @@
     "KG.CalcDamage": "Calculate Damage",
     "KG.DisableTiming": "Disable Timing",
     "KG.AfterDamage": "After Damage",
+    "KG.AfterReduce": "After Reduce Damage",
     "KG.AfterRound": "After Round",
     "KG.AfterBattle": "After Battle",
     "KG.RangePD": "※ Ranged PD",

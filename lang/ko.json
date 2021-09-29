@@ -127,6 +127,7 @@
     "KG.CalcDamage": "대미지 산출",
     "KG.DisableTiming": "비활성화",
     "KG.AfterDamage": "대미지 산출 이후",
+    "KG.AfterReduce": "대미지 감소 이후",
     "KG.AfterRound": "라운드 종료 이후",
     "KG.AfterBattle": "전투 종료 이후",
     "KG.RangePD": "※ 원거리 무기 물D",

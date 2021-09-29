@@ -14,18 +14,7 @@ export class DamageController {
                     formula += "+" + $("#add").val();
 
                 await actor.update({"data.attributes.destruction.value": 0});
-
-                for (let item of actor.activeTalent) {
-                  let updates = {};
-                  if (item.data.data.active.disable == 'damage')
-                      updates["data.active.state"] = false;
-                  
-                  if (item.data.data.used.disable == 'damage')
-                      updates["data.used.state"] = 0;
-                  
-                  await item.update(updates);
-                  
-                }
+                Hooks.call("afterDamage", actor);
                         
                 return {rank: rank, high: actorData.attributes.damage.high, formula: formula};
             });
@@ -211,7 +200,7 @@ export class DamageController {
         
         Hooks.on("applyDamage", ({actor, data}) => {
             let damage = (data.recovery) ? "+" + data.realDamage : "-" + data.realDamage;
-            
+            console.log(actor);
             new Dialog({
                 title: game.i18n.localize("KG.DamageReduce"),
                 content: `<p>
@@ -219,23 +208,23 @@ export class DamageController {
                           <table>
                             <tr>
                               <th>${game.i18n.localize("KG.AddArmor")}</th>
-                              <td><input type="text" id="armor" ></td>
+                              <td><input type="text" id="armor" value="${actor.data.data.attributes.reduce.armor}" ></td>
                             </tr>
                             <tr>
                               <th>${game.i18n.localize("KG.AddBarrier")}</th>
-                              <td><input type="text" id="barrier" ></td>
+                              <td><input type="text" id="barrier" value="${actor.data.data.attributes.reduce.barrier}" ></td>
                             </tr>
                             <tr>
                               <th>${game.i18n.localize("KG.DamageReduce")}</th>
-                              <td><input type="text" id="reduce"></td>
+                              <td><input type="text" id="reduce" value="${actor.data.data.attributes.reduce.damage}" ></td>
                             </tr>
                             <tr>
                               <th>${game.i18n.localize("KG.Half")}</th>
-                              <td><input type="checkbox" id="half" ></td>
+                              <td><input type="checkbox" id="half" value="${actor.data.data.attributes.reduce.half}" ></td>
                             </tr>
                             <tr>
                               <th>${game.i18n.localize("KG.Quarter")}</th>
-                              <td><input type="checkbox" id="quarter" ></td>
+                              <td><input type="checkbox" id="quarter" value="${actor.data.data.attributes.reduce.quarter}" ></td>
                             </tr>
 
                           </table>
@@ -249,7 +238,7 @@ export class DamageController {
                             let defense = {};
                             defense.armor = ($("#armor").val() == "") ? 0 : +$("#armor").val();
                             defense.barrier = ($("#barrier").val() == "") ? 0 : +$("#barrier").val();
-                            defense.reduce = $("#reduce").is(":checked");
+                            defense.reduce = ($("#reduce").val() == "") ? 0 : +$("#reduce").val();
                             defense.half = $("#half").is(":checked");
                             defense.quarter = $("#quarter").is(":checked");
                             
@@ -308,6 +297,8 @@ export class DamageController {
             life = (life + realDamage > maxLife) ? maxLife : life + realDamage;
             realDamage = "+" + realDamage;
         }
+        
+        Hooks.call("afterReduce", actor);
         
         await actor.update({"data.attributes.hp.value": life});
         let chatData = {"content": actor.name + " (" + realDamage + ")", "speaker": ChatMessage.getSpeaker({ actor: actor })};

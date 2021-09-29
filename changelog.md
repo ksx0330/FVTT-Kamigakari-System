@@ -191,3 +191,8 @@ Changelog
   * When you press Ctrl and roll a dice, update so that a modifier dialog comes out.
   * Remove some macros
   * Some code changed
+  
+1.2.6 - Add Damage reduce options
+  * Add talent attributes that can be used to reduce damage.
+  * Add a flag of the talent that is deactivated after damage reduction.
+  * Fixed a bug that didn't reduce damage properly.

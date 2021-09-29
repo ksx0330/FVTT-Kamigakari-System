@@ -95,6 +95,13 @@
         "rank": 0,
         "add": 0
       },
+      "reduce": {
+        "armor": 0,
+        "barrier": 0, 
+        "damage": 0,
+        "half": 0,
+        "quarter": 0
+      },
       "money": 0
 
     }
