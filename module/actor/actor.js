@@ -100,8 +100,8 @@ export class KamigakariActor extends Actor {
     this.data.data.attributes.reduce.armor = values["reduce_armor"].value;
     this.data.data.attributes.reduce.barrier = values["reduce_barrier"].value;
     this.data.data.attributes.reduce.damage = values["reduce_damage"].value;
-    this.data.data.attributes.reduce.half = values["reduce_half"].value;
-    this.data.data.attributes.reduce.quarter = values["reduce_quarter"].value;
+    this.data.data.attributes.reduce.half = (values["reduce_half"].value != 0) ? true : false;
+    this.data.data.attributes.reduce.quarter = (values["reduce_quarter"].value != 0) ? true : false;
     
     delete values.reduce_armor;
     delete values.reduce_barrier;
