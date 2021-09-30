@@ -220,11 +220,11 @@ export class DamageController {
                             </tr>
                             <tr>
                               <th>${game.i18n.localize("KG.Half")}</th>
-                              <td><input type="checkbox" id="half" value="${actor.data.data.attributes.reduce.half}" ></td>
+                              <td><input type="checkbox" id="half" ${ (actor.data.data.attributes.reduce.half) ? "checked": ""} ></td>
                             </tr>
                             <tr>
                               <th>${game.i18n.localize("KG.Quarter")}</th>
-                              <td><input type="checkbox" id="quarter" value="${actor.data.data.attributes.reduce.quarter}" ></td>
+                              <td><input type="checkbox" id="quarter" ${ (actor.data.data.attributes.reduce.quarter) ? "checked" : ""} ></td>
                             </tr>
 
                           </table>
