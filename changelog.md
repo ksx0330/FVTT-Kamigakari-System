@@ -196,3 +196,7 @@ Changelog
   * Add talent attributes that can be used to reduce damage.
   * Add a flag of the talent that is deactivated after damage reduction.
   * Fixed a bug that didn't reduce damage properly.
+
+1.3.0 - Add talent attributes that apply to the target
+  * Talent can have a target tab and put an effect that applies to the target.
+  * Each character has an effect tab, where you can check the target talent applied.

@@ -56,7 +56,6 @@ export class KamigakariActorSheet extends ActorSheet {
       i.labels = item.labels;
     }
     data.items.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    
 
     data.dtypes = ["String", "Number", "Boolean"];
     this._prepareCharacterItems(actorData, data.items);
@@ -154,6 +153,15 @@ export class KamigakariActorSheet extends ActorSheet {
 
     actorData.bonds = bonds;
 
+    actorData.effects = Object.values(actorData.data.attributes.effects).map( i => {
+      let actor = game.actors.get(i.actorId);
+      let item = actor.items.get(i.itemId);
+      let data = item.data;
+      data.actor = actor.data.name;
+      return item.data;
+
+    });
+
     actorData.attackOptions = attackOptions;
   }
 
@@ -185,7 +193,7 @@ export class KamigakariActorSheet extends ActorSheet {
       const item = this.actor.items.get(li.dataset.itemId);
       await item.update({'data.active.state': !item.data.data.active.state});
     });
-    
+
     html.find('.used-input').on('change', async ev => {
       event.preventDefault();
       const li = event.currentTarget.closest(".item");
@@ -239,10 +247,27 @@ export class KamigakariActorSheet extends ActorSheet {
         "data.attributes.defense.reduce": 0, 
         "data.attributes.defense.half": false
       });
-
-      console.log(this.actor);
     });
 
+    html.find(".show-effect").on('click', async ev => {
+      const li = event.currentTarget.closest(".item");
+      let attr = this.actor.data.data.attributes.effects[li.dataset.itemId].attributes;
+      let content = `<table><tr><th>${game.i18n.localize("KG.Attributes")}</th><th>${game.i18n.localize("KG.Value")}</th></tr>`
+      for (let [key, value] of Object.entries(attr))
+        content += `<tr><td>${key}</td><td>${value.value}</td></tr>`
+      content += `</table>`;
+
+      new Dialog({
+        title: game.i18n.localize("KG.Effect"),
+        content: content,
+        buttons: {}
+      }).render(true);
+    });
+
+    html.find(".remove-effect").on('click', async ev => {
+      const li = event.currentTarget.closest(".item");
+      await this.actor.update({[`data.attributes.effects.-=${li.dataset.itemId}`]: null});
+    });
   }
 
   /* -------------------------------------------- */

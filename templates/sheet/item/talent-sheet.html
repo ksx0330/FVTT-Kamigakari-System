@@ -10,6 +10,7 @@
   <nav class="sheet-navigation sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">{{localize "KG.Description" }}</a>
     <a class="item" data-tab="attributes">{{localize "KG.Attributes" }}</a>
+    <a class="item" data-tab="target">{{localize "KG.Target" }}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -147,8 +148,8 @@
               </tr>
               
               <tr>
-                <th><span>{{localize "KG.Target"}}</span> </th>
-                <td><input type="checkbox" name="data.getTarget" {{#if data.getTarget}} checked {{/if}}></td>
+                <th></th>
+                <td></td>
                 
                 <th><span>{{localize "KG.Used"}}</span></th>
                 <td><input type="number" class="checkbox-input" name="data.used.state" value="{{data.used.state}}" {{#ifEquals data.used.disable "notCheck"}} disabled {{/ifEquals}}></td>
@@ -176,7 +177,7 @@
           <header class="attributes-header flexrow">
               <span class="attribute-key">{{localize "KG.Attributes"}}</span>
               <span class="attribute-value">{{localize "KG.Value"}}</span>
-              <a class="attribute-control" data-action="create" data-type="attributes"><i class="fas fa-plus"></i></a>
+              <a class="attribute-control" data-action="create" data-pos="main" data-type="attributes"><i class="fas fa-plus"></i></a>
           </header>
     
           <ol class="attributes-list">
@@ -225,6 +226,88 @@
           
       </div>
 
+      {{!-- Attributes Tab --}}
+      <div class="tab attributes" data-group="primary" data-tab="target">
+          <div>
+            <table>
+              <tr>
+                <th><span>{{localize "KG.Target"}}</span> </th>
+                <td><input type="checkbox" name="data.getTarget" {{#if data.getTarget}} checked {{/if}}></td>
+                
+                <th><span>{{localize "KG.DisableTiming"}}</span></th>
+                <td>
+                  <select name="data.effect.disable" data-dtype="String">
+                    {{#select data.effect.disable}}
+                    <option value="-">-</option>
+                    <option value="notCheck">{{localize "KG.NotCheck"}}</option>
+                    <option value="damage">{{localize "KG.AfterDamage"}}</option>
+                    <option value="reduce">{{localize "KG.AfterReduce"}}</option>
+                    <option value="round">{{localize "KG.AfterRound"}}</option>
+                    <option value="battle">{{localize "KG.AfterBattle"}}</option>
+                    {{/select}}
+                  </select>
+                </td>
+                
+              </tr>
+
+            </table>
+            
+            <div>
+             
+            </div>
+
+          </div>
+          <header class="attributes-header flexrow">
+              <span class="attribute-key">{{localize "KG.Attributes"}}</span>
+              <span class="attribute-value">{{localize "KG.Value"}}</span>
+              <a class="attribute-control" data-action="create" data-type="attributes" data-pos="sub"><i class="fas fa-plus"></i></a>
+          </header>
+    
+          <ol class="attributes-list">
+          {{#each data.effect.attributes as |attr key|}}
+              <li class="attribute flexrow" data-attribute="{{key}}">
+                  <select class="attribute-key" name="data.effect.attributes.{{key}}.key" data-dtype="String">
+                    {{#select key}}
+                    <option value="-">-</option>
+                    <option value="hp">{{localize "KG.HP"}}</option>
+                    <option value="acc">{{localize "KG.ACC"}}</option>
+                    <option value="eva">{{localize "KG.EVA"}}</option>
+                    <option value="cnj">{{localize "KG.CNJ"}}</option>
+                    <option value="res">{{localize "KG.RES"}}</option>
+                    <option value="ins">{{localize "KG.INS"}}</option>
+                    <option value="pd">{{localize "KG.PD"}}</option>
+                    <option value="md">{{localize "KG.MD"}}</option>
+                    <option value="init">{{localize "KG.Init"}}</option>
+                    <option value="armor">{{localize "KG.Armor"}}</option>
+                    <option value="barrier">{{localize "KG.Barrier"}}</option>
+                    <option value="str">{{localize "KG.STR"}}</option>
+                    <option value="str_roll">{{localize "KG.STRRoll"}}</option>
+                    <option value="agi">{{localize "KG.AGI"}}</option>
+                    <option value="agi_roll">{{localize "KG.AGIRoll"}}</option>
+                    <option value="int">{{localize "KG.INT"}}</option>
+                    <option value="int_roll">{{localize "KG.INTRoll"}}</option>
+                    <option value="wil">{{localize "KG.WIL"}}</option>
+                    <option value="wil_roll">{{localize "KG.WILRoll"}}</option>
+                    <option value="lck">{{localize "KG.LCK"}}</option>
+                    <option value="lck_roll">{{localize "KG.LCKRoll"}}</option>
+                    <option value="base">{{localize "KG.BasicRank"}}</option>
+                    <option value="rank">{{localize "KG.AddRank"}}</option>
+                    <option value="add">{{localize "KG.AddDamage"}}</option>
+                    <option value="reduce_armor">[{{localize "KG.DamageReduce"}}] {{localize "KG.AddArmor"}}</option>
+                    <option value="reduce_barrier">[{{localize "KG.DamageReduce"}}] {{localize "KG.AddBarrier"}}</option>
+                    <option value="reduce_damage">[{{localize "KG.DamageReduce"}}] {{localize "KG.DamageReduce"}}</option>
+                    <option value="reduce_half">[{{localize "KG.DamageReduce"}}] {{localize "KG.Half"}}(1)</option>
+                    <option value="reduce_quarter">[{{localize "KG.DamageReduce"}}] {{localize "KG.Quarter"}}(1)</option>
+                    {{/select}}
+                  </select>
+
+                  <input class="attribute-value" type="text" name="data.effect.attributes.{{key}}.value" value="{{attr.value}}" data-dtype="Number"/>
+                  <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
+              </li>
+          {{/each}}
+          </ol>
+          
+      </div>
 
   </section>
 

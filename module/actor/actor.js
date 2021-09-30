@@ -68,12 +68,15 @@ export class KamigakariActor extends Actor {
     if (mainStyle != null)
       values = this._updateData(values, mainStyle.data.data.attributes);
 
-    for (var item of talents) {
+    for (let item of talents) {
       values = this._updateData(values, item.data.data.attributes);
       roll = (item.data.data.roll != undefined && item.data.data.roll != '-') ? item.data.data.roll : roll;
     }
 
-    for (var item of facade)
+    for (let effect of Object.values(this.data.data.attributes.effects))
+      values = this._updateData(values, effect.attributes);
+
+    for (let item of facade)
       values = this._updateData(values, item.data.data.attributes);
 
 

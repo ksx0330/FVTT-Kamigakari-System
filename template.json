@@ -102,7 +102,8 @@
         "half": 0,
         "quarter": 0
       },
-      "money": 0
+      "money": 0,
+      "effects": {}
 
     }
   },
@@ -198,6 +199,10 @@
       "base",
       "talent"
     ],
+    "effect": {
+      "disable": "-",
+      "attributes": {}
+    },
     "active": {
       "state": false,
       "disable": "-"
@@ -206,9 +211,9 @@
       "state": 0,
       "disable": "-"
     },
+    "attributes": {},
     "getTarget": false,
     "roll": "-",
-    "attributes": {},
     "talentType": "",
     "class": "",
     "classType": "",

@@ -275,6 +275,7 @@
               <a class="item" data-tab="talents">{{localize "KG.Talents"}}</a>
               <a class="item" data-tab="equipment">{{localize "KG.Equipment"}}</a>
               <a class="item" data-tab="bonds">{{localize "KG.Bonds"}}</a>
+              <a class="item" data-tab="effect">{{localize "KG.Effect"}}</a>
           </nav>
 
           {{!-- Sheet Body --}}
@@ -643,6 +644,43 @@
               </div>
 
             </div>
+
+            {{!-- Owned Items Tab --}}
+            <div class="tab" data-group="primary" data-tab="effect">
+              <div class="cell">
+                <h2 class="cell--title">
+                  <label>{{localize "KG.Effect"}}</label>
+                </h2>
+                  <ol class="items-list">
+                  {{#each actor.effects as |item id|}}
+                    <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+                      <h4 class="item-name">
+                        <span class="echo-item" style="float:left;">
+                            <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
+                        </span> 
+			<span class="item-label">[{{item.data.condition}}] {{item.name}} | {{item.actor}}<br>
+                        <span style="color : gray; font-size : smaller;">
+                        {{localize "KG.Timing"}} : {{local item.data.timing}} / 
+                        {{localize "KG.Range"}} : {{item.data.range}} / 
+                        {{localize "KG.Target"}} : {{item.data.target}} / 
+                        {{localize "KG.Cost"}} : {{item.data.cost}} / {{localize "KG.DisableTiming"}} : {{disable item.data.effect.disable}}
+                            <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
+                     </span></span>
+                   </h4>
+
+                      <h4 class="item-addon">
+			<button type="button" class="show-effect" style="width: auto"><i class="fas fa-eye"></i></button>
+                        <button type="button" class="remove-effect" style="width: auto"><i class="fas fa-trash"></i></button>
+                      </h4>
+                      <div class="item-description">{{{item.data.description}}}
+                      </div>
+                    </li>
+                  {{/each}}
+                  </ol>
+              </div>
+
+            </div>
+
 
           </section>
 
