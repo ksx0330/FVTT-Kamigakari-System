@@ -250,11 +250,26 @@ export class KamigakariActorSheet extends ActorSheet {
     });
 
     html.find(".show-effect").on('click', async ev => {
+      const list = {hp: "KG.HP", acc: "KG.ACC", eva: "KG.EVA", cnj: "KG.CNJ", res: "KG.RES", ins: "KG.INS", pd: "KG.PD", md: "KG.MD", init: "KG.Init", armor: "KG.Armor", barrier: "KG.Barrier", str: "KG.STR", str_roll: "KG.STRRoll", agi: "KG.AGI", agi_roll: "KG.AGIRoll", int: "KG.INT", int_roll: "KG.INTRoll", wil: "KG.WIL", wil_roll: "KG.WILRoll", lck: "KG.LCK", lck_roll: "KG.LCKRoll", base: "KG.BasicRank", rank: "KG.AddRank", add: "KG.AddDamage"};
       const li = event.currentTarget.closest(".item");
       let attr = this.actor.data.data.attributes.effects[li.dataset.itemId].attributes;
       let content = `<table><tr><th>${game.i18n.localize("KG.Attributes")}</th><th>${game.i18n.localize("KG.Value")}</th></tr>`
-      for (let [key, value] of Object.entries(attr))
-        content += `<tr><td>${key}</td><td>${value.value}</td></tr>`
+      for (let [key, value] of Object.entries(attr)) {
+        let str = "";
+        if (key == "reduce_armor")
+          str = `[${game.i18n.localize("KG.DamageReduce")}] ${game.i18n.localize("KG.AddArmor")}`;
+        else if (key == "reduce_barrier")
+          str = `[${game.i18n.localize("KG.DamageReduce")}] ${game.i18n.localize("KG.AddBarrier")}`;
+        else if (key == "reduce_damage")
+          str = `[${game.i18n.localize("KG.DamageReduce")}] ${game.i18n.localize("KG.DamageReduce")}`;
+        else if (key == "reduce_half")
+         str = `[${game.i18n.localize("KG.DamageReduce")}] ${game.i18n.localize("KG.Half")} (1)`;
+        else if (key == "reduce_quarter")
+          str = `[${game.i18n.localize("KG.DamageReduce")}] ${game.i18n.localize("KG.Quarter")} (1)`;
+        else
+          str = game.i18n.localize(list[key]);
+        content += `<tr><td>${str}</td><td>${value.value}</td></tr>`
+      }
       content += `</table>`;
 
       new Dialog({
