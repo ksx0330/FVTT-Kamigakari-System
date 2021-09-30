@@ -182,6 +182,7 @@ export class KamigakariItemSheet extends ItemSheet {
     }, {});
 
     // Remove attributes which are no longer used
+    if (this.object.data.data.effect.attributes != null)
     for ( let k of Object.keys(this.object.data.data.effect.attributes) ) {
       if ( !attributes.hasOwnProperty(k) ) attributes[`-=${k}`] = null;
     }
