@@ -200,3 +200,8 @@ Changelog
 1.3.0 - Add talent attributes that apply to the target
   * Talent can have a target tab and put an effect that applies to the target.
   * Each character has an effect tab, where you can check the target talent applied.
+
+1.3.1 - Bug fix
+  * Fixed abug where the enermy sheet doesn't open.
+  * Change the initial value of the enermy sheet to blank.
+  * Modified the character to have priorities over enermy during battle.

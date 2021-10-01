@@ -114,52 +114,52 @@
     ],
     "attributes": {
       "acc": {
-        "value": 0,
+        "value": "",
         "min": 0,
-        "fix": 0
+        "fix": ""
       },
       "eva": {
-        "value": 0,
+        "value": "",
         "min": 0,
-        "fix": 0
+        "fix": ""
       },
       "ivc": {
-        "value": 0,
+        "value": "",
         "min": 0,
-        "fix": 0
+        "fix": ""
       },
       "res": {
-        "value": 0,
+        "value": "",
         "min": 0,
-        "fix": 0
+        "fix": ""
       },
       "chk": {
-        "value": 0,
+        "value": "",
         "min": 0,
-        "fix": 0
+        "fix": ""
       },
       "pd": {
-        "value": 0,
+        "value": "",
         "min": 0
       },
       "md": {
-        "value": 0,
+        "value": "",
         "min": 0
       },
       "init": {
-        "value": 0,
+        "value": "",
         "min": 0
       },
       "armor": {
-        "value": 0,
+        "value": "",
         "min": 0
       },
       "barrier": {
-        "value": 0,
+        "value": "",
         "min": 0
       },
       "move": {
-        "value": 0
+        "value": ""
       },
 
       "defense": {

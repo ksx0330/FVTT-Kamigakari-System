@@ -22,9 +22,9 @@ export class KamigakariCombat extends Combat {
     }
     
     if (startActor == null)
-      startActor = await Actor.create({name: startLabel, type: "enemy", data: {}});
+      startActor = await Actor.create({name: startLabel, type: "enemy", data: {"attributes.init.value": 99}});
     if (endActor == null)
-      endActor = await Actor.create({name: endLabel, type: "enemy", data: {}});
+      endActor = await Actor.create({name: endLabel, type: "enemy", data: {"attributes.init.value": -1}});
 
 
     var token = null;
@@ -39,9 +39,6 @@ export class KamigakariCombat extends Combat {
       this.startToken = (await this.scene.createEmbeddedDocuments("Token", [{alpha: 0, actorId: startActor.id}], {}))[0];
     if (this.endToken == null)
       this.endToken = (await this.scene.createEmbeddedDocuments("Token", [{alpha: 0, actorId: endActor.id}], {}))[0];
-      
-    console.log(this.startToken);
-    console.log(this.endToken);
 
     await this.createEmbeddedDocuments("Combatant", [{actorId: startActor.id, tokenId: this.startToken.id, name: startLabel, initiative: 99}, {actorId: endActor.id, tokenId: this.endToken.id, name: endLabel, initiative: -1}], {});
     
@@ -82,6 +79,23 @@ export class KamigakariCombat extends Combat {
     // Create multiple chat messages
     await ChatMessage.implementation.create(messages);
     return this;
+  }
+  
+  _sortCombatants(a, b) {
+    const ia = Number.isNumeric(a.initiative) ? a.initiative : -9999;
+    const ib = Number.isNumeric(b.initiative) ? b.initiative : -9999;
+    let ci = ib - ia;
+    if ( ci !== 0 ) return ci;
+    
+    if (a.actor.type !== b.actor.type) {
+      if (a.actor.type === "character")
+        return -1;
+      else
+        return 1;
+    }
+    let cn = a.name.localeCompare(b.name);   
+    if ( cn !== 0 ) return cn;
+    return a.id - b.id;
   }
 
   /* -------------------------------------------- */	
