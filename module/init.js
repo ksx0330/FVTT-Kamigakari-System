@@ -524,23 +524,24 @@ async function chatListeners(html) {
                                     icon: '<i class="fas fa-check"></i>',
                                     label: "Confirm",
                                     callback: async () => {
-                                        let targets = game.user.targets;
-                                        for (let t of targets) {
-                                            let a = t.actor;
-                                            if (a.data.type === "enemy")
-                                                continue;
-                                            
-                                            let effects = {};
-                                            effects[item.id] = {
-                                                actorId: actor.id,
-                                                itemId: item.id,
-                                                disable: item.data.data.effect.disable,
-                                                attributes: item.data.data.effect.attributes
+                                        if (item.data.data.effect.disable != "-") {
+                                            let targets = game.user.targets;
+                                            for (let t of targets) {
+                                                let a = t.actor;
+                                                if (a.data.type === "enemy")
+                                                    continue;
+
+                                                let effects = {};
+                                                effects[item.id] = {
+                                                    actorId: actor.id,
+                                                    itemId: item.id,
+                                                    disable: item.data.data.effect.disable,
+                                                    attributes: item.data.data.effect.attributes
+                                                }
+                                                
+                                               await a.update({"data.attributes.effects": effects});
                                             }
-                                            
-                                           await a.update({"data.attributes.effects": effects});
                                         }
-                                        
                                         confirm();
                                     }
                                 }
