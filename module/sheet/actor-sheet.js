@@ -159,6 +159,7 @@ export class KamigakariActorSheet extends ActorSheet {
         let item = actor.items.get(i.itemId);
         let data = item.data;
         data.actor = actor.data.name;
+	data.disable = i.disable;
         return item.data;
 
       });
