@@ -202,6 +202,10 @@ Changelog
   * Each character has an effect tab, where you can check the target talent applied.
 
 1.3.1 - Bug fix
-  * Fixed abug where the enermy sheet doesn't open.
+  * Fix a bug where the enermy sheet doesn't open.
   * Change the initial value of the enermy sheet to blank.
   * Modified the character to have priorities over enermy during battle.
+
+1.3.2 - Bug fix
+  * Fix a bug that do not add equipment ability.
+  * Fix a bug that brings the disable effect from the item.
