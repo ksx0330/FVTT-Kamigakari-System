@@ -209,3 +209,6 @@ Changelog
 1.3.2 - Bug fix
   * Fix a bug that do not add equipment ability.
   * Fix a bug that brings the disable effect from the item.
+
+1.3.3 - Update equipment sheet
+  * Change the description of the equipment sheet to the editor.
