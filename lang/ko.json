@@ -213,6 +213,12 @@
     "SETTINGS.EndTimingDialogDesc": "[종료] 타이밍이 생겼을 때, 액션 다이얼로그를 생성한다.",
     "SETTINGS.MainTimingDialog": "준비/공격 타이밍 다이얼로그",
     "SETTINGS.MainTimingDialogDesc": "[준비], [공격] 타이밍이 생겼을 때, 액션 다이얼로그를 생성한다.",
+    "SETTINGS.DefenseTimingDialog": "방어 타이밍 다이얼로그",
+    "SETTINGS.DefenseTimingDialogDesc": "[방어] 타이밍이 생겼을 때, 액션 다이얼로그를 생성한다.",
+    "SETTINGS.AvailableTimingChoice": "사용 가능한 탤런트가 있을 때만 생성한다.",
+    "SETTINGS.AlwaysTimingChoice": "항상 생성한다.",
+    "SETTINGS.NoneTimingChoice": "생성하지 않는다.",
+    
     "SETTINGS.AutoSpiritDiceCharge": "영력 주사위 자동 충전",
     "SETTINGS.AutoSpiritDiceChargeDesc": "라운드가 종료되었을 때 자동으로 영력 주사위를 채운다.",
 

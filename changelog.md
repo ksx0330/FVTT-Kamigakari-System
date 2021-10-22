@@ -212,3 +212,8 @@ Changelog
 
 1.3.3 - Update equipment sheet
   * Change the description of the equipment sheet to the editor.
+
+1.4.0 - Update about timing.
+  * It is automatically applied even if you use a talent while the damage reduce dialog is floating.
+  * During the damage reduce, an option has been added to ask all characters whether to use defense timing.
+  * Added options to start, end, and defense timing dialogs.

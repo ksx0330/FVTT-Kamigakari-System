@@ -213,6 +213,14 @@
     "SETTINGS.EndTimingDialogDesc": "When [End] timing is created, an action dialog is generated",
     "SETTINGS.MainTimingDialog": "Show Prep & Attack Timing Dialog",
     "SETTINGS.MainTimingDialogDesc": "When [Prep], [Attack] timings are created, an action dialog is generated",
+    "SETTINGS.DefenseTimingDialog": "Show Defense Timing Dialog",
+    "SETTINGS.DefesneTimingDialogDesc": "When [Defense] timings are created, an action dialog is generated",
+    "SETTINGS.AvailableTimingChoice": "Available",
+    "SETTINGS.AlwaysTimingChoice": "Always",
+    "SETTINGS.NoneTimingChoice": "None",
+    
+    
+    
     "SETTINGS.AutoSpiritDiceCharge": "Automatic Charge Spirit Dice",
     "SETTINGS.AutoSpiritDiceChargeDesc": "Automatic charge spirit dice when round is ended",
 

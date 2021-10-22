@@ -5,8 +5,6 @@ export class TalentDialog extends Dialog {
         this.actor = actor;
         this.timing = timing;
         this.talents = this._getTalents(actor, timing);
-        
-        console.log(actor, timing, this.talents);
 
         this.data = {
             title: timing + ": " + game.i18n.localize("KG.UsageTalents"),

@@ -23,6 +23,10 @@ export class SocketController {
                 case "showDices":
                     new game.kamigakari.DicesDialog([data.actorId], {}).render(true);
                     break;
+                    
+                case "showDefenseTiming":
+                    Hooks.call("showDefense");
+                    break;
 
                 
             }

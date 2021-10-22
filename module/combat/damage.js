@@ -1,3 +1,5 @@
+import { DefenseDialog } from "../dialog/defense-dialog.js";
+
 export class DamageController {
     static async calcDamage(actor, roll, formula) {
         if (actor.type === "character") {
@@ -199,57 +201,13 @@ export class DamageController {
     static init() {
         
         Hooks.on("applyDamage", ({actor, data}) => {
-            let damage = (data.recovery) ? "+" + data.realDamage : "-" + data.realDamage;
-            console.log(actor);
-            new Dialog({
-                title: game.i18n.localize("KG.DamageReduce"),
-                content: `<p>
-                          <h2 style="text-align: center;">[${actor.name}] ${damage}</h2>
-                          <table>
-                            <tr>
-                              <th>${game.i18n.localize("KG.AddArmor")}</th>
-                              <td><input type="text" id="armor" value="${actor.data.data.attributes.reduce.armor}" ></td>
-                            </tr>
-                            <tr>
-                              <th>${game.i18n.localize("KG.AddBarrier")}</th>
-                              <td><input type="text" id="barrier" value="${actor.data.data.attributes.reduce.barrier}" ></td>
-                            </tr>
-                            <tr>
-                              <th>${game.i18n.localize("KG.DamageReduce")}</th>
-                              <td><input type="text" id="reduce" value="${actor.data.data.attributes.reduce.damage}" ></td>
-                            </tr>
-                            <tr>
-                              <th>${game.i18n.localize("KG.Half")}</th>
-                              <td><input type="checkbox" id="half" ${ (actor.data.data.attributes.reduce.half) ? "checked": ""} ></td>
-                            </tr>
-                            <tr>
-                              <th>${game.i18n.localize("KG.Quarter")}</th>
-                              <td><input type="checkbox" id="quarter" ${ (actor.data.data.attributes.reduce.quarter) ? "checked" : ""} ></td>
-                            </tr>
-
-                          </table>
-
-                        </p>`,
-                buttons: {
-                    confirm: {
-                        icon: '<i class="fas fa-check"></i>',
-                        label: "Confirm",
-                        callback: () => {
-                            let defense = {};
-                            defense.armor = ($("#armor").val() == "") ? 0 : +$("#armor").val();
-                            defense.barrier = ($("#barrier").val() == "") ? 0 : +$("#barrier").val();
-                            defense.reduce = ($("#reduce").val() == "") ? 0 : +$("#reduce").val();
-                            defense.half = $("#half").is(":checked");
-                            defense.quarter = $("#quarter").is(":checked");
-                            
-                            DamageController.applyDamage(actor, data.data, defense, data.realDamage, data.recovery);
-                            
-                        }
-                    }
-                },
-                default: "confirm"
-            }).render(true); 
+            new DefenseDialog(actor, data).render(true);
                 
+            Hooks.call("showDefense");
+            let share = game.user.id;
+            let users = game.users.filter(u => u.active && u.character != null && u.character.id !== share);
+            for (let user of users)
+                game.socket.emit("system.kamigakari", { id: "showDefenseTiming", sender: game.user.id, receiver: user.id, data: {} });
         })
         
     }

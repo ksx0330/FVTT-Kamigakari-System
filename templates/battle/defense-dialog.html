@@ -1,0 +1,36 @@
+<div class="dialog-content">
+    <h2 style="text-align: center;">[{{name}}] {{damage}}</h2>
+    
+    <table>
+      <tr>
+        <th>{{localize "KG.AddArmor"}}</th>
+        <td><input type="text" id="armor" value="{{armor}}" ></td>
+      </tr>
+      <tr>
+        <th>{{localize "KG.AddBarrier"}}</th>
+        <td><input type="text" id="barrier" value="{{barrier}}" ></td>
+      </tr>
+      <tr>
+        <th>{{localize "KG.DamageReduce"}}</th>
+        <td><input type="text" id="reduce" value="{{reduce}}" ></td>
+      </tr>
+      <tr>
+        <th>{{localize "KG.Half"}}</th>
+        <td><input type="checkbox" id="half" {{half}} ></td>
+      </tr>
+      <tr>
+        <th>{{localize "KG.Quarter"}}</th>
+        <td><input type="checkbox" id="quarter" {{quarter}} ></td>
+      </tr>
+
+    </table>
+
+</div>
+<div class="dialog-buttons">
+    {{#each buttons as |button id|}}
+    <button class="dialog-button" data-button="{{id}}">
+        {{{button.icon}}}
+        {{{button.label}}}
+    </button>
+    {{/each}}
+</div>

@@ -13,6 +13,7 @@ import { KgRegisterHelpers } from "./handlebars.js";
 import { KgRegisterSettings } from "./settings.js";
 import { SocketController } from "./socket.js";
 import { DisableHooks } from "./disable-hooks.js";
+import { TimingHooks } from "./timing-hooks.js";
 
 import { createWorldbuildingMacro } from "./macro.js";
 
@@ -30,6 +31,7 @@ Hooks.once("init", async function() {
         DicesDialog,
         showSpiritDiceViewer,
         SpiritDiceViewer: [],
+        DamageDialog: []
     };
 
     Roll.TOOLTIP_TEMPLATE = "systems/kamigakari/templates/dice/tooltip.html";
@@ -48,10 +50,15 @@ Hooks.once("init", async function() {
     KgRegisterHelpers.init();
     KgRegisterSettings.init();
     SocketController.init();
-    DamageController.init(); 
-    
-    DisableHooks.init();
+    DamageController.init();
 
+
+});
+
+Hooks.once("ready", async function() {
+    TimingHooks.init();
+    DisableHooks.init();    
+    
 });
 
 Hooks.on('createActor', async (actor, options, id) => {
@@ -89,16 +96,21 @@ Hooks.on("canvasInit", function() {
 
 
 Hooks.on("updateActor", function() {
-    game.kamigakari.SpiritDiceViewer = game.kamigakari.SpiritDiceViewer.filter(e => e._state != -1);
-    var viewers = game.kamigakari.SpiritDiceViewer;
-
-    if (viewers.length != 0) {
-        for (let viewer of viewers)
-            viewer.render(true);
+    let reload = (dialogs) => {
+        let d = dialogs.filter(e => e._state != -1);
+        if (d.length != 0) {
+            for (let dialog of d)
+                dialog.render(true);
+        }
+        
+        return d
     }
-
-
+    
+    game.kamigakari.SpiritDiceViewer = reload(game.kamigakari.SpiritDiceViewer);
+    game.kamigakari.DamageDialog = reload(game.kamigakari.DamageDialog);
 });
+
+Hooks.on("updateItem", () => Hooks.call("updateActor"));
 
 Hooks.on("getSceneControlButtons", function(controls) {
     controls[0].tools.push({
@@ -127,7 +139,7 @@ Hooks.on("deleteCombat", async function (data, delta) {
 
 Hooks.on("updateCombat", async function (data, delta) {
     var close = true;
-    if (delta.round == 0 || delta.active == true)
+    if (data.round == 0 || data.active == true)
     return;
 
     if (Object.keys(delta).some((k) => k === "round") && game.settings.get("kamigakari", "autoSpiritDiceCharge")) {
@@ -141,7 +153,7 @@ Hooks.on("updateCombat", async function (data, delta) {
         
         Hooks.call("afterRound", actors);
         
-        if (delta.round != 1) {
+        if (data.round > 1) {
             for (let actor of actors) {
                 var dices = JSON.parse(JSON.stringify(actor.data.data.attributes.spirit_dice.value));
                 for (var i = 0; i < dices.length; ++i) {
@@ -159,298 +171,13 @@ Hooks.on("updateCombat", async function (data, delta) {
     if (game.user.character === undefined || game.user.character.type === "enemy")
         return;
     
-    var start = new Dialog({
-        title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Start"),
-        content: `
-            <h2>${game.i18n.localize("KG.ActionQuestion")}</h2>
-        `,
-        buttons: {
-            action1: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action1"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Start") + ": " + game.i18n.localize("KG.Action1")};
-                    ChatMessage.create(chatData);
-                    
-                    new TalentDialog(game.user.character, "Start").render(true);
-                }
-            },
-            action2: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action2"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Start") + ": " + game.i18n.localize("KG.Action2")};
-                    ChatMessage.create(chatData);
-                }
-            }
-        }
-    }, {top: 300, left: 20});
-    
-    var end = new Dialog({
-        title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.End"),
-        content: `
-            <h2>${game.i18n.localize("KG.ActionQuestion")}</h2>
-        `,
-        buttons: {
-            action1: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action1"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.End") + ": " + game.i18n.localize("KG.Action1")};
-                    ChatMessage.create(chatData);
-                    
-                    new TalentDialog(game.user.character, "End").render(true);
-                }
-            },
-            action2: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action2"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.End") + ": " + game.i18n.localize("KG.Action2")};
-                    ChatMessage.create(chatData);
-                }
-            }
-        }
-    }, {top: 300, left: 20});
-    
-    var prep = new Dialog({
-        title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Prep"),
-        content: `
-            <h2>${game.i18n.localize("KG.ActionQuestion")}</h2>
-            <style>
-            .battle .dialog-buttons {
-                flex-direction: column;
-            }
-            </style>
-        `,
-        buttons: {
-            action1: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action1"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action1")};
-                    ChatMessage.create(chatData);
-                    
-                    new TalentDialog(game.user.character, "Prep").render(true);
-                    close = false;
-                }
-            },
-            action2: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action2"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action2")};
-                    ChatMessage.create(chatData);
-                    
-                    close = true;
-                }
-            },
-            action3: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action3"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action3")};
-                    ChatMessage.create(chatData);
-                    
-                    close = false;
-                }
-            },
-            action4: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action6"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action6")};
-                    ChatMessage.create(chatData);
-                    
-                    combatant.actor.sheet.render(true);
-                    close = false;
-                }
-            },
-            action5: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action7"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action7")};
-                    ChatMessage.create(chatData);
-                    
-                    combatant.actor.sheet.render(true);
-                    close = false;
-                }
-            },
-            action6: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action14"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action14")};
-                    ChatMessage.create(chatData);
-                    
-                    close = true;
-                }
-            }
-        },
-        close: () => {
-            if (!close) {
-                new Dialog({
-                    title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Prep"),
-                    content: `
-                    <h2>${game.i18n.localize("KG.SpentTiming")}</h2>
-                    `,
-                    buttons: {
-                        confirm: {
-                            icon: '<i class="fas fa-check"></i>',
-                            label: "Confirm",
-                            callback: () => attack.render(true)
-                        },
-                        cancel: {
-                            icon: '<i class="fas fa-times"></i>',
-                            label: "Cancel",
-                            callback: () => prep.render(true)
-                        }
-                    }
-                }, {top: 300, left: 20}).render(true);
-            } else
-                attack.render(true);
-            
-        }
-    }, {classes: ["kamigakari", "dialog", "battle"], top: 300, left: 20});
-    
-    var attack = new Dialog({
-        title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Attack"),
-        content: `
-            <h2>${game.i18n.localize("KG.ActionQuestion")}</h2>
-            <style>
-            .battle .dialog-buttons {
-                flex-direction: column;
-            }
-            </style>
-        `,
-        buttons: {
-            action1: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action1"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action1")};
-                    ChatMessage.create(chatData);
-                    
-                    new TalentDialog(game.user.character, "Attack").render(true);
-                    close = false;
-                }
-            },
-            action2: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action2"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action2")};
-                    ChatMessage.create(chatData);
-                    
-                    close = true;
-                }
-            },
-            action3: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action3"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action3")};
-                    ChatMessage.create(chatData);
-                    close = false;
-                }
-            },
-            action4: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action6"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action6")};
-                    ChatMessage.create(chatData);
-                    
-                    combatant.actor.sheet.render(true);
-                    close = false;
-                }
-            },
-            action5: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action7"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action7")};
-                    ChatMessage.create(chatData);
-                    
-                    combatant.actor.sheet.render(true);
-                    close = false;
-                }
-            },
-            action6: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action9"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action9")};
-                    ChatMessage.create(chatData);
-                    
-                    combatant.actor.sheet.render(true);
-                    close = false;
-                }
-            },
-            action7: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action10"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action10")};
-                    ChatMessage.create(chatData);
-                    close = false;
-                }
-            },
-            action8: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action11"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action11")};
-                    ChatMessage.create(chatData);
-                                
-                    combatant.actor.sheet.render(true);
-                    close = false;
-                }
-            },
-            action9: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("KG.Action12"),
-                callback: () => {
-                    let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action12")};
-                    ChatMessage.create(chatData);
-                                
-                    combatant.actor.sheet.render(true);
-                    close = false;
-                }
-            }
-        },
-        close: () => {
-            if (!close) {
-                new Dialog({
-                    title: game.i18n.localize("KG.Timing") + ": " + game.i18n.localize("KG.Attack"),
-                    content: `
-                    <h2>${game.i18n.localize("KG.SpentTiming")}</h2>
-                    `,
-                    buttons: {
-                        confirm: {
-                            icon: '<i class="fas fa-check"></i>',
-                            label: "Confirm"
-                        },
-                        cancel: {
-                            icon: '<i class="fas fa-times"></i>',
-                            label: "Cancel",
-                            callback: () => attack.render(true)
-                        }
-                    }
-                }, {top: 300, left: 20}).render(true);
-            }
-            
-        }
-    }, {classes: ["kamigakari", "dialog", "battle"], top: 300, left: 20});
-    
     var combatant = data.turns[(delta.turn == undefined) ? 0 : delta.turn];
-    if (combatant.data.name == "[" +  game.i18n.localize("KG.Start") + "]" && game.settings.get("kamigakari", "startTimingDialog"))
-        start.render(true);
-    else if (combatant.data.name == "[" +  game.i18n.localize("KG.End") + "]" && game.settings.get("kamigakari", "endTimingDialog"))
-        end.render(true);
+    if (combatant.data.name == "[" +  game.i18n.localize("KG.Start") + "]")
+        Hooks.call("showStart");
+    else if (combatant.data.name == "[" +  game.i18n.localize("KG.End") + "]")
+        Hooks.call("showEnd");
     else if (game.user.character.id == combatant.actor.id && game.settings.get("kamigakari", "mainTimingDialog"))
-        prep.render(true);
+        Hooks.call("showPrep");
     
 });
 

@@ -32,8 +32,13 @@ export class KgRegisterSettings {
 		name: "SETTINGS.StartTimingDialog",
 		hint: "SETTINGS.StartTimingDialogDesc",
 		scope: "client",
-		type: Boolean,
-		default: true,
+		type: String,
+		choices: {
+		  "available": "SETTINGS.AvailableTimingChoice",
+		  "always": "SETTINGS.AlwaysTimingChoice",
+		  "none": "SETTINGS.NoneTimingChoice"
+		},
+		default: "available",
 		config: true
     });
     
@@ -41,11 +46,30 @@ export class KgRegisterSettings {
 		name: "SETTINGS.EndTimingDialog",
 		hint: "SETTINGS.EndTimingDialogDesc",
 		scope: "client",
-		type: Boolean,
-		default: true,
+		type: String,
+		choices: {
+		  "available": "SETTINGS.AvailableTimingChoice",
+		  "always": "SETTINGS.AlwaysTimingChoice",
+		  "none": "SETTINGS.NoneTimingChoice"
+		},
+		default: "available",
 		config: true
     });
-    
+
+    game.settings.register("kamigakari", "defenseTimingDialog", {
+		name: "SETTINGS.DefenseTimingDialog",
+		hint: "SETTINGS.DefenseTimingDialogDesc",
+		scope: "client",
+		type: String,
+		choices: {
+		  "available": "SETTINGS.AvailableTimingChoice",
+		  "always": "SETTINGS.AlwaysTimingChoice",
+		  "none": "SETTINGS.NoneTimingChoice"
+		},
+		default: "available",
+		config: true
+    });
+
     game.settings.register("kamigakari", "mainTimingDialog", {
 		name: "SETTINGS.MainTimingDialog",
 		hint: "SETTINGS.MainTimingDialogDesc",
