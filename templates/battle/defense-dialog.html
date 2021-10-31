@@ -18,23 +18,24 @@
     <table>
       <tr>
         <th>{{localize "KG.AddArmor"}}</th>
-        <td><input type="text" id="armor" value="{{armor}}" ></td>
+        <td colspan="4"><input type="text" id="armor" value="{{armor}}" ></td>
       </tr>
       <tr>
         <th>{{localize "KG.AddBarrier"}}</th>
-        <td><input type="text" id="barrier" value="{{barrier}}" ></td>
+        <td colspan="4"><input type="text" id="barrier" value="{{barrier}}" ></td>
       </tr>
       <tr>
         <th>{{localize "KG.DamageReduce"}}</th>
-        <td><input type="text" id="reduce" value="{{reduce}}" ></td>
+        <td colspan="4"><input type="text" id="reduce" value="{{reduce}}" ></td>
       </tr>
       <tr>
         <th>{{localize "KG.Half"}}</th>
-        <td><input type="checkbox" id="half" {{half}} ></td>
+        <td colspan="4"><input type="checkbox" id="half" {{half}} ></td>
       </tr>
       <tr>
         <th>{{localize "KG.Quarter"}}</th>
-        <td><input type="checkbox" id="quarter" {{quarter}} ></td>
+        <td colspan="3"><input type="checkbox" id="quarter" {{quarter}} ></td>
+        <td><button id="reset">Reset</button></td>
       </tr>
 
     </table>

@@ -40,6 +40,7 @@ export class DefenseDialog extends Dialog {
         super.activateListeners(html);
         
         html.find('input').on('change', this.calcLife.bind(this, html));
+        html.find('#reset').on('click', this.reset.bind(this, html));
         
     }
     
@@ -88,6 +89,10 @@ export class DefenseDialog extends Dialog {
         
         $("#realDamage").text(realDamage);
         $("#life").text(life);
+    }
+    
+    reset(html) {
+        this.render(true);
     }
 
 }
