@@ -49,7 +49,7 @@ export class TimingHooks {
     
     static validate(timing) {
         if (game.user.character == undefined)
-            return;
+            return false;
             
 		var items = game.user.character.items;
 		var result = [];
