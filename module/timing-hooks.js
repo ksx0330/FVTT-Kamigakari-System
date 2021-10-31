@@ -5,6 +5,9 @@ export class TimingHooks {
         game.kamigakari.TimingDialog = this.setTimingDialogs();
         
         Hooks.on("showStart", async actor => {
+            if (game.user.character == undefined)
+                return;
+                
             if (game.settings.get("kamigakari", "startTimingDialog") === "none" ||
                (game.settings.get("kamigakari", "startTimingDialog") !== "always" && !this.validate("Start")) ) {
 
@@ -16,6 +19,9 @@ export class TimingHooks {
         });
         
         Hooks.on("showEnd", async actor => {
+            if (game.user.character == undefined)
+                return;
+                
             if (game.settings.get("kamigakari", "endTimingDialog") === "none" ||
                (game.settings.get("kamigakari", "endTimingDialog") !== "always" && !this.validate("End")) ) {
                    
@@ -27,6 +33,9 @@ export class TimingHooks {
         });
 
         Hooks.on("showDefense", async actor => {
+            if (game.user.character == undefined)
+                return;
+                
             if (game.settings.get("kamigakari", "defenseTimingDialog") === "none" ||
                (game.settings.get("kamigakari", "defenseTimingDialog") !== "always" && !this.validate("Defense")) ) {
                    
@@ -38,19 +47,22 @@ export class TimingHooks {
         });
 
         Hooks.on("showPrep", async actor => {
+            if (game.user.character == undefined)
+                return;
+                
             game.kamigakari.TimingDialog.prep.render(true);
         });
         
         Hooks.on("showAttack", async actor => {
+            if (game.user.character == undefined)
+                return;
+                
             game.kamigakari.TimingDialog.attack.render(true);
         });
         
     }
     
     static validate(timing) {
-        if (game.user.character == undefined)
-            return false;
-            
 		var items = game.user.character.items;
 		var result = [];
 
