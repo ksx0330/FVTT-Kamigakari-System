@@ -177,7 +177,7 @@ export class KamigakariActorSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    html.find('.rollable--damage').on('click', ev => DamageController.calcDamage(this.actor, null));
+    html.find('.rollable--damage').on('click', ev => DamageController.calcAttackDamage(this.actor, null));
     html.find('.add--overflow').on('click', async ev => {
       const add = Number(ev.currentTarget.dataset.add);
       let overflow = this.actor.data.data.attributes.overflow.value;

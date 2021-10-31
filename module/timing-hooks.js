@@ -48,6 +48,9 @@ export class TimingHooks {
     }
     
     static validate(timing) {
+        if (game.user.character == undefined)
+            return;
+            
 		var items = game.user.character.items;
 		var result = [];
 
@@ -194,7 +197,7 @@ export class TimingHooks {
                         let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action6")};
                         ChatMessage.create(chatData);
                         
-                        combatant.actor.sheet.render(true);
+                        game.user.character.sheet.render(true);
                         close = false;
                     }
                 },
@@ -205,7 +208,7 @@ export class TimingHooks {
                         let chatData = {"content": game.i18n.localize("KG.Prep") + ": " + game.i18n.localize("KG.Action7")};
                         ChatMessage.create(chatData);
                         
-                        combatant.actor.sheet.render(true);
+                        game.user.character.sheet.render(true);
                         close = false;
                     }
                 },
@@ -294,7 +297,7 @@ export class TimingHooks {
                         let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action6")};
                         ChatMessage.create(chatData);
                         
-                        combatant.actor.sheet.render(true);
+                        game.user.character.sheet.render(true);
                         close = false;
                     }
                 },
@@ -305,7 +308,7 @@ export class TimingHooks {
                         let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action7")};
                         ChatMessage.create(chatData);
                         
-                        combatant.actor.sheet.render(true);
+                        game.user.character.sheet.render(true);
                         close = false;
                     }
                 },
@@ -316,7 +319,7 @@ export class TimingHooks {
                         let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action9")};
                         ChatMessage.create(chatData);
                         
-                        combatant.actor.sheet.render(true);
+                        game.user.character.sheet.render(true);
                         close = false;
                     }
                 },
@@ -335,8 +338,8 @@ export class TimingHooks {
                     callback: () => {
                         let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action11")};
                         ChatMessage.create(chatData);
-                                    
-                        combatant.actor.sheet.render(true);
+
+                        game.user.character.sheet.render(true);
                         close = false;
                     }
                 },
@@ -347,7 +350,7 @@ export class TimingHooks {
                         let chatData = {"content": game.i18n.localize("KG.Attack") + ": " + game.i18n.localize("KG.Action12")};
                         ChatMessage.create(chatData);
                                     
-                        combatant.actor.sheet.render(true);
+                        game.user.character.sheet.render(true);
                         close = false;
                     }
                 }

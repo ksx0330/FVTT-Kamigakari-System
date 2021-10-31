@@ -1,7 +1,7 @@
 import { DefenseDialog } from "../dialog/defense-dialog.js";
 
 export class DamageController {
-    static async calcDamage(actor, roll, formula) {
+    static async calcAttackDamage(actor, roll, formula) {
         if (actor.type === "character") {
             let actorData = actor.data.data;
             let formula = actorData.attributes.damage.high + " X " + actorData.attributes.damage.rank + " + " + actorData.attributes.damage.add;
@@ -212,7 +212,7 @@ export class DamageController {
         
     }
     
-    static async applyDamage(actor, data, defense, damage, recovery) {
+    static calcDefenseDamage(actor, data, defense, damage, recovery) {
         let actorData = actor.data.data;
         
         let armor = (actorData.attributes.armor.value == "") ? 0 : actorData.attributes.armor.value + defense.armor;
@@ -255,6 +255,15 @@ export class DamageController {
             life = (life + realDamage > maxLife) ? maxLife : life + realDamage;
             realDamage = "+" + realDamage;
         }
+        
+        return {
+            life,
+            realDamage
+        }
+    }
+    
+    static async applyDamage(actor, data, defense, damage, recovery) {
+        let {life, realDamage} = this.calcDefenseDamage(actor, data, defense, damage, recovery);
         
         Hooks.call("afterReduce", actor);
         

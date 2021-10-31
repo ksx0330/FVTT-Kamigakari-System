@@ -289,7 +289,7 @@ async function chatListeners(html) {
         const data = ev.currentTarget.dataset;
         const actor = game.actors.get(data.actorId);
 
-        DamageController.calcDamage(actor, data.roll, data.formula);
+        DamageController.calcAttackDamage(actor, data.roll, data.formula);
     });
 
     html.on('click', '.apply-damage', async ev => {

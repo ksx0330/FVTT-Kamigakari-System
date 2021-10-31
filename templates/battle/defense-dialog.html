@@ -1,5 +1,19 @@
 <div class="dialog-content">
-    <h2 style="text-align: center;">[{{name}}] {{damage}}</h2>
+    <h2 style="display: flex; font-weight: bold;">
+      <img src="{{src}}" width="30" height="30" style="flex: 0; object-fit: cover; border: 2px solid black; border-radius: 50%;">
+      <span style="flex: 1; font-size: 20px; margin: 2px; margin-bottom: 4px;">{{name}} [{{damage}}]</span>
+      
+      <span style="border: 4px double; height: 100%; padding: 0 7px; font-size: 18px;">
+        <span>
+          <span id="realDamage">{{realDamage}}</span>
+          {{#if recovery}} <i class="fas fa-arrow-up" style="color: green"></i> {{else}} <i class="fas fa-arrow-down" style="color: darkred;"></i> {{/if}}
+        </span>
+        <span style="margin-left: 7px;">
+          <i class="fas fa-heart" style="color: indianred"></i>
+          <span id="life">{{life}}</span>
+        </span>
+      </span>
+    </h2>
     
     <table>
       <tr>

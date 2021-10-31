@@ -217,3 +217,7 @@ Changelog
   * It is automatically applied even if you use a talent while the damage reduce dialog is floating.
   * During the damage reduce, an option has been added to ask all characters whether to use defense timing.
   * Added options to start, end, and defense timing dialogs.
+
+1.4.1 - Bug fix
+  * Fix a bug that the character sheet doesn't come out in some actions.
+  * Add feature to show total damage and life after reduce damage.
