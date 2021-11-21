@@ -221,3 +221,6 @@ Changelog
 1.4.1 - Bug fix
   * Fix a bug that the character sheet doesn't come out in some actions.
   * Add feature to show total damage and life after reduce damage.
+
+1.4.2 - Update bond sheet
+  * Change Bond sheet's description
