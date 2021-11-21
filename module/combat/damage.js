@@ -215,8 +215,8 @@ export class DamageController {
     static calcDefenseDamage(actor, data, defense, damage, recovery) {
         let actorData = actor.data.data;
         
-        let armor = (actorData.attributes.armor.value == "") ? 0 : actorData.attributes.armor.value + defense.armor;
-        let barrier = (actorData.attributes.barrier.value == "") ? 0 : actorData.attributes.barrier.value + defense.barrier;
+        let armor = (actorData.attributes.armor.value === "") ? 0 : actorData.attributes.armor.value + defense.armor;
+        let barrier = (actorData.attributes.barrier.value === "") ? 0 : actorData.attributes.barrier.value + defense.barrier;
 
         let reduce = defense.reduce;
         let half = defense.half;
