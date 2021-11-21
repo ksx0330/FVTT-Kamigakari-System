@@ -224,3 +224,6 @@ Changelog
 
 1.4.2 - Update bond sheet
   * Change Bond sheet's description
+
+1.4.3 - Bug fix
+  * Fix a bug when enemy's defense is zero
