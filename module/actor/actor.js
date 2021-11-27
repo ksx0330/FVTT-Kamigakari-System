@@ -335,6 +335,34 @@ export class KamigakariActor extends Actor {
     renderTemplate(template, templateData).then(content => {
       chatData.content = content;
       ChatMessage.create(chatData);
+
+      let talentBar = $(document).find(".talent-bar");
+      if (talentBar == null)
+        return;
+
+
+      let talent = $(`
+        <div class="chat-message message flexcol item" data-item-id="${item.id}">
+          <span class="remove-bar"><a class="remove-btn"><i class="fas fa-trash"></i></a></span>
+          ${content}
+        </div>`);
+
+      talent.on("click", ".remove-btn", ev => {
+        event.preventDefault();
+        const target = ev.currentTarget.closest(".chat-message");
+        target.remove();
+      });
+
+      let talents = talentBar.find(".item");
+      for (let t of talents) {
+        let data = t.dataset;
+        if (data.itemId === item.id)
+          return;
+      }
+
+      talentBar.append(talent);
+      Hooks.call("updateTalentBar", talent)
+
     });
 
   }

@@ -57,8 +57,16 @@ Hooks.once("init", async function() {
 
 Hooks.once("ready", async function() {
     TimingHooks.init();
-    DisableHooks.init();    
-    
+    DisableHooks.init();
+
+    if (game.settings.get("kamigakari", "talentBar")) {
+        let basedoc = document.getElementsByClassName("vtt game system-kamigakari");
+        let hotbar = document.createElement("div");
+        hotbar.className = "talent-bar";
+
+        basedoc[0].appendChild(hotbar);
+    }
+
 });
 
 Hooks.on('createActor', async (actor, options, id) => {
@@ -185,6 +193,7 @@ Hooks.on("hotbarDrop", (bar, data, slot) => createWorldbuildingMacro(data, slot)
 
 Hooks.on("renderChatLog", (app, html, data) => chatListeners(html));
 Hooks.on("renderChatPopout", (app, html, data) => chatListeners(html));
+Hooks.on("updateTalentBar", (html) => chatListeners(html));
 
 async function chatListeners(html) {
     html.on('click', '.use-item', async ev => {

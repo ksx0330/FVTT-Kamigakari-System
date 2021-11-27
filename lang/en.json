@@ -219,10 +219,11 @@
     "SETTINGS.AlwaysTimingChoice": "Always",
     "SETTINGS.NoneTimingChoice": "None",
     
-    
-    
     "SETTINGS.AutoSpiritDiceCharge": "Automatic Charge Spirit Dice",
     "SETTINGS.AutoSpiritDiceChargeDesc": "Automatic charge spirit dice when round is ended",
+
+    "SETTINGS.TalentBar": "Talent Bar",
+    "SETTINGS.TalentBarDesc": "When you show talent and items in the chat window, they are fixed at the bottom.",
 
     "ITEM.TypeTalent": "Talent",
     "ITEM.TypeEquipment": "Equipment",

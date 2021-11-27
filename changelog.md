@@ -227,3 +227,6 @@ Changelog
 
 1.4.3 - Bug fix
   * Fix a bug when enemy's defense is zero
+
+1.4.4 - Add talent menu
+  * Add talent bar where you can easily see talent or items.
