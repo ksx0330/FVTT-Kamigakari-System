@@ -262,12 +262,12 @@ export class KamigakariActor extends Actor {
   _echoItemDescription(itemId) {
     const item = this.items.get(itemId);
 
-    let title = item.data.name;
+    let title = `<div class="title">${item.data.name}</div>`;
     let description = item.data.data.description;
 
     if (item.data.type == 'talent') {
       if (item.data.img != 'icons/svg/item-bag.svg')
-        title = `<img src="${item.data.img}" width="30" height="30"><div class="title">${title}</div>` 
+        title = `<img src="${item.data.img}" width="30" height="30">${title}` 
 
       description = `<table style="text-align: center;">
                       <tr>
