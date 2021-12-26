@@ -230,3 +230,6 @@ Changelog
 
 1.4.4 - Add talent menu
   * Add talent bar where you can easily see talent or items.
+
+1.4.5 - Update UI
+  * Update chat portrait ui

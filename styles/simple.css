@@ -807,3 +807,17 @@ body {
 .talent-bar .remove-bar .remove-btn {
   float: right;
 }
+
+.cell__title {
+  display: flex;
+  padding-bottom: 4px;
+}
+
+.cell__title img {
+  margin-right: 10px;
+}
+
+.cell__title .title {
+  flex: 1;
+  padding-top: 3px;  
+}
