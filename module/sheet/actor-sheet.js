@@ -229,6 +229,9 @@ export class KamigakariActorSheet extends ActorSheet {
     html.find("#transcend").click(this._transcend.bind(this));
     html.find("#vitalIgnition").click(this._vitalIgnition.bind(this));
     html.find("#conceptDestruction").click(this._conceptDestruction.bind(this));
+    
+    html.find('.hp-label').click(this._onResetHP.bind(this));
+    html.find('.spirit-label').click(this._onResetSpirit.bind(this));
 
 
     // Use Item
@@ -505,6 +508,54 @@ export class KamigakariActorSheet extends ActorSheet {
 
     this.actor._useItem(item);
   
+  }
+  
+  async _onResetHP(event) {
+    event.preventDefault();
+    
+    new Dialog({
+        title: 'Reset HP',
+        content: `
+          <h2>${game.i18n.localize("KG.ResetHPAlert")}</h2>
+        `,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: async () => {
+              await this.actor.update({"data.attributes.hp.value": this.actor.data.data.attributes.hp.max});
+
+              var context = game.i18n.localize("KG.ResetHPMessage") ;
+              ChatMessage.create({content: context, speaker: ChatMessage.getSpeaker({actor: this.actor})});
+            }
+          }
+        },
+        default: "confirm"
+    }).render(true);
+  }
+  
+  async _onResetSpirit(event) {
+    event.preventDefault();
+    
+    new Dialog({
+        title: 'Reset Crest',
+        content: `
+          <h2>${game.i18n.localize("KG.ResetSpiritAlert")}</h2>
+        `,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: async () => {
+              await this.actor.update({"data.attributes.spirit.value": 22});
+
+              var context = game.i18n.localize("KG.ResetSpiritMessage") ;
+              ChatMessage.create({content: context, speaker: ChatMessage.getSpeaker({actor: this.actor})});
+            }
+          }
+        },
+        default: "confirm"
+    }).render(true);
   }
 
   /* Spirit Burn */

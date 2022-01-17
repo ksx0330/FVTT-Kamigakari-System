@@ -233,3 +233,7 @@ Changelog
 
 1.4.5 - Update UI
   * Update chat portrait ui
+  
+1.4.6 - Minor update
+  * Compatible Update v9
+  * Add features of reset hp and crest
