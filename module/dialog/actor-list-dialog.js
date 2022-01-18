@@ -38,7 +38,7 @@ export class ActorListDialog extends Dialog {
 
     getContent() {
         var content = "<p>Select actors<br><div>";
-        content += '<select id="actor-select-dialog" multiple style="width: 100%; height: 100%">';
+        content += '<select id="actor-select-dialog" multiple style="width: 100%; height: 480px">';
 
         for (let item of this.actors) {
             content += `<option value="${item._id}">${item.name}</option>`;
