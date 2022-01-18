@@ -12,6 +12,14 @@ export class KgRegisterHelpers {
       const list = {notCheck: "KG.NotCheck", damage: "KG.AfterDamage", reduce: "KG.AfterReduce", round: "KG.AfterRound", battle: "KG.AfterBattle"};
       return game.i18n.localize(list[arg]);
     });
+    
+    Handlebars.registerHelper('validateDice', function(parts, options) {
+      for (let p of parts) {
+        if (p.faces != 6)
+          return options.inverse(this);
+      }
+      return options.fn(this);
+    });
 
   }
 }

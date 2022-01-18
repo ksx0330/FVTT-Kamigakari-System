@@ -213,7 +213,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
 
     html.find('.rollable-ability').on('click', this._onAbilityRoll.bind(this));
-    html.find('.spirit-dice').on('click', this._onChargeSpirit.bind(this, html));
+    html.find('.spirit-dice').on('mousedown', this._onRouteSpiritDicePool.bind(this, html));
     html.find('.dice-image').on('mousedown', this._onRouteSpiritDice.bind(this, html));
 
     // Owned Item management
@@ -336,6 +336,45 @@ export class KamigakariActorSheet extends ActorSheet {
     if (data['ability'] != null)
       await this.actor._rollDice(data['ability'], ctrlClick);
 
+  }
+  
+  async _onRouteSpiritDicePool(html, event) {
+    console.log("AAA");
+    
+    if (event.button == 2 || event.which == 3)
+      this._onResetSpiritPool(html, event);
+    else
+      this._onChargeSpirit(html, event);
+    
+  }
+  
+  async _onResetSpiritPool(html, event) {
+    event.preventDefault();
+    
+    new Dialog({
+        title: 'Reset Spirit Dice Pool',
+        content: `
+          <h2>${game.i18n.localize("KG.ResetSpiritPoolAlert")}</h2>
+        `,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: async () => {
+              const dices = JSON.parse(JSON.stringify(this.actor.data.data.attributes.spirit_dice.value));
+
+              for (var i = 0; i < dices.length; ++i)
+                dices[i] = 0
+
+              await this.actor.update({"data.attributes.spirit_dice.value": dices});
+
+              var context = game.i18n.localize("KG.ResetSpiritPoolMessage") ;
+              ChatMessage.create({content: context, speaker: ChatMessage.getSpeaker({actor: this.actor})});
+            }
+          }
+        },
+        default: "confirm"
+    }).render(true);
   }
 
   async _onChargeSpirit(html, event) {

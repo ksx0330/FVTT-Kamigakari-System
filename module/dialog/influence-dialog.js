@@ -128,8 +128,10 @@ export class InfluenceDialog extends Dialog {
         this.actor.update(dices);
 
         var roll = new Roll(formula);
-        roll.roll();
+        await roll.roll();
+        
         roll.render().then(r => {
+            console.log(r);
             ChatMessage.create({content: r, speaker: ChatMessage.getSpeaker({actor: this.actor})});
         });
     }

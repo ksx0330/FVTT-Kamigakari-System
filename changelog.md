@@ -237,3 +237,10 @@ Changelog
 1.4.6 - Minor update
   * Compatible Update v9
   * Add features of reset hp and crest
+
+1.4.7 - Bug fix
+  * Fixed a bug in which influence does not work in version 9.
+  * Fixed a bug that doesn't work properly when you roll a dice, not 6d.
+  * Add features of reset spirit dice pool (right click)
+  * Expanding the size of select actors dialog.
+  * Update the css a little bit.

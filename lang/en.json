@@ -49,6 +49,8 @@
     "KG.ResetSpiritAlert": "Reset Crest?",
     "KG.ResetSpiritMessage": "Crest Reseted!",
     "KG.RechargeSpirit": "Spirit Dice Recharged!",
+    "KG.ResetSpiritPoolAlert": "Reset Spirit Dice?",
+    "KG.ResetSpiritPoolMessage": "Spirit Dice Reseted!",
     "KG.UseSpiritAlert": "Spend Spirit Die?",
     "KG.UseSpiritMessage": "Spirit Die Spent!",
     "KG.ChangeSpiritAlert": "Change Spirit Die To:",

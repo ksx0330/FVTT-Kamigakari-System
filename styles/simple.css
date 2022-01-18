@@ -9,7 +9,11 @@ body {
 .kamigakari {
   /* Sheet Tabs */
   /* Items List */
-  /* Attributes */ite
+  /* Attributes */
+}
+
+.kamigakari .rollable-ability, .kamigakari .rollable--damage, .kamigakari .spirit-dice, .kamigakari .dice-image, .kamigakari .echo-item, .kamigakari .hp-label, .kamigakari .spirit-label {
+  cursor: pointer;
 }
 
 .kamigakari .width-100 {
@@ -613,6 +617,19 @@ body {
   font-size: 26px;
 }
 
+.dice-result .original .dice {
+  display: block;
+}
+
+.dice-result .original .dice-rolls {
+  display: block;
+  flex: none;
+}
+
+.dice-result .original .part-total {
+  font-size: var(--font-size-16);
+}
+
 .kamigakari .item-controls {
   text-align: right;
   -webkit-box-flex: 0;
@@ -821,4 +838,12 @@ body {
 .cell__title .title {
   flex: 1;
   padding-top: 4px;  
+}
+
+.message .dice {
+  margin-bottom: 4px;
+}
+
+.message .influence {
+  margin-left: 4px;
 }

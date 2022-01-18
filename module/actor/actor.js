@@ -441,7 +441,7 @@ export class KamigakariActor extends Actor {
                 if (rollMode === "blindroll") chatData["blind"] = true;
             
                 let roll = new Roll(answer + "d6");
-                roll.roll();
+                await roll.roll();
 
                 roll.render().then(r => {
                   templateData.rollDw = r;
@@ -486,7 +486,7 @@ export class KamigakariActor extends Actor {
     if (rollMode === "blindroll") chatData["blind"] = true;
 
     let roll = new Roll("2d6");
-    roll.roll();
+    await roll.roll();
     roll.render().then(r => {
       templateData.rollDw = r;
       renderTemplate(template, templateData).then(content => {
@@ -523,8 +523,8 @@ export class KamigakariActor extends Actor {
     if (rollMode === "blindroll") chatData["blind"] = true;
 
     let roll = new Roll("2d6 + 1d6");
-    roll.roll();
-    await roll.render().then(r => {
+    await roll.roll();
+    roll.render().then(r => {
       templateData.rollDw = r;
       renderTemplate(template, templateData).then(content => {
         chatData.content = content;

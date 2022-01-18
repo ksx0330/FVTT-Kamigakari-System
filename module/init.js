@@ -25,7 +25,6 @@ Hooks.once("init", async function() {
     console.log('Initializing Kamigakri System.');
     
     game.kamigakari = {
-        influence,
         setSpiritDice,
         TalentDialog,
         DicesDialog,
@@ -307,6 +306,37 @@ async function chatListeners(html) {
  
         DamageController.finalDamageDialog(data);
     });
+    
+    html.on('click', '.influence', async ev => {
+        event.preventDefault();
+        const data = ev.currentTarget.closest(".chat-message").dataset;
+        const message = game.messages.get(data.messageId);
+        
+        let actorId = message.data.speaker.actor;
+        if (actorId == null) {
+            new Dialog({
+                title: "alert",
+                content: `You must use actor`,
+                buttons: {}
+            }).render(true);
+            return;
+        }
+
+        let actor = game.actors.get(actorId);
+        let d = $(message.data.content);
+        let modScore = d.find(".dice-total").text() - d.find(".part-total").text();
+
+        let actionDice = [];
+        let spiritDice = actor.data.data.attributes.spirit_dice.value;
+
+        let dices = d.find("img");
+        dices.each(function() {
+            actionDice.push($(this).attr("data-dice"));
+        });
+
+        let dialog = new InfluenceDialog(actionDice, spiritDice, actor, modScore);
+        dialog.render(true);
+    });
 
 }
 
@@ -349,44 +379,6 @@ async function setSpiritDice() {
         default: "confirm"
     }).render(true);
 
-}
-
-function influence() {
-    const speaker = ChatMessage.getSpeaker();
-    let actor = game.actors.get(speaker.actor);
-
-    if (actor == null) {
-        new Dialog({
-            title: "alert",
-            content: `You must use actor`,
-            buttons: {}
-        }).render(true);
-        return;
-    }
-
-    var m = game.messages["entities"].filter(element => element.data.speaker.alias == actor.data.name && element.data.content.indexOf("<span class=\"dice-rolls\">") != -1);
-
-    if (m.length == 0) {
-        new Dialog({
-            title: "alert",
-            content: `Unusual Approach`,
-            buttons: {}
-        }).render(true);
-        return;
-    }
-    var d = $(m[m.length - 1].data.content);
-    var modScore = d.find(".dice-total").text() - d.find(".part-total").text();
-
-    var actionDice = [];
-    var spiritDice = actor.data.data.attributes.spirit_dice.value;
-
-    var dices = d.find("img");
-    dices.each(function() {
-        actionDice.push($(this).attr("data-dice"));
-    });
-
-    let dialog = new InfluenceDialog(actionDice, spiritDice, actor, modScore);
-    dialog.render(true);
 }
 
 function showSpiritDiceViewer() {
