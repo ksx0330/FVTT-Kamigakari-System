@@ -50,7 +50,7 @@ export class KamigakariCombat extends Combat {
 
     // Structure input data
     ids = typeof ids === "string" ? [ids] : ids;
-    const currentId = this.combatant.id;
+    const currentId = this.combatant?.id;
     const rollMode = messageOptions.rollMode || game.settings.get("core", "rollMode");
 
     // Iterate over Combatants, performing an initiative roll for each
@@ -64,6 +64,7 @@ export class KamigakariCombat extends Combat {
 
       // Produce an initiative roll for the Combatant
       const roll = combatant.getInitiativeRoll(formula);
+      await roll.evaluate({async: true});
       updates.push({_id: id, initiative: roll.total});
     }
     if ( !updates.length ) return this;
@@ -72,7 +73,7 @@ export class KamigakariCombat extends Combat {
     await this.updateEmbeddedDocuments("Combatant", updates);
 
     // Ensure the turn order remains with the same combatant
-    if ( updateTurn ) {
+    if ( updateTurn && currentId ) {
       await this.update({turn: this.turns.findIndex(t => t.id === currentId)});
     }
 

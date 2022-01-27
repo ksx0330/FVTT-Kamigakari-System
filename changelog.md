@@ -244,3 +244,6 @@ Changelog
   * Add features of reset spirit dice pool (right click)
   * Expanding the size of select actors dialog.
   * Update the css a little bit.
+
+1.4.8 - Bug fix
+  * Fixed a bug that doesn't work as combat's initial roll
