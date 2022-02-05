@@ -247,3 +247,6 @@ Changelog
 
 1.4.8 - Bug fix
   * Fixed a bug that doesn't work as combat's initial roll
+  
+1.4.81 - Bug fix
+  * Remove tab's padding
