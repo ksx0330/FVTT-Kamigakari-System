@@ -250,3 +250,6 @@ Changelog
   
 1.4.81 - Bug fix
   * Remove tab's padding
+
+1.4.82 - Minor update
+  * Remove chat message when timing is not used

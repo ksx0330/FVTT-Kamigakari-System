@@ -11,8 +11,8 @@ export class TimingHooks {
             if (game.settings.get("kamigakari", "startTimingDialog") === "none" ||
                (game.settings.get("kamigakari", "startTimingDialog") !== "always" && !this.validate("Start")) ) {
 
-                let chatData = {"content": game.i18n.localize("KG.Start") + ": " + game.i18n.localize("KG.Action2")};
-                ChatMessage.create(chatData);
+                //let chatData = {"content": game.i18n.localize("KG.Start") + ": " + game.i18n.localize("KG.Action2")};
+                //ChatMessage.create(chatData);
                 return;
             }
             game.kamigakari.TimingDialog.start.render(true);
@@ -25,8 +25,8 @@ export class TimingHooks {
             if (game.settings.get("kamigakari", "endTimingDialog") === "none" ||
                (game.settings.get("kamigakari", "endTimingDialog") !== "always" && !this.validate("End")) ) {
                    
-                let chatData = {"content": game.i18n.localize("KG.End") + ": " + game.i18n.localize("KG.Action2")};
-                ChatMessage.create(chatData);
+                //let chatData = {"content": game.i18n.localize("KG.End") + ": " + game.i18n.localize("KG.Action2")};
+                //ChatMessage.create(chatData);
                 return;
             }
             game.kamigakari.TimingDialog.end.render(true);
@@ -39,8 +39,8 @@ export class TimingHooks {
             if (game.settings.get("kamigakari", "defenseTimingDialog") === "none" ||
                (game.settings.get("kamigakari", "defenseTimingDialog") !== "always" && !this.validate("Defense")) ) {
                    
-                let chatData = {"content": game.i18n.localize("KG.Defense") + ": " + game.i18n.localize("KG.Action2")};
-                ChatMessage.create(chatData);
+                //let chatData = {"content": game.i18n.localize("KG.Defense") + ": " + game.i18n.localize("KG.Action2")};
+                //ChatMessage.create(chatData);
                 return;
             }
             game.kamigakari.TimingDialog.defense.render(true);
