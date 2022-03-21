@@ -251,5 +251,8 @@ Changelog
 1.4.81 - Bug fix
   * Remove tab's padding
 
-1.4.82 - Minor update
+1.4.82 - Errata to status (Korean)
+  * Errata to status (Korean)
+
+1.4.83 - Minor update
   * Remove chat message when timing is not used
