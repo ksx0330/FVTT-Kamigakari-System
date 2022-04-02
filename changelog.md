@@ -256,3 +256,7 @@ Changelog
 
 1.4.83 - Minor update
   * Remove chat message when timing is not used
+
+1.4.9 - Minor update
+  * Fixed a bug that doesn't work item's macro
+  * Add features of change item's quantity

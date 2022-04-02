@@ -389,7 +389,7 @@ export class KamigakariActor extends Actor {
         ChatMessage.create(chatData);
       });
 
-      const macro = game.macros.entities.find(m => (m.data.name === item.data.data.macro));
+      const macro = game.macros.contents.find(m => (m.data.name === item.data.data.macro));
       if (macro != undefined)
           macro.execute();
       else if (item.data.data.macro != "")

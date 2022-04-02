@@ -237,6 +237,8 @@ export class KamigakariActorSheet extends ActorSheet {
     // Use Item
     html.find(".use-item").click(this._useItem.bind(this));
 
+    html.find('.quantity-change').click(this._changeItemQuantity.bind(this));
+
     if (this.document.isOwner) {
       let handler = ev => this._onDragStart(ev);
       html.find('li.item').each((i, li) => {
@@ -546,7 +548,31 @@ export class KamigakariActorSheet extends ActorSheet {
     const item = this.actor.items.get(useButton.parents('.item')[0].dataset.itemId);
 
     this.actor._useItem(item);
-  
+  }
+
+  async _changeItemQuantity(event) {
+    event.preventDefault();
+
+    const chargeButton = $(event.currentTarget);
+    const item = this.actor.items.get(chargeButton.parents('.item')[0].dataset.itemId);
+
+    let add = Number(event.currentTarget.dataset.add);
+    let num = Number(item.data.data.quantity);
+
+    if (num + add < 0)
+      return;
+
+    await item.update({"data.quantity": num + add});
+
+    add = (add > 0) ? "+" + add : add
+
+    let chatData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      content: "<h3>" + item.data.name + ": " + add + "</h3>"
+    };
+
+    ChatMessage.create(chatData);
   }
   
   async _onResetHP(event) {

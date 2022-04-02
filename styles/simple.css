@@ -532,6 +532,13 @@ body {
   line-height: 0;
 }
 
+.kamigakari .icon-button {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  line-height: 0;
+}
+
 .kamigakari .sheet-wrapper .sheet-body .tab, .kamigakari .sheet-wrapper .sheet-body .sheet-tab {
   height: 100%;
 }
