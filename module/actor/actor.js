@@ -291,6 +291,8 @@ export class KamigakariActor extends Actor {
     }
 
     else if (item.data.type == 'item') {
+      if (item.data.img != 'icons/svg/item-bag.svg')
+        title = `<img src="${item.data.img}" width="30" height="30">${title}` 
       description += `<button type="button" class="use-item" data-actor-id="${this.id}" data-item-id="${item.id}">${game.i18n.localize("KG.UseItem")}</button>`
     }
 

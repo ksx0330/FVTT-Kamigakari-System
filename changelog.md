@@ -260,3 +260,7 @@ Changelog
 1.4.9 - Minor update
   * Fixed a bug that doesn't work item's macro
   * Add features of change item's quantity
+
+1.4.10 - Minor update
+  * Add item image to chat massage
+  * Delete sacraments item's use button
