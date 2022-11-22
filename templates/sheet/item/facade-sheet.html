@@ -23,11 +23,11 @@
         </tr>
 
         <tr>
-            <td><input type="text" name="data.attributes.str_roll.value" value="{{data.attributes.str_roll.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.agi_roll.value" value="{{data.attributes.agi_roll.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.int_roll.value" value="{{data.attributes.int_roll.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.wil_roll.value" value="{{data.attributes.wil_roll.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.lck_roll.value" value="{{data.attributes.lck_roll.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.str_roll.value" value="{{system.attributes.str_roll.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.agi_roll.value" value="{{system.attributes.agi_roll.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.int_roll.value" value="{{system.attributes.int_roll.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.wil_roll.value" value="{{system.attributes.wil_roll.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.lck_roll.value" value="{{system.attributes.lck_roll.value}}" data-dtype="Number"/></td>
         </tr>
 
     </table>
@@ -35,8 +35,8 @@
     <div class="cell cell--bio">
         <label class="cell--title">{{localize "KG.Description"}}</label>
         {{!-- We're avoiding WYSIWYGs... for now... --}}
-        {{!-- {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}} --}}
-        <textarea class="biography" name="data.description" rows="5" title="Hey there! Who are you!?"
-                data-dtype="String">{{data.description}}</textarea>
+        {{!-- {{editor content=system.details.biography target="system.details.biography" button=true owner=owner editable=editable}} --}}
+        <textarea class="biography" name="system.description" rows="5" title="Hey there! Who are you!?"
+                data-dtype="String">{{system.description}}</textarea>
     </div>
 </form>

@@ -23,23 +23,23 @@
             <section class="sheet-attributes">
 
               <div class="cell cell--talent">
-                <label for="data.form" class="cell--title">{{localize "KG.Form"}}</label>
-                <input type="text" name="data.form" value="{{data.form}}" data-dtype="String"/>
+                <label for="system.form" class="cell--title">{{localize "KG.Form"}}</label>
+                <input type="text" name="system.form" value="{{system.form}}" data-dtype="String"/>
               </div>
 
               <div class="cell cell--talent">
-                <label for="data.restrict" class="cell--title">{{localize "KG.Restrict"}}</label>
-                <input type="text" name="data.restrict" value="{{data.restrict}}" data-dtype="String"/>
+                <label for="system.restrict" class="cell--title">{{localize "KG.Restrict"}}</label>
+                <input type="text" name="system.restrict" value="{{system.restrict}}" data-dtype="String"/>
               </div>
 
               <div class="cell cell--talent">
-                <label for="data.mode" class="cell--title">{{localize "KG.Mode"}}</label>
-                <input type="text" name="data.mode" value="{{data.mode}}" data-dtype="String"/>
+                <label for="system.mode" class="cell--title">{{localize "KG.Mode"}}</label>
+                <input type="text" name="system.mode" value="{{system.mode}}" data-dtype="String"/>
               </div>
 
               <div class="cell cell--talent">
-                <label for="data.price" class="cell--title">{{localize "KG.Price"}}</label>
-                <input type="text" name="data.price" value="{{data.price}}" data-dtype="Number"/>
+                <label for="system.price" class="cell--title">{{localize "KG.Price"}}</label>
+                <input type="text" name="system.price" value="{{system.price}}" data-dtype="Number"/>
               </div>
 
             </section>
@@ -47,7 +47,7 @@
             <div class="cell cell--bio">
               <label class="cell--title">{{localize "KG.Description"}}</label>
 
-              {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+              {{editor enrichedBiography target="system.description" button=true editable=editable }}
             </div>
 
           </div>
@@ -57,8 +57,8 @@
       {{!-- Attributes Tab --}}
       <div class="tab attributes" data-group="primary" data-tab="attributes">
           <div style="float: right">
-            <label for="data.equipment">{{localize "KG.Equipment"}}</label>
-            <input type="checkbox" name="data.equipment" {{#if data.equipment}} checked {{/if}}">
+            <label for="system.equipment">{{localize "KG.Equipment"}}</label>
+            <input type="checkbox" name="system.equipment" {{#if system.equipment}} checked {{/if}}">
           </div>
 
           <header class="attributes-header flexrow width-100">
@@ -68,9 +68,9 @@
           </header>
     
           <ol class="attributes-list">
-          {{#each data.attributes as |attr key|}}
+          {{#each system.attributes as |attr key|}}
               <li class="attribute flexrow" data-attribute="{{key}}">
-                  <select class="attribute-key" name="data.attributes.{{key}}.key" data-dtype="String">
+                  <select class="attribute-key" name="system.attributes.{{key}}.key" data-dtype="String">
                     {{#select key}}
                     <option value="-">-</option>
                     <option value="hp">{{localize "KG.HP"}}</option>
@@ -94,7 +94,7 @@
                     {{/select}}
                   </select>
     
-                  <input class="attribute-value" type="text" name="data.attributes.{{key}}.value" value="{{attr.value}}" data-dtype="Number"/>
+                  <input class="attribute-value" type="text" name="system.attributes.{{key}}.value" value="{{attr.value}}" data-dtype="Number"/>
                   <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
               </li>
           {{/each}}
@@ -117,18 +117,18 @@
                 <a class="attribute-control" data-action="create" data-type="additional"><i class="fas fa-plus"></i></a>
             </header>
             <ol class="attributes-list">
-              {{#each data.additional as |attr key|}}
+              {{#each system.additional as |attr key|}}
                   <div class="additional attribute" data-attribute="{{key}}">
                     <li class="flexrow">
-                      <input class="attribute-key" type="hidden" name="data.additional.{{key}}.key" value="{{key}}"/>
-                      <input class="attribute-name bold" type="text" name="data.additional.{{key}}.name" value="{{attr.name}}" data-dtype="String"/>
-                      <input class="attribute-price" type="text" name="data.additional.{{key}}.price" value="{{attr.price}}" data-dtype="Number"/>
-                      <input class="attribute-trade" type="text" name="data.additional.{{key}}.trade" value="{{attr.trade}}" data-dtype="Number"/>
+                      <input class="attribute-key" type="hidden" name="system.additional.{{key}}.key" value="{{key}}"/>
+                      <input class="attribute-name bold" type="text" name="system.additional.{{key}}.name" value="{{attr.name}}" data-dtype="String"/>
+                      <input class="attribute-price" type="text" name="system.additional.{{key}}.price" value="{{attr.price}}" data-dtype="Number"/>
+                      <input class="attribute-trade" type="text" name="system.additional.{{key}}.trade" value="{{attr.trade}}" data-dtype="Number"/>
                       <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
                     </li>
                     <li class="flexrow effect-column">
                       <header class="attributes-header">{{localize "KG.Effect"}}</header>
-                      <textarea class="attribute-effect" type="text" name="data.additional.{{key}}.effect" data-dtype="String">{{attr.effect}}</textarea>
+                      <textarea class="attribute-effect" type="text" name="system.additional.{{key}}.effect" data-dtype="String">{{attr.effect}}</textarea>
                     </li>
                   </div>
               {{/each}}
@@ -148,12 +148,12 @@
                 <a class="attribute-control" data-action="create" data-type="material"><i class="fas fa-plus"></i></a>
             </header>
             <ol class="attributes-list">
-              {{#each data.material as |attr key|}}
+              {{#each system.material as |attr key|}}
               <li class="attribute flexrow" data-attribute="{{key}}">
-                <input class="attribute-key" type="hidden" name="data.material.{{key}}.key" value="{{key}}" data-dtype="String"/>
-                <input class="attribute-name" type="text" name="data.material.{{key}}.name" value="{{attr.name}}" data-dtype="String"/>
-                <input class="attribute-price" type="text" name="data.material.{{key}}.price" value="{{attr.price}}" data-dtype="Number"/>
-                <input class="attribute-value" type="text" name="data.material.{{key}}.effect" value="{{attr.effect}}" data-dtype="String"/>
+                <input class="attribute-key" type="hidden" name="system.material.{{key}}.key" value="{{key}}" data-dtype="String"/>
+                <input class="attribute-name" type="text" name="system.material.{{key}}.name" value="{{attr.name}}" data-dtype="String"/>
+                <input class="attribute-price" type="text" name="system.material.{{key}}.price" value="{{attr.price}}" data-dtype="Number"/>
+                <input class="attribute-value" type="text" name="system.material.{{key}}.effect" value="{{attr.effect}}" data-dtype="String"/>
 
                 <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
               </li>

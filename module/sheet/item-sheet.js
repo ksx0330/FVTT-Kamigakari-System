@@ -19,7 +19,7 @@ export class KamigakariItemSheet extends ItemSheet {
   /** @override */
   get template() {
     const path = "systems/kamigakari/templates/sheet/item";
-    return `${path}/${this.item.data.type}-sheet.html`;
+    return `${path}/${this.item.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -28,21 +28,17 @@ export class KamigakariItemSheet extends ItemSheet {
   async getData(options) {
     let isOwner = false;
     let isEditable = this.isEditable;
-
+    
     const data = super.getData(options);
     let items = {};
     let effects = {};
     let actor = null;
 
-    this.options.title = this.document.data.name;
+    data.system = this.document.system;
     isOwner = this.document.isOwner;
     isEditable = this.isEditable;
-    
-    const itemData = this.item.data.toObject(false);
-    data.data = itemData.data;
-    
-    data.dtypes = ["String", "Number", "Boolean"];
 
+    data.enrichedBiography = await TextEditor.enrichHTML(this.object.system.description, {async: true});
     console.log(data);
 
     return data;
@@ -92,20 +88,20 @@ export class KamigakariItemSheet extends ItemSheet {
 
 
       if (type == 'attributes') {
-        const aNk = Object.keys(this.object.data.data.attributes).length + 1;
+        const aNk = Object.keys(this.object.system.attributes).length + 1;
         let attributes = "";
         if (a.dataset.pos == "main")
-          attributes = `<input type="hidden" name="data.attributes.${aNk}.key" value="-" data-dType="String">`;
+          attributes = `<input type="hidden" name="system.attributes.${aNk}.key" value="-" data-dType="String">`;
         else
-          attributes = `<input type="hidden" name="data.effect.attributes.${aNk}.key" value="-" data-dType="String">`;
+          attributes = `<input type="hidden" name="system.effect.attributes.${aNk}.key" value="-" data-dType="String">`;
         newKey.innerHTML = attributes;
       } else if (type == 'additional') {
-        const aNk = Object.keys(this.object.data.data.additional).length + 1;
-        const additional = `<input type="hidden" name="data.additional.add${aNk}.key" value="add${aNk}"/>`;
+        const aNk = Object.keys(this.object.system.additional).length + 1;
+        const additional = `<input type="hidden" name="system.additional.add${aNk}.key" value="add${aNk}"/>`;
         newKey.innerHTML = additional;
       } else if (type == 'material') {
-        const mNk = Object.keys(this.object.data.data.material).length + 1;
-        const material = `<input type="hidden" name="data.material.add${mNk}.key" value="material${mNk}"/>`;
+        const mNk = Object.keys(this.object.system.material).length + 1;
+        const material = `<input type="hidden" name="system.material.add${mNk}.key" value="material${mNk}"/>`;
         newKey.innerHTML = material;
       }
 
@@ -129,14 +125,14 @@ export class KamigakariItemSheet extends ItemSheet {
     console.log(formData);
     console.log(this.object);
 
-    if (this.item.data.type != 'equipment' && this.item.data.type != 'talent')
+    if (this.item.type != 'equipment' && this.item.type != 'talent')
       return this.object.update(formData);
 
     formData = this.updateAttributes(formData);
-    if (this.item.data.type == 'equipment') {
+    if (this.item.type == 'equipment') {
       formData = this.updateAdditional(formData);
       formData = this.updateMaterial(formData);
-    } else if (this.item.data.type == 'talent')
+    } else if (this.item.type == 'talent')
       formData = this.updateEffectAttributes(formData);
 
     // Update the Item
@@ -145,7 +141,7 @@ export class KamigakariItemSheet extends ItemSheet {
 
   updateAttributes(formData) {
     // Handle the free-form attributes list
-    const formAttrs = expandObject(formData).data.attributes || {};
+    const formAttrs = expandObject(formData).system.attributes || {};
 
     const attributes = Object.values(formAttrs).reduce((obj, v) => {
       let k = v["key"].trim();
@@ -156,22 +152,22 @@ export class KamigakariItemSheet extends ItemSheet {
     }, {});
 
     // Remove attributes which are no longer used
-    for ( let k of Object.keys(this.object.data.data.attributes) ) {
+    for ( let k of Object.keys(this.object.system.attributes) ) {
       if ( !attributes.hasOwnProperty(k) ) attributes[`-=${k}`] = null;
     }
 
     // Re-combine formData
-    formData = Object.entries(formData).filter(e => !e[0].startsWith("data.attributes")).reduce((obj, e) => {
+    formData = Object.entries(formData).filter(e => !e[0].startsWith("system.attributes")).reduce((obj, e) => {
       obj[e[0]] = e[1];
       return obj;
-    }, {id: this.object.id, "data.attributes": attributes});
+    }, {id: this.object.id, "system.attributes": attributes});
 
     return formData;
   }
   
   updateEffectAttributes(formData) {
     // Handle the free-form attributes list
-    const formAttrs = expandObject(formData).data.effect.attributes || {};
+    const formAttrs = expandObject(formData).system.effect.attributes || {};
 
     const attributes = Object.values(formAttrs).reduce((obj, v) => {
       let k = v["key"].trim();
@@ -182,23 +178,23 @@ export class KamigakariItemSheet extends ItemSheet {
     }, {});
 
     // Remove attributes which are no longer used
-    if (this.object.data.data.effect.attributes != null)
-    for ( let k of Object.keys(this.object.data.data.effect.attributes) ) {
+    if (this.object.system.effect.attributes != null)
+    for ( let k of Object.keys(this.object.system.effect.attributes) ) {
       if ( !attributes.hasOwnProperty(k) ) attributes[`-=${k}`] = null;
     }
 
     // Re-combine formData
-    formData = Object.entries(formData).filter(e => !e[0].startsWith("data.effect.attributes")).reduce((obj, e) => {
+    formData = Object.entries(formData).filter(e => !e[0].startsWith("system.effect.attributes")).reduce((obj, e) => {
       obj[e[0]] = e[1];
       return obj;
-    }, {id: this.object.id, "data.effect.attributes": attributes});
+    }, {id: this.object.id, "system.effect.attributes": attributes});
 
     return formData;
   }
 
   updateAdditional(formData) {
     // Handle the free-form attributes list
-    const formAttrs = expandObject(formData).data.additional || {};
+    const formAttrs = expandObject(formData).system.additional || {};
 
     const additional = Object.values(formAttrs).reduce((obj, v) => {
       let k = v["key"].trim();
@@ -209,22 +205,22 @@ export class KamigakariItemSheet extends ItemSheet {
     }, {});
     
     // Remove attributes which are no longer used
-    for ( let k of Object.keys(this.object.data.data.additional) ) {
+    for ( let k of Object.keys(this.object.system.additional) ) {
       if ( !additional.hasOwnProperty(k) ) additional[`-=${k}`] = null;
     }
 
     // Re-combine formData
-    formData = Object.entries(formData).filter(e => !e[0].startsWith("data.additional")).reduce((obj, e) => {
+    formData = Object.entries(formData).filter(e => !e[0].startsWith("system.additional")).reduce((obj, e) => {
       obj[e[0]] = e[1];
       return obj;
-    }, {_id: this.object._id, "data.additional": additional});
+    }, {_id: this.object._id, "system.additional": additional});
 
     return formData;
   }
   
   updateMaterial(formData) {
     // Handle the free-form attributes list
-    const formAttrs = expandObject(formData).data.material || {};
+    const formAttrs = expandObject(formData).system.material || {};
 
     const material = Object.values(formAttrs).reduce((obj, v) => {
       let k = v["key"].trim();
@@ -235,15 +231,15 @@ export class KamigakariItemSheet extends ItemSheet {
     }, {});
     
     // Remove attributes which are no longer used
-    for ( let k of Object.keys(this.object.data.data.material) ) {
+    for ( let k of Object.keys(this.object.system.material) ) {
       if ( !material.hasOwnProperty(k) ) material[`-=${k}`] = null;
     }
 
     // Re-combine formData
-    formData = Object.entries(formData).filter(e => !e[0].startsWith("data.material")).reduce((obj, e) => {
+    formData = Object.entries(formData).filter(e => !e[0].startsWith("system.material")).reduce((obj, e) => {
       obj[e[0]] = e[1];
       return obj;
-    }, {_id: this.object._id, "data.material": material});
+    }, {_id: this.object._id, "system.material": material});
 
     return formData;
   }

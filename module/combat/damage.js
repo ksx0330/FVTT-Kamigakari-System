@@ -3,7 +3,7 @@ import { DefenseDialog } from "../dialog/defense-dialog.js";
 export class DamageController {
     static async calcAttackDamage(actor, roll, formula) {
         if (actor.type === "character") {
-            let actorData = actor.data.data;
+            let actorData = actor.system;
             let formula = actorData.attributes.damage.high + " X " + actorData.attributes.damage.rank + " + " + actorData.attributes.damage.add;
             let roll = actorData.attributes.damage.roll;
             
@@ -15,7 +15,7 @@ export class DamageController {
                 if ($("#add").val() != "")
                     formula += "+" + $("#add").val();
 
-                await actor.update({"data.attributes.destruction.value": 0});
+                await actor.update({"system.attributes.destruction.value": 0});
                 Hooks.call("afterDamage", actor);
                         
                 return {rank: rank, high: actorData.attributes.damage.high, formula: formula};
@@ -34,7 +34,7 @@ export class DamageController {
 
 
     static async _calcDialog(actor, roll, formula, callback) {
-        let context = `<p>
+        let context = `
                         <h2 style="text-align: center;">${formula}</h2>
                         <table>
                             <colgroup>
@@ -80,7 +80,7 @@ export class DamageController {
                 </table>
 
                 <script>$("#type").val("${roll}").prop("selected", true);</script>
-            </p>`
+            `
                                     
         new Dialog({
             title: game.i18n.localize("KG.CalcDamage"),
@@ -115,7 +115,7 @@ export class DamageController {
     static async finalDamageDialog(data, callback) {
         new Dialog({
             title: game.i18n.localize("KG.ApplyDamage"),
-            content: `<p>
+            content: `
                       <h2 style="text-align: center;">${data.damage}</h2>
 
                       <table>
@@ -136,7 +136,7 @@ export class DamageController {
 
                       </table>
 
-                    </p>`,
+                    `,
             buttons: {
                 confirm: {
                     icon: '<i class="fas fa-check"></i>',
@@ -155,10 +155,10 @@ export class DamageController {
 
         for (var target of targets) {
             let actor = target.actor;
-            let actorData = actor.data.data;
+            let actorData = actor.system;
             let realDamage = damage;
             
-            let r = await new Roll("1d6").roll();
+            let r = await new Roll("1d6").roll({async: true});
             if (actor.type === "enemy" && $("#weak").is(":checked"))
                 realDamage += (data.rank != null && data.rank < 10) ? +data.high : r.total;
             if ($("#half").is(":checked"))
@@ -213,7 +213,7 @@ export class DamageController {
     }
     
     static calcDefenseDamage(actor, data, defense, damage, recovery) {
-        let actorData = actor.data.data;
+        let actorData = actor.system;
         
         let armor = (actorData.attributes.armor.value === "") ? 0 : actorData.attributes.armor.value + defense.armor;
         let barrier = (actorData.attributes.barrier.value === "") ? 0 : actorData.attributes.barrier.value + defense.barrier;
@@ -267,7 +267,7 @@ export class DamageController {
         
         Hooks.call("afterReduce", actor);
         
-        await actor.update({"data.attributes.hp.value": life});
+        await actor.update({"system.attributes.hp.value": life});
         let chatData = {"content": actor.name + " (" + realDamage + ")", "speaker": ChatMessage.getSpeaker({ actor: actor })};
         ChatMessage.create(chatData);
     }

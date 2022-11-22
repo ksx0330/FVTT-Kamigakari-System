@@ -21,12 +21,8 @@ export class KamigakariActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    // Lagacy version compatible
-    if (this.actor.data.type == "enermy")
-      this.actor.update({'type': 'enemy'});
-
     const path = "systems/kamigakari/templates/sheet/actor";
-    return `${path}/${this.actor.data.type}-sheet.html`;
+    return `${path}/${this.actor.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -36,7 +32,6 @@ export class KamigakariActorSheet extends ActorSheet {
     let isOwner = false;
     let isEditable = this.isEditable;
     let data = super.getData(options);
-    let items = {};
     let actorData = {};
 
     isOwner = this.document.isOwner;
@@ -45,9 +40,9 @@ export class KamigakariActorSheet extends ActorSheet {
     data.isView = !this.actor.limited;
 
     // The Actor's data
-    actorData = this.actor.data.toObject(false);
+    actorData = this.actor.toObject(false);
     data.actor = actorData;
-    data.data = actorData.data;
+    data.system = this.actor.system;
 
     // Owned Items
     data.items = actorData.items;
@@ -58,12 +53,19 @@ export class KamigakariActorSheet extends ActorSheet {
     data.items.sort((a, b) => (a.sort || 0) - (b.sort || 0));
 
     data.dtypes = ["String", "Number", "Boolean"];
-    this._prepareCharacterItems(actorData, data.items);
+    this._prepareCharacterItems(actorData, data.system, data.items);
+
+    data.enrichedBiography = await TextEditor.enrichHTML(data.system.details.biography, {async: true});
+
+    if (actorData.type == "enemy") {
+      data.enrichedAttack = await TextEditor.enrichHTML(data.system.details.attack, {async: true});
+      data.enrichedMaterials = await TextEditor.enrichHTML(data.system.details.materials, {async: true});
+    }
 
     return data;
   }
 
-  _prepareCharacterItems(actorData, items) {
+  _prepareCharacterItems(actorData, system, items) {
     actorData.talentClassify = game.settings.get("kamigakari", "talentClassify")
 
     const race = [];
@@ -85,7 +87,6 @@ export class KamigakariActorSheet extends ActorSheet {
     const attackOptions = [];
 
     for (let i of items) {
-      let item = i.data;
       i.img = i.img || DEFAULT_TOKEN;
       if (i.type == 'race')
         race.push(i);
@@ -94,7 +95,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
       else if (i.type === 'talent') {
         if (actorData.talentClassify) {
-            switch (i.data.talentType) {
+            switch (i.system.talentType) {
               case 'RACE':
                 raceTalents.push(i);
                 break;
@@ -114,7 +115,7 @@ export class KamigakariActorSheet extends ActorSheet {
       else if (i.type =='equipment')
         equipmentItems.push(i);
       else if (i.type == 'item') {
-        switch (i.data.class) {
+        switch (i.system.class) {
           case 'sacraments':
             sacramentItems.push(i);
             break;
@@ -154,13 +155,13 @@ export class KamigakariActorSheet extends ActorSheet {
     actorData.bonds = bonds;
 
     if (actorData.type != "enemy") {
-      actorData.effects = Object.values(actorData.data.attributes.effects).map( i => {
+      actorData.effects = Object.values(system.attributes.effects).map( i => {
         let actor = game.actors.get(i.actorId);
         let item = actor.items.get(i.itemId);
-        let data = item.data;
-        data.actor = actor.data.name;
-	data.disable = i.disable;
-        return item.data;
+        let data = item;
+        data.actor = actor.name;
+        data.disable = i.disable;
+        return item;
 
       });
     }
@@ -180,12 +181,12 @@ export class KamigakariActorSheet extends ActorSheet {
     html.find('.rollable--damage').on('click', ev => DamageController.calcAttackDamage(this.actor, null));
     html.find('.add--overflow').on('click', async ev => {
       const add = Number(ev.currentTarget.dataset.add);
-      let overflow = this.actor.data.data.attributes.overflow.value;
+      let overflow = this.actor.system.attributes.overflow.value;
 
       if (overflow + add < 0)
         return;
 
-      await this.actor.update({"data.attributes.overflow.value": overflow + add});
+      await this.actor.update({"system.attributes.overflow.value": overflow + add});
       let chatData = {"content": "Overflow : " + overflow + "->" + (overflow + add) };
       ChatMessage.create(chatData);
     });
@@ -194,21 +195,21 @@ export class KamigakariActorSheet extends ActorSheet {
       event.preventDefault();
       const li = event.currentTarget.closest(".item");
       const item = this.actor.items.get(li.dataset.itemId);
-      await item.update({'data.active.state': !item.data.data.active.state});
+      await item.update({'system.active.state': !item.system.active.state});
     });
 
     html.find('.used-input').on('change', async ev => {
       event.preventDefault();
       const li = event.currentTarget.closest(".item");
       const item = this.actor.items.get(li.dataset.itemId);
-      await item.update({'data.used.state': +$(event.currentTarget).val()});
+      await item.update({'system.used.state': +$(event.currentTarget).val()});
     });
 
     html.find('.active-equipment').on('click', async ev => {
       event.preventDefault();
       const li = event.currentTarget.closest(".item");
       const item = this.actor.items.get(li.dataset.itemId);
-      await item.update({'data.equipment': !item.data.data.equipment});
+      await item.update({'system.equipment': !item.system.equipment});
     });
 
 
@@ -250,17 +251,17 @@ export class KamigakariActorSheet extends ActorSheet {
 
     html.find(".defense-refresh").on('click', async ev => {
       await this.actor.update({
-        "data.attributes.defense.armor": 0, 
-        "data.attributes.defense.barrier": 0, 
-        "data.attributes.defense.reduce": 0, 
-        "data.attributes.defense.half": false
+        "system.attributes.defense.armor": 0, 
+        "system.attributes.defense.barrier": 0, 
+        "system.attributes.defense.reduce": 0, 
+        "system.attributes.defense.half": false
       });
     });
 
     html.find(".show-effect").on('click', async ev => {
       const list = {hp: "KG.HP", acc: "KG.ACC", eva: "KG.EVA", cnj: "KG.CNJ", res: "KG.RES", ins: "KG.INS", pd: "KG.PD", md: "KG.MD", init: "KG.Init", armor: "KG.Armor", barrier: "KG.Barrier", str: "KG.STR", str_roll: "KG.STRRoll", agi: "KG.AGI", agi_roll: "KG.AGIRoll", int: "KG.INT", int_roll: "KG.INTRoll", wil: "KG.WIL", wil_roll: "KG.WILRoll", lck: "KG.LCK", lck_roll: "KG.LCKRoll", base: "KG.BasicRank", rank: "KG.AddRank", add: "KG.AddDamage"};
       const li = event.currentTarget.closest(".item");
-      let attr = this.actor.data.data.attributes.effects[li.dataset.itemId].attributes;
+      let attr = this.actor.system.attributes.effects[li.dataset.itemId].attributes;
       let content = `<table><tr><th>${game.i18n.localize("KG.Attributes")}</th><th>${game.i18n.localize("KG.Value")}</th></tr>`
       for (let [key, value] of Object.entries(attr)) {
         let str = "";
@@ -289,7 +290,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
     html.find(".remove-effect").on('click', async ev => {
       const li = event.currentTarget.closest(".item");
-      await this.actor.update({[`data.attributes.effects.-=${li.dataset.itemId}`]: null});
+      await this.actor.update({[`system.attributes.effects.-=${li.dataset.itemId}`]: null});
     });
   }
 
@@ -363,12 +364,12 @@ export class KamigakariActorSheet extends ActorSheet {
             icon: '<i class="fas fa-check"></i>',
             label: "Confirm",
             callback: async () => {
-              const dices = JSON.parse(JSON.stringify(this.actor.data.data.attributes.spirit_dice.value));
+              const dices = JSON.parse(JSON.stringify(this.actor.system.attributes.spirit_dice.value));
 
               for (var i = 0; i < dices.length; ++i)
                 dices[i] = 0
 
-              await this.actor.update({"data.attributes.spirit_dice.value": dices});
+              await this.actor.update({"system.attributes.spirit_dice.value": dices});
 
               var context = game.i18n.localize("KG.ResetSpiritPoolMessage") ;
               ChatMessage.create({content: context, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -381,7 +382,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
   async _onChargeSpirit(html, event) {
     event.preventDefault();
-    const dices = JSON.parse(JSON.stringify(this.actor.data.data.attributes.spirit_dice.value));
+    const dices = JSON.parse(JSON.stringify(this.actor.system.attributes.spirit_dice.value));
 
     for (var i = 0; i < dices.length; ++i) {
       if (dices[i] != 0)
@@ -389,7 +390,7 @@ export class KamigakariActorSheet extends ActorSheet {
       dices[i] = Math.floor(Math.random() * 6) + 1;
     }
 
-    await this.actor.update({"data.attributes.spirit_dice.value": dices});
+    await this.actor.update({"system.attributes.spirit_dice.value": dices});
 
     var context = game.i18n.localize("KG.RechargeSpirit") ;
     ChatMessage.create({content: context, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -404,7 +405,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
   async _onUseSpirit(html, event) {
     event.preventDefault();
-    const dices = JSON.parse(JSON.stringify(this.actor.data.data.attributes.spirit_dice.value));
+    const dices = JSON.parse(JSON.stringify(this.actor.system.attributes.spirit_dice.value));
     const a = event.currentTarget;
     const index = a.dataset.index;
     const oriValue = dices[index];
@@ -421,7 +422,7 @@ export class KamigakariActorSheet extends ActorSheet {
             label: "Confirm",
             callback: async () => {
               dices[index] = 0;
-              await this.actor.update({"data.attributes.spirit_dice.value": dices});
+              await this.actor.update({"system.attributes.spirit_dice.value": dices});
 
               var context = game.i18n.localize("KG.UseSpiritMessage") ;
               ChatMessage.create({content: context + " " + oriValue, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -435,7 +436,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
   async _onChangeSpirit(html, event) {
     event.preventDefault();
-    const dices = JSON.parse(JSON.stringify(this.actor.data.data.attributes.spirit_dice.value));
+    const dices = JSON.parse(JSON.stringify(this.actor.system.attributes.spirit_dice.value));
     const a = event.currentTarget;
     const index = a.dataset.index;
     const oriValue = dices[index];
@@ -456,7 +457,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
               if (!isNaN(answer) && answer != null && Number(answer) >= 1 && Number(answer) <= 6) {
                 dices[index] = Number(answer);
-                await this.actor.update({"data.attributes.spirit_dice.value": dices});
+                await this.actor.update({"system.attributes.spirit_dice.value": dices});
 
                 var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
                 ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -557,19 +558,19 @@ export class KamigakariActorSheet extends ActorSheet {
     const item = this.actor.items.get(chargeButton.parents('.item')[0].dataset.itemId);
 
     let add = Number(event.currentTarget.dataset.add);
-    let num = Number(item.data.data.quantity);
+    let num = Number(item.system.quantity);
 
     if (num + add < 0)
       return;
 
-    await item.update({"data.quantity": num + add});
+    await item.update({"system.quantity": num + add});
 
     add = (add > 0) ? "+" + add : add
 
     let chatData = {
       user: game.user._id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: "<h3>" + item.data.name + ": " + add + "</h3>"
+      content: "<h3>" + item.name + ": " + add + "</h3>"
     };
 
     ChatMessage.create(chatData);
@@ -588,7 +589,7 @@ export class KamigakariActorSheet extends ActorSheet {
             icon: '<i class="fas fa-check"></i>',
             label: "Confirm",
             callback: async () => {
-              await this.actor.update({"data.attributes.hp.value": this.actor.data.data.attributes.hp.max});
+              await this.actor.update({"system.attributes.hp.value": this.actor.system.attributes.hp.max});
 
               var context = game.i18n.localize("KG.ResetHPMessage") ;
               ChatMessage.create({content: context, speaker: ChatMessage.getSpeaker({actor: this.actor})});
@@ -612,7 +613,7 @@ export class KamigakariActorSheet extends ActorSheet {
             icon: '<i class="fas fa-check"></i>',
             label: "Confirm",
             callback: async () => {
-              await this.actor.update({"data.attributes.spirit.value": 22});
+              await this.actor.update({"system.attributes.spirit.value": 22});
 
               var context = game.i18n.localize("KG.ResetSpiritMessage") ;
               ChatMessage.create({content: context, speaker: ChatMessage.getSpeaker({actor: this.actor})});

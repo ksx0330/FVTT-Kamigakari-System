@@ -68,7 +68,7 @@ export class TimingHooks {
 
 		for (let item of items) {
 			if (item.type == "talent") {
-				var t = item.data.data.timing;
+				var t = item.system.timing;
 				if (t == timing)
 					result.push(item)
 			}

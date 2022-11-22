@@ -44,16 +44,16 @@ export class TalentDialog extends Dialog {
                             <span class="echo-item" style="float:left;">
                                 <img src="${item.img}" title="${item.name}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
                             </span> 
-                            <span class="item-label">[${item.data.condition}] ${item.name}<br>
+                            <span class="item-label">[${item.system.condition}] ${item.name}<br>
                             <span style="color : gray; font-size : smaller;">
-                            ${ game.i18n.localize("KG.Timing")} : ${(item.data.timing != "") ? game.i18n.localize("KG." + item.data.timing) : ""} / 
-                            ${ game.i18n.localize("KG.Range")} : ${item.data.range} / 
-                            ${ game.i18n.localize("KG.Target")} : ${item.data.target} / 
-                            ${ game.i18n.localize("KG.Cost")} : ${item.data.cost}
+                            ${ game.i18n.localize("KG.Timing")} : ${(item.system.timing != "") ? game.i18n.localize("KG." + item.system.timing) : ""} / 
+                            ${ game.i18n.localize("KG.Range")} : ${item.system.range} / 
+                            ${ game.i18n.localize("KG.Target")} : ${item.system.target} / 
+                            ${ game.i18n.localize("KG.Cost")} : ${item.system.cost}
                                 <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                          </span></span>
                           </h4>
-                          <div class="item-description">${item.data.description}
+                          <div class="item-description">${item.system.description}
                           </div>
                         </li>`;
         }
@@ -85,7 +85,7 @@ export class TalentDialog extends Dialog {
 
 		for (let item of items) {
 			if (item.type == "talent") {
-				var t = item.data.data.timing;
+				var t = item.system.timing;
 				if (t == timing)
 					result.push(item)
 			}

@@ -15,9 +15,9 @@ export class KamigakariCombat extends Combat {
     this.endToken = null
     
     for (var a of game.actors) {
-      if (a.data.name == startLabel)
+      if (a.name == startLabel)
         startActor = a;
-      else if (a.data.name == endLabel)
+      else if (a.name == endLabel)
         endActor = a;
     }
     
@@ -29,9 +29,9 @@ export class KamigakariCombat extends Combat {
 
     var token = null;
     for (var a of this.scene.tokens) {
-      if (a.data.name == startLabel)
+      if (a.name == startLabel)
         this.startToken = a;
-      else if (a.data.name == endLabel)
+      else if (a.name == endLabel)
         this.endToken = a;
     }
     

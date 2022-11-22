@@ -11,9 +11,9 @@
       <section class="sheet-attributes">
 
         <div class="cell cell--talent">
-          <label for="data.timing" class="cell--title">{{localize "KG.Timing"}}</label>
-          <select class="width-100" name="data.timing" data-dtype="String">
-            {{#select data.timing}}
+          <label for="system.timing" class="cell--title">{{localize "KG.Timing"}}</label>
+          <select class="width-100" name="system.timing" data-dtype="String">
+            {{#select system.timing}}
             <option value="Start">{{localize "KG.Start"}}</option>
             <option value="Prep">{{localize "KG.Prep"}}</option>
             <option value="Attack">{{localize "KG.Attack"}}</option>
@@ -31,27 +31,27 @@
         </div>
 
         <div class="cell cell--talent">
-          <label for="data.range" class="cell--title">{{localize "KG.Range"}}</label>
-          <input type="text" name="data.range" value="{{data.range}}" data-dtype="String"/>
+          <label for="system.range" class="cell--title">{{localize "KG.Range"}}</label>
+          <input type="text" name="system.range" value="{{system.range}}" data-dtype="String"/>
         </div>
 
         <div class="cell cell--talent">
-          <label for="data.target" class="cell--title">{{localize "KG.Target"}}</label>
-          <input type="text" name="data.target" value="{{data.target}}" data-dtype="String"/>
+          <label for="system.target" class="cell--title">{{localize "KG.Target"}}</label>
+          <input type="text" name="system.target" value="{{system.target}}" data-dtype="String"/>
         </div>
 
         <div class="cell cell--talent">
-          <label for="data.resist" class="cell--title">{{localize "KG.RES"}}</label>
-          <input type="text" name="data.resist" value="{{data.resist}}" data-dtype="String"/>
+          <label for="system.resist" class="cell--title">{{localize "KG.RES"}}</label>
+          <input type="text" name="system.resist" value="{{system.resist}}" data-dtype="String"/>
         </div>
 
         <div class="cell cell--talent">
-          <label for="data.roll" class="cell--title">{{localize "KG.DamageType"}}</label>
+          <label for="system.roll" class="cell--title">{{localize "KG.DamageType"}}</label>
         </div>
 
         <div class="cell cell--formula">
-          <select class="width-100" name="data.roll" data-dtype="String">
-            {{#select data.roll}}
+          <select class="width-100" name="system.roll" data-dtype="String">
+            {{#select system.roll}}
             <option value="-">-</option>
             <option value="acc">{{localize "KG.MartialAttack"}}</option>
             <option value="cnj">{{localize "KG.MagicAttack"}}</option>
@@ -60,11 +60,11 @@
         </div>
         
         <div class="cell cell--talent">
-          <label for="data.formula" class="cell--title">{{localize "KG.Formula"}}</label>
+          <label for="system.formula" class="cell--title">{{localize "KG.Formula"}}</label>
         </div>
 
         <div class="cell cell--formula">
-          <input type="text" name="data.formula" value="{{data.formula}}" data-dtype="String"/>
+          <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String"/>
         </div>
 
       </section>
@@ -72,7 +72,7 @@
       <div class="cell cell--bio">
         <label class="cell--title">{{localize "KG.Description"}}</label>
         {{!-- We're avoiding WYSIWYGs... for now... --}}
-        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+        {{editor enrichedBiography target="system.description" button=true editable=editable }}
       </div>
 
     </div>

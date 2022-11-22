@@ -22,9 +22,9 @@
         <div class="sheet-wrapper">
           <section class="sheet-attributes">
             <div class="cell cell--talent">
-              <label for="data.attributes.str.value" class="cell--title">{{localize "KG.TalentType"}}</label>
-              <select class="width-100" name="data.talentType" data-dtype="String">
-                {{#select data.talentType}}
+              <label for="system.attributes.str.value" class="cell--title">{{localize "KG.TalentType"}}</label>
+              <select class="width-100" name="system.talentType" data-dtype="String">
+                {{#select system.talentType}}
                 <option value="COMMON">{{localize "KG.COMMON"}}</option>
                 <option value="RACE">{{localize "KG.RACE"}}</option>
                 <option value="STYLE">{{localize "KG.STYLE"}}</option>
@@ -33,11 +33,11 @@
             </div>
 
             <div class="cell cell--class">
-              <label for="data.class" class="cell--title">{{localize "KG.Class"}}</label>
+              <label for="system.class" class="cell--title">{{localize "KG.Class"}}</label>
               <div class="cell--counter width-100">
-                <input type="text" name="data.class" value="{{data.class}}" data-dtype="String"/>
-                <select name="data.classType" data-dtype="String">
-                  {{#select data.classType}}
+                <input type="text" name="system.class" value="{{system.class}}" data-dtype="String"/>
+                <select name="system.classType" data-dtype="String">
+                  {{#select system.classType}}
                   <option value="-">-</option>
                   <option value="A">A</option>
                   <option value="B">B</option>
@@ -47,9 +47,9 @@
             </div>
 
             <div class="cell cell--talent">
-              <label for="data.attributes.int.value" class="cell--title">{{localize "KG.Condition"}}</label>
-              <select name="data.condition" data-dtype="String" class="width-100">
-                {{#select data.condition}}
+              <label for="system.attributes.int.value" class="cell--title">{{localize "KG.Condition"}}</label>
+              <select name="system.condition" data-dtype="String" class="width-100">
+                {{#select system.condition}}
                 <option value="-">-</option>
                 <option value="※">※</option>
                 <option value="●">●</option>
@@ -59,9 +59,9 @@
             </div>
 
             <div class="cell cell--talent">
-              <label for="data.timing" class="cell--title">{{localize "KG.Timing"}}</label>
-              <select class="width-100" name="data.timing" data-dtype="String">
-                {{#select data.timing}}
+              <label for="system.timing" class="cell--title">{{localize "KG.Timing"}}</label>
+              <select class="width-100" name="system.timing" data-dtype="String">
+                {{#select system.timing}}
                 <option value="Start">{{localize "KG.Start"}}</option>
                 <option value="Prep">{{localize "KG.Prep"}}</option>
                 <option value="Attack">{{localize "KG.Attack"}}</option>
@@ -74,18 +74,18 @@
             </div>
 
             <div class="cell cell--talent">
-              <label for="data.range" class="cell--title">{{localize "KG.Range"}}</label>
-              <input type="text" name="data.range" value="{{data.range}}" data-dtype="String"/>
+              <label for="system.range" class="cell--title">{{localize "KG.Range"}}</label>
+              <input type="text" name="system.range" value="{{system.range}}" data-dtype="String"/>
             </div>
 
             <div class="cell cell--talent">
-              <label for="data.target" class="cell--title">{{localize "KG.Target"}}</label>
-              <input type="text" name="data.target" value="{{data.target}}" data-dtype="String"/>
+              <label for="system.target" class="cell--title">{{localize "KG.Target"}}</label>
+              <input type="text" name="system.target" value="{{system.target}}" data-dtype="String"/>
             </div>
 
             <div class="cell cell--talent">
-              <label for="data.cost" class="cell--title">{{localize "KG.Cost"}}</label>
-              <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String"/>
+              <label for="system.cost" class="cell--title">{{localize "KG.Cost"}}</label>
+              <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="String"/>
             </div>
 
                 
@@ -97,11 +97,11 @@
 
               <span class="level-box">
                 <label>{{localize "KG.LEVEL"}}: </label>
-                <input type="input" name="data.level" value="{{data.level}}">
+                <input type="input" name="system.level" value="{{system.level}}">
               </span>
             </label>
             {{!-- We're avoiding WYSIWYGs... for now... --}}
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+            {{editor enrichedBiography target="system.description" button=true editable=editable }}
           </div>
 
         </div>
@@ -113,15 +113,15 @@
           <div>
             <table>
               <tr>
-                <th><label for="data.macro">{{localize "KG.Macro"}}</label></th>
-                <td colspan="5"><input type="text" name="data.macro" data-dtype="String" value="{{data.macro}}"></td>
+                <th><label for="system.macro">{{localize "KG.Macro"}}</label></th>
+                <td colspan="5"><input type="text" name="system.macro" data-dtype="String" value="{{system.macro}}"></td>
               </tr>
               
               <tr>
-                <th><label for="data.roll" class="">{{localize "KG.Roll"}}</label></th>
+                <th><label for="system.roll" class="">{{localize "KG.Roll"}}</label></th>
                 <td>
-                  <select class="" name="data.roll" data-dtype="String">
-                    {{#select data.roll}}
+                  <select class="" name="system.roll" data-dtype="String">
+                    {{#select system.roll}}
                     <option value="-">-</option>
                     <option value="acc">{{localize "KG.MartialAttack"}}</option>
                     <option value="cnj">{{localize "KG.MagicAttack"}}</option>
@@ -130,11 +130,11 @@
                 </td>
                 
                 <th><span>{{localize "KG.Active"}}</span></th>
-                <td><input type="checkbox" name="data.active.state" {{#if data.active.state}} checked {{/if}}></td>
+                <td><input type="checkbox" name="system.active.state" {{#if system.active.state}} checked {{/if}}></td>
                 <th><span>{{localize "KG.DisableTiming"}}</span></th>
                 <td>
-                  <select name="data.active.disable" data-dtype="String">
-                    {{#select data.active.disable}}
+                  <select name="system.active.disable" data-dtype="String">
+                    {{#select system.active.disable}}
                     <option value="-">-</option>
                     <option value="notCheck">{{localize "KG.NotCheck"}}</option>
                     <option value="damage">{{localize "KG.AfterDamage"}}</option>
@@ -152,11 +152,11 @@
                 <td></td>
                 
                 <th><span>{{localize "KG.Used"}}</span></th>
-                <td><input type="number" class="checkbox-input" name="data.used.state" value="{{data.used.state}}" {{#ifEquals data.used.disable "notCheck"}} disabled {{/ifEquals}}></td>
+                <td><input type="number" class="checkbox-input" name="system.used.state" value="{{system.used.state}}" {{#ifEquals system.used.disable "notCheck"}} disabled {{/ifEquals}}></td>
                 <th><span>{{localize "KG.ResetTiming"}}</span></th>
                 <td>
-                  <select name="data.used.disable" data-dtype="String">
-                    {{#select data.used.disable}}
+                  <select name="system.used.disable" data-dtype="String">
+                    {{#select system.used.disable}}
                     <option value="-">-</option>
                     <option value="notCheck">{{localize "KG.NotCheck"}}</option>
                     <option value="round">{{localize "KG.AfterRound"}}</option>
@@ -181,9 +181,9 @@
           </header>
     
           <ol class="attributes-list">
-          {{#each data.attributes as |attr key|}}
+          {{#each system.attributes as |attr key|}}
               <li class="attribute flexrow" data-attribute="{{key}}">
-                  <select class="attribute-key" name="data.attributes.{{key}}.key" data-dtype="String">
+                  <select class="attribute-key" name="system.attributes.{{key}}.key" data-dtype="String">
                     {{#select key}}
                     <option value="-">-</option>
                     <option value="hp">{{localize "KG.HP"}}</option>
@@ -218,7 +218,7 @@
                     {{/select}}
                   </select>
 
-                  <input class="attribute-value" type="text" name="data.attributes.{{key}}.value" value="{{attr.value}}" data-dtype="Number"/>
+                  <input class="attribute-value" type="text" name="system.attributes.{{key}}.value" value="{{attr.value}}" data-dtype="Number"/>
                   <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
               </li>
           {{/each}}
@@ -232,12 +232,12 @@
             <table>
               <tr>
                 <th><span>{{localize "KG.Target"}}</span> </th>
-                <td><input type="checkbox" name="data.getTarget" {{#if data.getTarget}} checked {{/if}}></td>
+                <td><input type="checkbox" name="system.getTarget" {{#if system.getTarget}} checked {{/if}}></td>
                 
                 <th><span>{{localize "KG.DisableTiming"}}</span></th>
                 <td>
-                  <select name="data.effect.disable" data-dtype="String">
-                    {{#select data.effect.disable}}
+                  <select name="system.effect.disable" data-dtype="String">
+                    {{#select system.effect.disable}}
                     <option value="-">-</option>
                     <option value="notCheck">{{localize "KG.NotCheck"}}</option>
                     <option value="damage">{{localize "KG.AfterDamage"}}</option>
@@ -264,9 +264,9 @@
           </header>
     
           <ol class="attributes-list">
-          {{#each data.effect.attributes as |attr key|}}
+          {{#each system.effect.attributes as |attr key|}}
               <li class="attribute flexrow" data-attribute="{{key}}">
-                  <select class="attribute-key" name="data.effect.attributes.{{key}}.key" data-dtype="String">
+                  <select class="attribute-key" name="system.effect.attributes.{{key}}.key" data-dtype="String">
                     {{#select key}}
                     <option value="-">-</option>
                     <option value="hp">{{localize "KG.HP"}}</option>
@@ -301,7 +301,7 @@
                     {{/select}}
                   </select>
 
-                  <input class="attribute-value" type="text" name="data.effect.attributes.{{key}}.value" value="{{attr.value}}" data-dtype="Number"/>
+                  <input class="attribute-value" type="text" name="system.effect.attributes.{{key}}.value" value="{{attr.value}}" data-dtype="Number"/>
                   <a class="attribute-control" data-action="delete"><i class="fas fa-trash"></i></a>
               </li>
           {{/each}}

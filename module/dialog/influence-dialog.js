@@ -123,8 +123,8 @@ export class InfluenceDialog extends Dialog {
         formula += this.modScore;
 
         var dices = {};
-        dices["data.attributes.spirit_dice.value"] = this.spiritDice;
-        dices[`data.attributes.damage.high`] = high;
+        dices["system.attributes.spirit_dice.value"] = this.spiritDice;
+        dices[`system.attributes.damage.high`] = high;
         this.actor.update(dices);
 
         var roll = new Roll(formula);

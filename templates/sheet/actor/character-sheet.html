@@ -8,12 +8,12 @@
                 <input class="input--title" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
 
                 <div class="flex-item flex-item--level">
-                    <label for="data.atributes.level.value">{{localize "KG.LEVEL"}}</label>
-                    <input name="data.attributes.level.value" type="text" value="{{data.attributes.level.value}}" placeholder="Level" data-dtype="Number"/>
+                    <label for="system.atributes.level.value">{{localize "KG.LEVEL"}}</label>
+                    <input name="system.attributes.level.value" type="text" value="{{system.attributes.level.value}}" placeholder="Level" data-dtype="Number"/>
                 </div>
                 <div class="flex-item--xp flex-item ">
-                    <label for="data.attributes.xp.value">{{localize "KG.XP"}}</label>
-                    <input name="data.attributes.xp.value" type="text" value="{{data.attributes.xp.value}}" placeholder="XP" data-dtype="Number"/>
+                    <label for="system.attributes.xp.value">{{localize "KG.XP"}}</label>
+                    <input name="system.attributes.xp.value" type="text" value="{{system.attributes.xp.value}}" placeholder="XP" data-dtype="Number"/>
                 </div>
 
             </div>
@@ -29,20 +29,20 @@
             <div class="cell cell--basic">
               <section class="sheet-basic">
                 <div class="cell cell--hp">
-                  <label for="data.attributes.hp.value" class="hp-label cell--title">{{localize "KG.HP"}}<i class="fas fa-heart attribute-icon"></i></label>
+                  <label for="system.attributes.hp.value" class="hp-label cell--title">{{localize "KG.HP"}}<i class="fas fa-heart attribute-icon"></i></label>
                   <div class="cell--counter">
-                    <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
+                    <input type="text" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}" data-dtype="Number"/>
                     <span class="slash"> / </span>
-                    <input type="text" value="{{data.attributes.hp.max}}" data-dtype="Number" disabled/>
+                    <input type="text" value="{{system.attributes.hp.max}}" data-dtype="Number" disabled/>
                   </div>
                 </div>
                 <div class="cell cell--spirit">
-                  <label for="data.attributes.spirit.value" class="spirit-label cell--title">{{localize "KG.Spirit"}}<i class="fas fa-yin-yang attribute-icon"></i></label>
-                  <input type="text" name="data.attributes.spirit.value" value="{{data.attributes.spirit.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.spirit.value" class="spirit-label cell--title">{{localize "KG.Spirit"}}<i class="fas fa-yin-yang attribute-icon"></i></label>
+                  <input type="text" name="system.attributes.spirit.value" value="{{system.attributes.spirit.value}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--damage">
-                  <label for="data.attributes.damage.high" class="cell--title rollable--damage" data-formula="{{data.attributes.damage.high}}*{{data.attributes.damage.rank}}+{{data.attributes.damage.add}}">{{localize "KG.Damage"}}<i class="fas fa-dice attribute-icon"></i></label>
+                  <label for="system.attributes.damage.high" class="cell--title rollable--damage" data-formula="{{system.attributes.damage.high}}*{{system.attributes.damage.rank}}+{{system.attributes.damage.add}}">{{localize "KG.Damage"}}<i class="fas fa-dice attribute-icon"></i></label>
                   <table>
                     <colgroup>
                       <col style="width: 80%">
@@ -52,16 +52,16 @@
                     <tr>
                       <td>
                         <div class="cell--counter">
-                          <input type="text" name="data.attributes.damage.high" value="{{data.attributes.damage.high}}" data-dtype="Number" style="margin: 0" {{#if data.attributes.damage.auto}} disabled {{/if}}/>
+                          <input type="text" name="system.attributes.damage.high" value="{{system.attributes.damage.high}}" data-dtype="Number" style="margin: 0" {{#if system.attributes.damage.auto}} disabled {{/if}}/>
                           <span class="slash"> X </span>
-                          <input type="text" name="data.attributes.damage.rank" value="{{data.attributes.damage.rank}}" data-dtype="Number" style="margin: 0" {{#if data.attributes.damage.auto}} disabled {{/if}}/>
+                          <input type="text" name="system.attributes.damage.rank" value="{{system.attributes.damage.rank}}" data-dtype="Number" style="margin: 0" {{#if system.attributes.damage.auto}} disabled {{/if}}/>
                           <span class="slash"> + </span>
-                          <input type="text" name="data.attributes.damage.add" value="{{data.attributes.damage.add}}" data-dtype="Number" style="margin: 0" {{#if data.attributes.damage.auto}} disabled {{/if}}/>
+                          <input type="text" name="system.attributes.damage.add" value="{{system.attributes.damage.add}}" data-dtype="Number" style="margin: 0" {{#if system.attributes.damage.auto}} disabled {{/if}}/>
                         </div>
 
                       </td>
                       <td style="text-align: center">
-                        <input type="checkbox" name="data.attributes.damage.auto" {{#if data.attributes.damage.auto}} checked {{/if}}>
+                        <input type="checkbox" name="system.attributes.damage.auto" {{#if system.attributes.damage.auto}} checked {{/if}}>
                       </td>
                     </tr>
                   </table>
@@ -74,25 +74,25 @@
             <div class="cell cell--spirit-box">
               <section class="sheet-basic">
                 <div class="cell cell--spirit-list">
-                  <label for="data.attribute.spirit.value" class="cell--title spirit-dice">{{localize "KG.SpiritDice"}}<i class="fas fa-dice attribute-icon"></i></label>
+                  <label for="system.attribute.spirit.value" class="cell--title spirit-dice">{{localize "KG.SpiritDice"}}<i class="fas fa-dice attribute-icon"></i></label>
                   <div class="spirit-list">
                     <span class="fas fa-angle-left dice-holder-icon"></span>
-                    {{#each data.attributes.spirit_dice.value}}
+                    {{#each system.attributes.spirit_dice.value}}
                     <img class="dice-image" src="systems/kamigakari/assets/dice/{{this}}.PNG" data-index="{{@index}}" width="45" height="45">
-                    <input type="hidden" class="dice-number" name="data.attributes.spirit_dice.value" value="{{this}}" data-dtype="Number" data-index="{{@index}}">
+                    <input type="hidden" class="dice-number" name="system.attributes.spirit_dice.value" value="{{this}}" data-dtype="Number" data-index="{{@index}}">
                     {{/each}}
                     <span class="fas fa-angle-right dice-holder-icon"></span>
                   </div>
                 </div>
 
                 <div class="cell cell--overflow-label">
-                  <label for="data.attributes.overflow.value" class="cell--title">{{localize "KG.Overflow"}}<i class="fas fa-heart attribute-icon"></i></label>
+                  <label for="system.attributes.overflow.value" class="cell--title">{{localize "KG.Overflow"}}<i class="fas fa-heart attribute-icon"></i></label>
                 </div>
 
                 <div class="cell cell--overflow">
                   <div class="cell--counter">
                     <button type="button" class="add--overflow" data-add="-1"> - </button>
-                    <input type="text" name="data.attributes.overflow.value" value="{{data.attributes.overflow.value}}" data-dtype="Number"/>
+                    <input type="text" name="system.attributes.overflow.value" value="{{system.attributes.overflow.value}}" data-dtype="Number"/>
                     <button type="button" class="add--overflow" data-add="+1"> + </button>
                   </div>
                 </div>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="cell cell--detail">
-              <label for="data.attributes.overflow.value" class="cell--title">{{localize "KG.Race"}}
+              <label for="system.attributes.overflow.value" class="cell--title">{{localize "KG.Race"}}
                 <div class="item-controls">
                   <button class="item-control item-create white-btn" title='{{localize "KG.RaceCreate"}}' data-type="race">
                     <i class="fas fa-plus" style="color: white;"></i>
@@ -119,7 +119,7 @@
 
               </table>
 
-              <label for="data.attributes.overflow.value" class="cell--title">{{localize "KG.Style"}}
+              <label for="system.attributes.overflow.value" class="cell--title">{{localize "KG.Style"}}
                 <div class="item-controls">
                   <button class="item-control item-create white-btn" title='{{localize "KG.StyleCreate"}}' data-type="style">
                     <i class="fas fa-plus" style="color: white;"></i>
@@ -143,78 +143,78 @@
               <span class="cell--title">{{localize "KG.MainStatus"}}</span>
               <div class="main-ability-list">
                 <div class="cell cell--ability" data-ability="str" data-label="{{localize 'KG.AbilitySTR'}}">
-                  <label for="data.attributes.str.value" class="cell--title rollable-ability">{{localize "KG.STR"}}
-                    <input type="text" class="cell--dice" name="data.attributes.str.dice" value="{{data.attributes.str.dice}}">
+                  <label for="system.attributes.str.value" class="cell--title rollable-ability">{{localize "KG.STR"}}
+                    <input type="text" class="cell--dice" name="system.attributes.str.dice" value="{{system.attributes.str.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.str.value}}" data-dtype="Number" disabled/>
-                  <input type="text" class="add-circle" name="data.attributes.str.add" value="{{data.attributes.str.add}}" data-dtype="Number"/>
+                  <input type="text" value="{{system.attributes.str.value}}" data-dtype="Number" disabled/>
+                  <input type="text" class="add-circle" name="system.attributes.str.add" value="{{system.attributes.str.add}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability" data-ability="agi" data-label="{{localize 'KG.AbilityAGI'}}">
-                  <label for="data.attributes.agi.value" class="cell--title rollable-ability">{{localize "KG.AGI"}}
-                    <input type="text" class="cell--dice" name="data.attributes.agi.dice" value="{{data.attributes.agi.dice}}">
+                  <label for="system.attributes.agi.value" class="cell--title rollable-ability">{{localize "KG.AGI"}}
+                    <input type="text" class="cell--dice" name="system.attributes.agi.dice" value="{{system.attributes.agi.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.agi.value}}" data-dtype="Number" disabled/>
-                  <input type="text" class="add-circle" name="data.attributes.agi.add" value="{{data.attributes.agi.add}}" data-dtype="Number"/>
+                  <input type="text" value="{{system.attributes.agi.value}}" data-dtype="Number" disabled/>
+                  <input type="text" class="add-circle" name="system.attributes.agi.add" value="{{system.attributes.agi.add}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability" data-ability="int" data-label="{{localize 'KG.AbilityINT'}}">
-                  <label for="data.attributes.int.value" class="cell--title rollable-ability">{{localize "KG.INT"}}
-                    <input type="text" class="cell--dice" name="data.attributes.int.dice" value="{{data.attributes.int.dice}}">
+                  <label for="system.attributes.int.value" class="cell--title rollable-ability">{{localize "KG.INT"}}
+                    <input type="text" class="cell--dice" name="system.attributes.int.dice" value="{{system.attributes.int.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.int.value}}" data-dtype="Number" disabled/>
-                  <input type="text" class="add-circle" name="data.attributes.int.add" value="{{data.attributes.int.add}}" data-dtype="Number"/>
+                  <input type="text" value="{{system.attributes.int.value}}" data-dtype="Number" disabled/>
+                  <input type="text" class="add-circle" name="system.attributes.int.add" value="{{system.attributes.int.add}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability" data-ability="wil" data-label="{{localize 'KG.AbilityWIL'}}">
-                  <label for="data.attributes.wil.value" class="cell--title rollable-ability">{{localize "KG.WIL"}}
-                    <input type="text" class="cell--dice" name="data.attributes.wil.dice" value="{{data.attributes.wil.dice}}">
+                  <label for="system.attributes.wil.value" class="cell--title rollable-ability">{{localize "KG.WIL"}}
+                    <input type="text" class="cell--dice" name="system.attributes.wil.dice" value="{{system.attributes.wil.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.wil.value}}" data-dtype="Number" disabled/>
-                  <input type="text" class="add-circle" name="data.attributes.wil.add" value="{{data.attributes.wil.add}}" data-dtype="Number"/>
+                  <input type="text" value="{{system.attributes.wil.value}}" data-dtype="Number" disabled/>
+                  <input type="text" class="add-circle" name="system.attributes.wil.add" value="{{system.attributes.wil.add}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability" data-ability="lck" data-label="{{localize 'KG.AbilityLCK'}}">
-                  <label for="data.attributes.lck.value" class="cell--title rollable-ability">{{localize "KG.LCK"}}
-                    <input type="text" class="cell--dice" name="data.attributes.lck.dice" value="{{data.attributes.lck.dice}}">
+                  <label for="system.attributes.lck.value" class="cell--title rollable-ability">{{localize "KG.LCK"}}
+                    <input type="text" class="cell--dice" name="system.attributes.lck.dice" value="{{system.attributes.lck.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.lck.value}}" data-dtype="Number" disabled/>
-                  <input type="text" class="add-circle" name="data.attributes.lck.add" value="{{data.attributes.lck.add}}" data-dtype="Number"/>
+                  <input type="text" value="{{system.attributes.lck.value}}" data-dtype="Number" disabled/>
+                  <input type="text" class="add-circle" name="system.attributes.lck.add" value="{{system.attributes.lck.add}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability" data-ability="acc" data-label="{{localize 'KG.AbilityACC'}}">
-                  <label for="data.attributes.acc.value" class="cell--title rollable-ability">{{localize "KG.ACC"}}
-                    <input type="text" class="cell--dice" name="data.attributes.acc.dice" value="{{data.attributes.acc.dice}}">
+                  <label for="system.attributes.acc.value" class="cell--title rollable-ability">{{localize "KG.ACC"}}
+                    <input type="text" class="cell--dice" name="system.attributes.acc.dice" value="{{system.attributes.acc.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.acc.value}}" data-dtype="Number" disabled/>
+                  <input type="text" value="{{system.attributes.acc.value}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability" data-ability="eva" data-label="{{localize 'KG.AbilityEVA'}}">
-                  <label for="data.attributes.eva.value" class="cell--title rollable-ability">{{localize "KG.EVA"}}
-                    <input type="text" class="cell--dice" name="data.attributes.eva.dice" value="{{data.attributes.eva.dice}}">
+                  <label for="system.attributes.eva.value" class="cell--title rollable-ability">{{localize "KG.EVA"}}
+                    <input type="text" class="cell--dice" name="system.attributes.eva.dice" value="{{system.attributes.eva.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.eva.value}}" data-dtype="Number" disabled/>
+                  <input type="text" value="{{system.attributes.eva.value}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability" data-ability="cnj" data-label="{{localize 'KG.AbilityCNJ'}}">
-                  <label for="data.attributes.cnj.value" class="cell--title rollable-ability">{{localize "KG.CNJ"}}
-                    <input type="text" class="cell--dice" name="data.attributes.cnj.dice" value="{{data.attributes.cnj.dice}}">
+                  <label for="system.attributes.cnj.value" class="cell--title rollable-ability">{{localize "KG.CNJ"}}
+                    <input type="text" class="cell--dice" name="system.attributes.cnj.dice" value="{{system.attributes.cnj.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.cnj.value}}" data-dtype="Number" disabled/>
+                  <input type="text" value="{{system.attributes.cnj.value}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability" data-ability="res" data-label="{{localize 'KG.AbilityRES'}}">
-                  <label for="data.attributes.res.value" class="cell--title rollable-ability">{{localize "KG.RES"}}
-                    <input type="text" class="cell--dice" name="data.attributes.res.dice" value="{{data.attributes.res.dice}}">
+                  <label for="system.attributes.res.value" class="cell--title rollable-ability">{{localize "KG.RES"}}
+                    <input type="text" class="cell--dice" name="system.attributes.res.dice" value="{{system.attributes.res.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.res.value}}" data-dtype="Number" disabled/>
+                  <input type="text" value="{{system.attributes.res.value}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability" data-ability="ins" data-label="{{localize 'KG.AbilityINS'}}">
-                  <label for="data.attributes.ins.value" class="cell--title rollable-ability">{{localize "KG.INS"}}
-                    <input type="text" class="cell--dice" name="data.attributes.ins.dice" value="{{data.attributes.ins.dice}}">
+                  <label for="system.attributes.ins.value" class="cell--title rollable-ability">{{localize "KG.INS"}}
+                    <input type="text" class="cell--dice" name="system.attributes.ins.dice" value="{{system.attributes.ins.dice}}">
                   </label>
-                  <input type="text" value="{{data.attributes.ins.value}}" data-dtype="Number" disabled/>
+                  <input type="text" value="{{system.attributes.ins.value}}" data-dtype="Number" disabled/>
                 </div>
               </div>
 
@@ -226,38 +226,38 @@
               <div class="sub-ability-list">
 
                <div class="cell cell--ability">
-                  <label for="data.attributes.pd.value" class="cell--title">{{localize "KG.PD"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" value="{{data.attributes.pd.value}}" data-dtype="Number" disabled/>
+                  <label for="system.attributes.pd.value" class="cell--title">{{localize "KG.PD"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" value="{{system.attributes.pd.value}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.md.value" class="cell--title">{{localize "KG.MD"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" value="{{data.attributes.md.value}}" data-dtype="Number" disabled/>
+                  <label for="system.attributes.md.value" class="cell--title">{{localize "KG.MD"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" value="{{system.attributes.md.value}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.init.value" class="cell--title">{{localize "KG.Init"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" value="{{data.attributes.init.value}}" data-dtype="Number" disabled/>
+                  <label for="system.attributes.init.value" class="cell--title">{{localize "KG.Init"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" value="{{system.attributes.init.value}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.armor.value" class="cell--title">{{localize "KG.Armor"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" value="{{data.attributes.armor.value}}" data-dtype="Number" disabled/>
+                  <label for="system.attributes.armor.value" class="cell--title">{{localize "KG.Armor"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" value="{{system.attributes.armor.value}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.barrier.value" class="cell--title">{{localize "KG.Barrier"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" value="{{data.attributes.barrier.value}}" data-dtype="Number" disabled/>
+                  <label for="system.attributes.barrier.value" class="cell--title">{{localize "KG.Barrier"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" value="{{system.attributes.barrier.value}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.barrier.value" class="cell--title">{{localize "KG.BattleMove"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" value="{{data.attributes.move.battle}}" data-dtype="Number" disabled/>
+                  <label for="system.attributes.barrier.value" class="cell--title">{{localize "KG.BattleMove"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" value="{{system.attributes.move.battle}}" data-dtype="Number" disabled/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.barrier.value" class="cell--title">{{localize "KG.FullMove"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" value="{{data.attributes.move.full}}" data-dtype="Number" disabled/>
+                  <label for="system.attributes.barrier.value" class="cell--title">{{localize "KG.FullMove"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" value="{{system.attributes.move.full}}" data-dtype="Number" disabled/>
                 </div>
 
 
@@ -299,8 +299,7 @@
                 <div class="cell cell--bio">
                   <label class="cell--title">{{localize "KG.Biography"}} : </label>
                   {{!-- We're avoiding WYSIWYGs... for now... --}}
-                  {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}}
-
+                  {{editor enrichedBiography target="system.details.biography" button=true editable=editable }}
                 </div>
               </div>
             </div>
@@ -334,24 +333,24 @@
                         <span class="echo-item" style="float:left;">
                             <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
                         </span> 
-                        <span class="item-label">[{{item.data.condition}}] {{item.name}}<br>
+                        <span class="item-label">[{{item.system.condition}}] {{item.name}}<br>
                         <span style="color : gray; font-size : smaller;">
-                        {{localize "KG.Timing"}} : {{local item.data.timing}} / 
-                        {{localize "KG.Range"}} : {{item.data.range}} / 
-                        {{localize "KG.Target"}} : {{item.data.target}} / 
-                        {{localize "KG.Cost"}} : {{item.data.cost}}
+                        {{localize "KG.Timing"}} : {{local item.system.timing}} / 
+                        {{localize "KG.Range"}} : {{item.system.range}} / 
+                        {{localize "KG.Target"}} : {{item.system.target}} / 
+                        {{localize "KG.Cost"}} : {{item.system.cost}}
                             <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                      </span></span>
                    </h4>
                       <h4 class="item-addon">
-                        <input type="checkbox" class="active-check" {{#if item.data.active.state}} checked {{/if}}>
-                        <input type="number" class="checkbox-input used-input" value="{{item.data.used.state}}" style="vertical-align: 3px;" {{#ifEquals item.data.used.disable "notCheck"}} disabled {{/ifEquals}}>
+                        <input type="checkbox" class="active-check" {{#if item.system.active.state}} checked {{/if}}>
+                        <input type="number" class="checkbox-input used-input" value="{{item.system.used.state}}" style="vertical-align: 3px;" {{#ifEquals item.system.used.disable "notCheck"}} disabled {{/ifEquals}}>
                       </h4>
                       <div class="item-controls">
                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                       </div>
-                      <div class="item-description">{{{item.data.description}}}
+                      <div class="item-description">{{{item.system.description}}}
                       </div>
                     </li>
                   {{/each}}
@@ -375,25 +374,25 @@
                         <span class="echo-item" style="float:left;">
                             <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
                         </span> 
-                        <span class="item-label">[{{item.data.condition}}] {{item.name}}<br>
+                        <span class="item-label">[{{item.system.condition}}] {{item.name}}<br>
                         <span style="color : gray; font-size : smaller;">
-                        {{localize "KG.Timing"}} : {{local item.data.timing}} / 
-                        {{localize "KG.Range"}} : {{item.data.range}} / 
-                        {{localize "KG.Target"}} : {{item.data.target}} / 
-                        {{localize "KG.Cost"}} : {{item.data.cost}}
+                        {{localize "KG.Timing"}} : {{local item.system.timing}} / 
+                        {{localize "KG.Range"}} : {{item.system.range}} / 
+                        {{localize "KG.Target"}} : {{item.system.target}} / 
+                        {{localize "KG.Cost"}} : {{item.system.cost}}
                             <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                      </span></span>
                    </h4>
 
                       <h4 class="item-addon">
-                        <input type="checkbox" class="active-check" {{#if item.data.active.state}} checked {{/if}}>
-                        <input type="number" class="checkbox-input used-input" value="{{item.data.used.state}}" style="vertical-align: 3px;" {{#ifEquals item.data.used.disable "notCheck"}} disabled {{/ifEquals}}>
+                        <input type="checkbox" class="active-check" {{#if item.system.active.state}} checked {{/if}}>
+                        <input type="number" class="checkbox-input used-input" value="{{item.system.used.state}}" style="vertical-align: 3px;" {{#ifEquals item.system.used.disable "notCheck"}} disabled {{/ifEquals}}>
                       </h4>
                       <div class="item-controls">
                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                       </div>
-                      <div class="item-description">{{{item.data.description}}}
+                      <div class="item-description">{{{item.system.description}}}
                       </div>
                     </li>
                   {{/each}}
@@ -417,25 +416,25 @@
                         <span class="echo-item" style="float:left;">
                             <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
                         </span> 
-                        <span class="item-label">[{{item.data.condition}}] {{item.name}}<br>
+                        <span class="item-label">[{{item.system.condition}}] {{item.name}}<br>
                         <span style="color : gray; font-size : smaller;">
-                        {{localize "KG.Timing"}} : {{local item.data.timing}} / 
-                        {{localize "KG.Range"}} : {{item.data.range}} / 
-                        {{localize "KG.Target"}} : {{item.data.target}} / 
-                        {{localize "KG.Cost"}} : {{item.data.cost}}
+                        {{localize "KG.Timing"}} : {{local item.system.timing}} / 
+                        {{localize "KG.Range"}} : {{item.system.range}} / 
+                        {{localize "KG.Target"}} : {{item.system.target}} / 
+                        {{localize "KG.Cost"}} : {{item.system.cost}}
                             <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                      </span></span>
                    </h4>
 
                       <h4 class="item-addon">
-                        <input type="checkbox" class="active-check" {{#if item.data.active.state}} checked {{/if}}>
-                        <input type="number" class="checkbox-input used-input" value="{{item.data.used.state}}" style="vertical-align: 3px;" {{#ifEquals item.data.used.disable "notCheck"}} disabled {{/ifEquals}}>
+                        <input type="checkbox" class="active-check" {{#if item.system.active.state}} checked {{/if}}>
+                        <input type="number" class="checkbox-input used-input" value="{{item.system.used.state}}" style="vertical-align: 3px;" {{#ifEquals item.system.used.disable "notCheck"}} disabled {{/ifEquals}}>
                       </h4>
                       <div class="item-controls">
                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                       </div>
-                      <div class="item-description">{{{item.data.description}}}
+                      <div class="item-description">{{{item.system.description}}}
                       </div>
                     </li>
                   {{/each}}
@@ -459,25 +458,25 @@
                         <span class="echo-item" style="float:left;">
                             <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
                         </span> 
-                        <span class="item-label">[{{item.data.condition}}] {{item.name}}<br>
+                        <span class="item-label">[{{item.system.condition}}] {{item.name}}<br>
                         <span style="color : gray; font-size : smaller;">
-                        {{localize "KG.Timing"}} : {{local item.data.timing}} / 
-                        {{localize "KG.Range"}} : {{item.data.range}} / 
-                        {{localize "KG.Target"}} : {{item.data.target}} / 
-                        {{localize "KG.Cost"}} : {{item.data.cost}}
+                        {{localize "KG.Timing"}} : {{local item.system.timing}} / 
+                        {{localize "KG.Range"}} : {{item.system.range}} / 
+                        {{localize "KG.Target"}} : {{item.system.target}} / 
+                        {{localize "KG.Cost"}} : {{item.system.cost}}
                             <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                      </span></span>
                    </h4>
 
                       <h4 class="item-addon">
-                        <input type="checkbox" class="active-check" {{#if item.data.active.state}} checked {{/if}}>
-                        <input type="number" class="checkbox-input used-input" value="{{item.data.used.state}}" style="vertical-align: 3px;" {{#ifEquals item.data.used.disable "notCheck"}} disabled {{/ifEquals}}>
+                        <input type="checkbox" class="active-check" {{#if item.system.active.state}} checked {{/if}}>
+                        <input type="number" class="checkbox-input used-input" value="{{item.system.used.state}}" style="vertical-align: 3px;" {{#ifEquals item.system.used.disable "notCheck"}} disabled {{/ifEquals}}>
                       </h4>
                       <div class="item-controls">
                         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                       </div>
-                      <div class="item-description">{{{item.data.description}}}
+                      <div class="item-description">{{{item.system.description}}}
                       </div>
                     </li>
                   {{/each}}
@@ -493,7 +492,7 @@
             <div class="tab" data-group="primary" data-tab="equipment">
               <div class="cell flexrow margin-top-10">
                 <b>{{localize "KG.Money"}} </b>
-                <input type="text" name="data.attributes.money" value="{{data.attributes.money}}" data-dtype="Number">
+                <input type="text" name="system.attributes.money" value="{{system.attributes.money}}" data-dtype="Number">
                 <b class="cell-G">G</b>
 
               </div>
@@ -515,20 +514,20 @@
                     <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;"></span> 
                     <span class="item-label">{{item.name}}<br>
                     <span style="color : gray; font-size : smaller;"> 
-                    {{localize "KG.Form"}} : {{item.data.form}} / 
-                    {{localize "KG.Restrict"}} : {{item.data.restrict}} /
-                    {{localize "KG.Mode"}} : {{item.data.mode}}
+                    {{localize "KG.Form"}} : {{item.system.form}} / 
+                    {{localize "KG.Restrict"}} : {{item.system.restrict}} /
+                    {{localize "KG.Mode"}} : {{item.system.mode}}
                     <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                     </span></span></h4>
                     <h4 class="item-addon">
-                      <input type="checkbox" class="active-equipment" {{#if item.data.equipment}} checked {{/if}}>
+                      <input type="checkbox" class="active-equipment" {{#if item.system.equipment}} checked {{/if}}>
                     </h4>
 
                     <div class="item-controls">
                       <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                     </div>
-                    <div class="item-description">{{{item.data.description}}}</div>
+                    <div class="item-description">{{{item.system.description}}}</div>
                   </li>
                 {{/each}}
                 </ol>
@@ -549,7 +548,7 @@
                     {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
                     <h4 class="item-name">
                         <span class="echo-item"><img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;"></span> 
-                        <span class="item-label">{{item.name}} ({{item.data.usage}}) X {{item.data.quantity}}
+                        <span class="item-label">{{item.name}} ({{item.system.usage}}) X {{item.system.quantity}}
 
                             <span class="item-details-toggle">
                                 <i class="fas fa-chevron-down"></i>
@@ -559,7 +558,7 @@
 
                     <h4 class="item-addon">
                       <button type="button" class="icon-button quantity-change" data-add="-1">-</button>
-                      <span>{{item.data.quantity}}</span>
+                      <span>{{item.system.quantity}}</span>
                       <button type="button" class="icon-button quantity-change" data-add="1">+</button>
                     </h4>
 
@@ -568,7 +567,7 @@
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                     </div>
                     <div class="item-description">
-                      <p>{{{item.data.description}}}</p>
+                      <p>{{{item.system.description}}}</p>
                     </div>
                   </li>
                 {{/each}}
@@ -590,7 +589,7 @@
                     {{!-- <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/> --}}
                     <h4 class="item-name">
                         <span class="echo-item"><img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;"></i></span> 
-                        <span class="item-label">{{item.name}} ({{item.data.usage}}) X {{item.data.quantity}}
+                        <span class="item-label">{{item.name}} ({{item.system.usage}}) X {{item.system.quantity}}
 
                             <span class="item-details-toggle">
                                 <i class="fas fa-chevron-down"></i>
@@ -600,7 +599,7 @@
 
                     <h4 class="item-addon">
                       <button type="button" class="icon-button quantity-change" data-add="-1">-</button>
-                      <span>{{item.data.quantity}}</span>
+                      <span>{{item.system.quantity}}</span>
                       <button type="button" class="icon-button quantity-change" data-add="1">+</button>
                       <button type="button" class="use-button use-word use-item">{{localize "KG.Use"}}</button>
                     </h4>
@@ -610,7 +609,7 @@
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                     </div>
                     <div class="item-description">
-                      <p>{{{item.data.description}}}</p>
+                      <p>{{{item.system.description}}}</p>
                     </div>
                   </li>
                 {{/each}}
@@ -642,7 +641,7 @@
                       <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                     </div>
-                    <div class="item-description">{{{item.data.description}}}</div>
+                    <div class="item-description">{{{item.system.description}}}</div>
                   </li>
                 {{/each}}
                 </ol>
@@ -663,12 +662,12 @@
                         <span class="echo-item" style="float:left;">
                             <img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;">
                         </span> 
-			<span class="item-label">[{{item.data.condition}}] {{item.name}} | {{item.actor}}<br>
+			<span class="item-label">[{{item.system.condition}}] {{item.name}} | {{item.actor}}<br>
                         <span style="color : gray; font-size : smaller;">
-                        {{localize "KG.Timing"}} : {{local item.data.timing}} / 
-                        {{localize "KG.Range"}} : {{item.data.range}} / 
-                        {{localize "KG.Target"}} : {{item.data.target}} / 
-                        {{localize "KG.Cost"}} : {{item.data.cost}} / {{localize "KG.DisableTiming"}} : {{disable item.disable}}
+                        {{localize "KG.Timing"}} : {{local item.system.timing}} / 
+                        {{localize "KG.Range"}} : {{item.system.range}} / 
+                        {{localize "KG.Target"}} : {{item.system.target}} / 
+                        {{localize "KG.Cost"}} : {{item.system.cost}} / {{localize "KG.DisableTiming"}} : {{disable item.disable}}
                             <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                      </span></span>
                    </h4>
@@ -677,7 +676,7 @@
 			<button type="button" class="show-effect" style="width: auto"><i class="fas fa-eye"></i></button>
                         <button type="button" class="remove-effect" style="width: auto"><i class="fas fa-trash"></i></button>
                       </h4>
-                      <div class="item-description">{{{item.data.description}}}
+                      <div class="item-description">{{{item.system.description}}}
                       </div>
                     </li>
                   {{/each}}

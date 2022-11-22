@@ -33,9 +33,9 @@ export class DicesDialog extends Dialog {
         let actors = [];
         for (let id of this.selected) {
             var actor = game.actors.get(id);
-            var spiritDice = actor.data.data.attributes.spirit_dice.value;
+            var spiritDice = actor.system.attributes.spirit_dice.value;
 
-            actors.push({id: id,name: actor.name, spiritDice: spiritDice, overflow: actor.data.data.attributes.overflow.value});
+            actors.push({id: id,name: actor.name, spiritDice: spiritDice, overflow: actor.system.attributes.overflow.value});
         }
 
         return {
@@ -57,7 +57,7 @@ export class DicesDialog extends Dialog {
           var target = $(event.currentTarget);
           var actor = game.actors.get(target.parent()[0].dataset.id);
 
-          const overflow = actor.data.data.attributes.overflow.value;
+          const overflow = actor.system.attributes.overflow.value;
 
           if (overflow + add < 0)
             return;
@@ -98,7 +98,7 @@ export class DicesDialog extends Dialog {
                 icon: '<i class="fas fa-check"></i>',
                 label: "Confirm",
                 callback: async () => {
-                  var dices = JSON.parse(JSON.stringify(actor.data.data.attributes.spirit_dice.value));
+                  var dices = JSON.parse(JSON.stringify(actor.system.attributes.spirit_dice.value));
 
                   dices[key] = 0;
                   await actor.update({"data.attributes.spirit_dice.value": dices});
@@ -131,7 +131,7 @@ export class DicesDialog extends Dialog {
                   var answer = $("#dice-num").val();
 
                   if (!isNaN(answer) && answer != null && answer >= 1 && answer <= 6) {
-                      var dices = JSON.parse(JSON.stringify(actor.data.data.attributes.spirit_dice.value));
+                      var dices = JSON.parse(JSON.stringify(actor.system.attributes.spirit_dice.value));
 
                       dices[key] = answer;
                       await actor.update({"data.attributes.spirit_dice.value": dices});

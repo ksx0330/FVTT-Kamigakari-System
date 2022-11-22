@@ -47,11 +47,11 @@ export class DefenseDialog extends Dialog {
     /** @override */
     getData() {
         let defense = {
-            armor: this.actor.data.data.attributes.reduce.armor,
-            barrier: this.actor.data.data.attributes.reduce.barrier,
-            reduce: this.actor.data.data.attributes.reduce.damage,
-            half: this.actor.data.data.attributes.reduce.half,
-            quarter: this.actor.data.data.attributes.reduce.quarter
+            armor: this.actor.system.attributes.reduce.armor,
+            barrier: this.actor.system.attributes.reduce.barrier,
+            reduce: this.actor.system.attributes.reduce.damage,
+            half: this.actor.system.attributes.reduce.half,
+            quarter: this.actor.system.attributes.reduce.quarter
         }
         
         let {life, realDamage} = DamageController.calcDefenseDamage(this.actor, this.damageData.data, defense, this.damageData.realDamage, this.damageData.recovery);
@@ -63,11 +63,11 @@ export class DefenseDialog extends Dialog {
             life: life,
             realDamage: realDamage,
             damage: (this.damageData.recovery) ? "+" + this.damageData.realDamage : "-" + this.damageData.realDamage,
-            armor: this.actor.data.data.attributes.reduce.armor,
-            barrier: this.actor.data.data.attributes.reduce.barrier,
-            reduce: this.actor.data.data.attributes.reduce.damage,
-            half: (this.actor.data.data.attributes.reduce.half) ? "checked": "",
-            quarter: (this.actor.data.data.attributes.reduce.quarter) ? "checked" : "",
+            armor: this.actor.system.attributes.reduce.armor,
+            barrier: this.actor.system.attributes.reduce.barrier,
+            reduce: this.actor.system.attributes.reduce.damage,
+            half: (this.actor.system.attributes.reduce.half) ? "checked": "",
+            quarter: (this.actor.system.attributes.reduce.quarter) ? "checked" : "",
             buttons: this.data.buttons
         }
     }

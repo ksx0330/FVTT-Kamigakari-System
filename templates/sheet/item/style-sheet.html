@@ -21,15 +21,15 @@
         </tr>
 
         <tr>
-            <td><input type="text" name="data.attributes.acc.value" value="{{data.attributes.acc.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.eva.value" value="{{data.attributes.eva.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.cnj.value" value="{{data.attributes.cnj.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.res.value" value="{{data.attributes.res.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.ins.value" value="{{data.attributes.ins.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.pd.value" value="{{data.attributes.pd.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.md.value" value="{{data.attributes.md.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.init.value" value="{{data.attributes.init.value}}" data-dtype="Number"/></td>
-            <td><input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.acc.value" value="{{system.attributes.acc.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.eva.value" value="{{system.attributes.eva.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.cnj.value" value="{{system.attributes.cnj.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.res.value" value="{{system.attributes.res.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.ins.value" value="{{system.attributes.ins.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.pd.value" value="{{system.attributes.pd.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.md.value" value="{{system.attributes.md.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.init.value" value="{{system.attributes.init.value}}" data-dtype="Number"/></td>
+            <td><input type="text" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}" data-dtype="Number"/></td>
         </tr>
 
 
@@ -39,12 +39,12 @@
         <label class="cell--title">{{localize "KG.Description"}}
             <div>
                 <span style="position: relative; top: -5px;">{{localize "KG.Main"}}</span> 
-                <input type="checkbox" name="data.main" {{#if data.main}} checked {{/if}}>
+                <input type="checkbox" name="system.main" {{#if system.main}} checked {{/if}}>
             </div>
         </label>
         {{!-- We're avoiding WYSIWYGs... for now... --}}
-        {{!-- {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}} --}}
-        <textarea class="biography" name="data.description" rows="5" title="Hey there! Who are you!?"
-                data-dtype="String">{{data.description}}</textarea>
+        {{!-- {{editor content=system.details.biography target="system.details.biography" button=true owner=owner editable=editable}} --}}
+        <textarea class="biography" name="system.description" rows="5" title="Hey there! Who are you!?"
+                data-dtype="String">{{system.description}}</textarea>
     </div>
 </form>

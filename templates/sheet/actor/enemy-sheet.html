@@ -8,8 +8,8 @@
                 <input class="input--title" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
 
                 <div class="flex-item flex-item--level">
-                    <label for="data.atributes.level.value">{{localize "KG.LEVEL"}}</label>
-                    <input name="data.attributes.level.value" type="text" value="{{data.attributes.level.value}}" placeholder="Level" data-dtype="Number"/>
+                    <label for="system.attributes.level.value">{{localize "KG.LEVEL"}}</label>
+                    <input name="system.attributes.level.value" type="text" value="{{system.attributes.level.value}}" placeholder="Level" data-dtype="Number"/>
                 </div>
 
             </div>
@@ -19,7 +19,7 @@
         <section class="sheet-main">
           <div class="enermy-header">
             <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-            <textarea name="data.details.basic">{{data.details.basic}}</textarea>
+            <textarea name="system.details.basic">{{system.details.basic}}</textarea>
           </div>
           {{#if isView}}
           <section class="sheet-attributes">
@@ -28,85 +28,85 @@
               <span class="cell--title">{{localize "KG.BasicStat"}}</span>
               <div class="main-ability-list">
                 <div class="cell cell--ability">
-                  <label for="data.attributes.hp.value" class="cell--title">{{localize "KG.HP"}}<i class="fas fa-heart attribute-icon"></i></label>
+                  <label for="system.attributes.hp.value" class="cell--title">{{localize "KG.HP"}}<i class="fas fa-heart attribute-icon"></i></label>
                   <div class="cell--counter">
-                    <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
+                    <input type="text" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}" data-dtype="Number"/>
                     <span> / </span>
-                    <input type="text" name="data.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number"/>
+                    <input type="text" name="system.attributes.hp.max" value="{{system.attributes.hp.max}}" data-dtype="Number"/>
                   </div>
                 </div>        
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.init.value" class="cell--title">{{localize "KG.Init"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" name="data.attributes.init.value" value="{{data.attributes.init.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.init.value" class="cell--title">{{localize "KG.Init"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="system.attributes.init.value" value="{{system.attributes.init.value}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.move.value" class="cell--title">{{localize "KG.Move"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" name="data.attributes.move.value" value="{{data.attributes.move.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.move.value" class="cell--title">{{localize "KG.Move"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="system.attributes.move.value" value="{{system.attributes.move.value}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.armor.value" class="cell--title">{{localize "KG.Armor"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" name="data.attributes.armor.value" value="{{data.attributes.armor.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.armor.value" class="cell--title">{{localize "KG.Armor"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="system.attributes.armor.value" value="{{system.attributes.armor.value}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.barrier.value" class="cell--title">{{localize "KG.Barrier"}}<i class="fas fa-cog attribute-icon"></i></label>
-                  <input type="text" name="data.attributes.barrier.value" value="{{data.attributes.barrier.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.barrier.value" class="cell--title">{{localize "KG.Barrier"}}<i class="fas fa-cog attribute-icon"></i></label>
+                  <input type="text" name="system.attributes.barrier.value" value="{{system.attributes.barrier.value}}" data-dtype="Number"/>
                 </div>
               </div>
 
               <span class="cell--title">{{localize "KG.ActionStat"}}</span>
               <div class="main-ability-list">
                 <div class="cell cell--ability">
-                  <label for="data.attributes.acc.value" class="cell--title">{{localize "KG.ACC"}}</label>
-                  <input type="text" name="data.attributes.acc.value" value="{{data.attributes.acc.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.acc.value" class="cell--title">{{localize "KG.ACC"}}</label>
+                  <input type="text" name="system.attributes.acc.value" value="{{system.attributes.acc.value}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.eva.value" class="cell--title">{{localize "KG.EVA"}}</label>
-                  <input type="text" name="data.attributes.eva.value" value="{{data.attributes.eva.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.eva.value" class="cell--title">{{localize "KG.EVA"}}</label>
+                  <input type="text" name="system.attributes.eva.value" value="{{system.attributes.eva.value}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.ivc.value" class="cell--title">{{localize "KG.CNJ"}}</label>
-                  <input type="text" name="data.attributes.ivc.value" value="{{data.attributes.ivc.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.ivc.value" class="cell--title">{{localize "KG.CNJ"}}</label>
+                  <input type="text" name="system.attributes.ivc.value" value="{{system.attributes.ivc.value}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.res.value" class="cell--title">{{localize "KG.RES"}}</label>
-                  <input type="text" name="data.attributes.res.value" value="{{data.attributes.res.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.res.value" class="cell--title">{{localize "KG.RES"}}</label>
+                  <input type="text" name="system.attributes.res.value" value="{{system.attributes.res.value}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.chk.value" class="cell--title">{{localize "KG.INS"}}</label>
-                  <input type="text" name="data.attributes.chk.value" value="{{data.attributes.chk.value}}" data-dtype="Number"/>
+                  <label for="system.attributes.chk.value" class="cell--title">{{localize "KG.INS"}}</label>
+                  <input type="text" name="system.attributes.chk.value" value="{{system.attributes.chk.value}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.acc_fix.fix" class="cell--title">{{localize "KG.ACCFix"}}</label>
-                  <input type="text" name="data.attributes.acc.fix" value="{{data.attributes.acc.fix}}" data-dtype="Number"/>
+                  <label for="system.attributes.acc_fix.fix" class="cell--title">{{localize "KG.ACCFix"}}</label>
+                  <input type="text" name="system.attributes.acc.fix" value="{{system.attributes.acc.fix}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.eva.fix" class="cell--title">{{localize "KG.EVAFix"}}</label>
-                  <input type="text" name="data.attributes.eva.fix" value="{{data.attributes.eva.fix}}" data-dtype="Number"/>
+                  <label for="system.attributes.eva.fix" class="cell--title">{{localize "KG.EVAFix"}}</label>
+                  <input type="text" name="system.attributes.eva.fix" value="{{system.attributes.eva.fix}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.ivc.fix" class="cell--title">{{localize "KG.IVCFix"}}</label>
-                  <input type="text" name="data.attributes.ivc.fix" value="{{data.attributes.ivc.fix}}" data-dtype="Number"/>
+                  <label for="system.attributes.ivc.fix" class="cell--title">{{localize "KG.IVCFix"}}</label>
+                  <input type="text" name="system.attributes.ivc.fix" value="{{system.attributes.ivc.fix}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.res.fix" class="cell--title">{{localize "KG.RESFix"}}</label>
-                  <input type="text" name="data.attributes.res.fix" value="{{data.attributes.res.fix}}" data-dtype="Number"/>
+                  <label for="system.attributes.res.fix" class="cell--title">{{localize "KG.RESFix"}}</label>
+                  <input type="text" name="system.attributes.res.fix" value="{{system.attributes.res.fix}}" data-dtype="Number"/>
                 </div>
 
                 <div class="cell cell--ability">
-                  <label for="data.attributes.chk.fix" class="cell--title">{{localize "KG.CHKFix"}}</label>
-                  <input type="text" name="data.attributes.chk.fix" value="{{data.attributes.chk.fix}}" data-dtype="Number"/>
+                  <label for="system.attributes.chk.fix" class="cell--title">{{localize "KG.CHKFix"}}</label>
+                  <input type="text" name="system.attributes.chk.fix" value="{{system.attributes.chk.fix}}" data-dtype="Number"/>
                 </div>
               </div>
             </div>
@@ -129,8 +129,7 @@
               <div class="sheet-tab">
                 <div class="cell cell--bio">
                   {{!-- We're avoiding WYSIWYGs... for now... --}}
-                  {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}}
-
+                  {{editor enrichedBiography target="system.details.biography" button=true editable=editable }}
                 </div>
               </div>
             </div>
@@ -158,10 +157,10 @@
                           <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                         </div>
                         <div class="item-description" style="display: block;">
-                          <b>{{localize "KG.Timing"}}</b> : {{local item.data.timing}} ( {{item.data.resist}} ) / 
-                          <b>{{localize "KG.Range"}}</b> : {{item.data.range}} / 
-                          <b>{{localize "KG.Target"}}</b> : {{item.data.target}} / 
-                          <b>{{localize "KG.Formula"}}</b> : {{item.data.formula}} <br>{{{item.data.description}}}
+                          <b>{{localize "KG.Timing"}}</b> : {{local item.system.timing}} ( {{item.system.resist}} ) / 
+                          <b>{{localize "KG.Range"}}</b> : {{item.system.range}} / 
+                          <b>{{localize "KG.Target"}}</b> : {{item.system.target}} / 
+                          <b>{{localize "KG.Formula"}}</b> : {{item.system.formula}} <br>{{{item.system.description}}}
 
                         </div>
                       </li>
@@ -170,7 +169,7 @@
                     <hr>
                     <label class="cell--title">{{localize "KG.Memo"}}</label>
                     {{!-- We're avoiding WYSIWYGs... for now... --}}
-                    {{editor content=data.details.attack target="data.details.attack" button=true owner=owner editable=editable}}
+                    {{editor enrichedAttack target="system.details.attack" button=true editable=editable }}
 
                 </div>
               </section>
@@ -182,7 +181,7 @@
                 <div class="cell cell--bio">
                   <label class="cell--title">{{localize "KG.Materials"}}</label>
                   {{!-- We're avoiding WYSIWYGs... for now... --}}
-                  {{editor content=data.details.materials target="data.details.materials" button=true owner=owner editable=editable}}
+                  {{editor enrichedMaterials target="system.details.materials" button=true editable=editable }}
 
                 </div>
               </section>
@@ -203,23 +202,23 @@
                   <table>
                     <tr>
                       <th>{{localize "KG.AddArmor"}}</th>
-                      <td><input type="text" name="data.attributes.defense.armor" value="{{data.attributes.defense.armor}}" data-dtype="Number"></td>
+                      <td><input type="text" name="system.attributes.defense.armor" value="{{system.attributes.defense.armor}}" data-dtype="Number"></td>
                     </tr>
                     <tr>
                       <th>{{localize "KG.AddBarrier"}}</th>
-                      <td><input type="text" name="data.attributes.defense.barrier" value="{{data.attributes.defense.barrier}}" data-dtype="Number"></td>
+                      <td><input type="text" name="system.attributes.defense.barrier" value="{{system.attributes.defense.barrier}}" data-dtype="Number"></td>
                     </tr>
                     <tr>
                       <th>{{localize "KG.DamageReduce"}}</th>
-                      <td><input type="text" name="data.attributes.defense.reduce" value="{{data.attributes.defense.reduce}}" data-dtype="Number"></td>
+                      <td><input type="text" name="system.attributes.defense.reduce" value="{{system.attributes.defense.reduce}}" data-dtype="Number"></td>
                     </tr>
                     <tr>
                       <th>{{localize "KG.Half"}}</th>
-                      <td><input type="checkbox" name="data.attributes.defense.half" {{#if data.attributes.defense.half}} checked{{/if}}></td>
+                      <td><input type="checkbox" name="system.attributes.defense.half" {{#if system.attributes.defense.half}} checked{{/if}}></td>
                     </tr>
                     <tr>
                       <th>{{localize "KG.Quarter"}}</th>
-                      <td><input type="checkbox" name="data.attributes.defense.quarter" {{#if data.attributes.defense.quarter}} checked{{/if}}></td>
+                      <td><input type="checkbox" name="system.attributes.defense.quarter" {{#if system.attributes.defense.quarter}} checked{{/if}}></td>
                     </tr>
                   </table>
                 </div>

@@ -70,7 +70,7 @@ Hooks.once("ready", async function() {
 
 Hooks.on('createActor', async (actor, options, id) => {
 
-    if (actor.isOwner && actor.data.data.details.basic == "") {
+    if (actor.isOwner && actor.system.details.basic == "") {
         await actor.update({'data.details.basic': game.i18n.localize("KG.EnermyDefault") })
     }
 });
@@ -145,11 +145,14 @@ Hooks.on("deleteCombat", async function (data, delta) {
 });
 
 Hooks.on("updateCombat", async function (data, delta) {
-    var close = true;
-    if (data.round == 0 || data.active == true)
-    return;
+    console.log(data);
+    console.log(delta);
 
-    if (Object.keys(delta).some((k) => k === "round") && game.settings.get("kamigakari", "autoSpiritDiceCharge")) {
+    var close = true;
+    if (data.round == 0)
+        return;
+
+    if (delta.round != undefined && game.settings.get("kamigakari", "autoSpiritDiceCharge")) {
         let actors = data.turns.reduce( (acc, i) => {
             if (i.actor.type == "enemy")
                 return acc;
@@ -162,14 +165,14 @@ Hooks.on("updateCombat", async function (data, delta) {
         
         if (data.round > 1) {
             for (let actor of actors) {
-                var dices = JSON.parse(JSON.stringify(actor.data.data.attributes.spirit_dice.value));
+                var dices = JSON.parse(JSON.stringify(actor.system.attributes.spirit_dice.value));
                 for (var i = 0; i < dices.length; ++i) {
                     if (dices[i] != 0)
                     continue;
                     dices[i] = Math.floor(Math.random() * 6) + 1;
                 }
 
-                await actor.update({"data.attributes.spirit_dice.value": dices, "data.attributes.overflow.value": 0});
+                await actor.update({"system.attributes.spirit_dice.value": dices, "system.attributes.overflow.value": 0});
             }
         }
     }
@@ -219,34 +222,34 @@ async function chatListeners(html) {
                 callback: async () => {
                     const actor = game.actors.get(data.actorId);
                     const item = actor.items.get(data.itemId);
-                    const macro = game.macros.contents.find(m => (m.data.name === item.data.data.macro));
+                    const macro = game.macros.contents.find(m => (m.name === item.system.macro));
                     
                     let confirm = async () => {
                         let updates = {};
-                        if (item.data.data.active.disable != 'notCheck')
-                            updates["data.active.state"] = true;
-                        if (item.data.data.used.disable != 'notCheck')
-                            updates["data.used.state"] = item.data.data.used.state + 1;
+                        if (item.system.active.disable != 'notCheck')
+                            updates["system.active.state"] = true;
+                        if (item.system.used.disable != 'notCheck')
+                            updates["system.used.state"] = item.system.used.state + 1;
                         await item.update(updates);
                         
-                        if (item.data.data.roll == 'acc')
+                        if (item.system.roll == 'acc')
                             actor._rollDice('acc', ctrlClick);
-                        else if (item.data.data.roll == 'cnj')
+                        else if (item.system.roll == 'cnj')
                             actor._rollDice('cnj', ctrlClick);
 
-                        ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.data.name});
+                        ChatMessage.create({"content": game.i18n.localize("KG.UseTalent") + ": " + item.name});
 
                         if (macro != undefined)
                             macro.execute();
-                        else if (item.data.data.macro != "")
+                        else if (item.system.macro != "")
                             new Dialog({
                                 title: "macro",
-                                content: `Do not find this macro: ${item.data.data.macro}`,
+                                content: `Do not find this macro: ${item.system.macro}`,
                                 buttons: {}
                             }).render(true);
                     }
         
-                    if (!item.data.data.getTarget)
+                    if (!item.system.getTarget)
                         confirm();
                     else {
                         new Dialog({
@@ -259,22 +262,22 @@ async function chatListeners(html) {
                                     icon: '<i class="fas fa-check"></i>',
                                     label: "Confirm",
                                     callback: async () => {
-                                        if (item.data.data.effect.disable != "-") {
+                                        if (item.system.effect.disable != "-") {
                                             let targets = game.user.targets;
                                             for (let t of targets) {
                                                 let a = t.actor;
-                                                if (a.data.type === "enemy")
+                                                if (a.type === "enemy")
                                                     continue;
 
                                                 let effects = {};
                                                 effects[item.id] = {
                                                     actorId: actor.id,
                                                     itemId: item.id,
-                                                    disable: item.data.data.effect.disable,
-                                                    attributes: item.data.data.effect.attributes
+                                                    disable: item.system.effect.disable,
+                                                    attributes: item.system.effect.attributes
                                                 }
                                                 
-                                               await a.update({"data.attributes.effects": effects});
+                                               await a.update({"system.attributes.effects": effects});
                                             }
                                         }
                                         confirm();
@@ -327,7 +330,7 @@ async function chatListeners(html) {
         let modScore = d.find(".dice-total").text() - d.find(".part-total").text();
 
         let actionDice = [];
-        let spiritDice = actor.data.data.attributes.spirit_dice.value;
+        let spiritDice = actor.system.attributes.spirit_dice.value;
 
         let dices = d.find("img");
         dices.each(function() {
@@ -371,7 +374,7 @@ async function setSpiritDice() {
 
                     if (!isNaN(answer) && answer != null && answer >= 1) {
                         var dices = new Array(Number(answer)).fill(0);
-                        await actor.update({'data.attributes.spirit_dice.value': dices });
+                        await actor.update({'system.attributes.spirit_dice.value': dices });
                     }
                 } 
             }   

@@ -31,21 +31,24 @@ export class DisableHooks {
     static async disableTalents(actor, active, used) {
         for (let item of actor.items) {
             let updates = {};
-            if (item.data.data.active != undefined)
-            if (active.findIndex(i => i == item.data.data.active.disable) != -1)
+            if (item.system.active != undefined)
+            if (active.findIndex(i => i == item.system.active.disable) != -1)
                 updates["data.active.state"] = false;
 
-            if (item.data.data.used != undefined)
-            if (active.findIndex(i => i == item.data.data.used.disable) != -1)
+            if (item.system.used != undefined)
+            if (active.findIndex(i => i == item.system.used.disable) != -1)
                 updates["data.used.state"] = 0;
 
             await item.update(updates);
         }
 
+        if (actor.type == "enemy")
+            return;
+            
         let updates = {};
-        for (let [key, effect] of Object.entries(actor.data.data.attributes.effects)) {
+        for (let [key, effect] of Object.entries(actor.system.attributes.effects)) {
             if (active.findIndex(i => i == effect.disable) != -1)
-                updates[`data.attributes.effects.-=${key}`] = null;
+                updates[`system.attributes.effects.-=${key}`] = null;
         }
         await actor.update(updates);
     }
