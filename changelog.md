@@ -264,3 +264,6 @@ Changelog
 1.4.10 - Minor update
   * Add item image to chat massage
   * Delete sacraments item's use button
+
+1.5.0 - Minor update
+  * Compatible Update v10

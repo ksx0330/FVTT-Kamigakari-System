@@ -1,27 +1,32 @@
 {
+  "id": "kamigakari",
   "title": "Kamigakari: God Hunter",
   "description": "Urban fantasy action trpg, Kamigakari System",
-  "url": "https://github.com/ksx0330/FVTT-Kamigakari-System/",
-  "license": "LICENSE.txt",
-  "version": "1.4.10",
-  "esmodules": [
-    "module/init.js"
+  "version": "1.5.0",
+  "compatibility": {
+    "minimum": 10,
+    "verified": "10.288"
+  },
+  "templateVersion": 1,
+  "authors": [
+    {
+      "name": "ltaeng",
+      "email": "ksx0330@gmail.com",
+      "discord": "Ltaeng#2837"
+    }
   ],
-  "styles": [
-    "styles/simple.css"
-  ],
+  "esmodules": ["module/init.js"],
+  "styles": ["styles/simple.css"],
   "languages": [
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json",
-      "flags": {}
+      "path": "lang/en.json"
     },
     {
       "lang": "ko",
       "name": "Korean",
-      "path": "lang/ko.json",
-      "flags": {}
+      "path": "lang/ko.json"
     }
   ],
   "packs": [
@@ -29,57 +34,55 @@
       "name": "spirit",
       "label": "Spirit Macro",
       "system": "kamigakari",
-      "path": "packs/spirit.db",
+      "path": "./packs/spirit.db",
+      "entity": "Macro",
       "type": "Macro",
-      "private": false,
-      "flags": {}
+      "private": false
     },
     {
       "name": "Basic-Talents",
       "label": "Basic Talents",
       "system": "kamigakari",
-      "path": "packs/basic-talents.db",
+      "path": "./packs/basic-talents.db",
+      "entity": "Item",
       "type": "Item",
-      "private": false,
-      "flags": {}
+      "private": false
     },
     {
       "name": "Item-Macro",
       "label": "Item Macro",
       "system": "kamigakari",
-      "path": "packs/item-macro.db",
+      "path": "./packs/item-macro.db",
+      "entity": "Macro",
       "type": "Macro",
-      "private": false,
-      "flags": {}
+      "private": false
     },
     {
       "name": "Get-Talent-List",
       "label": "Get Talent List",
       "system": "kamigakari",
-      "path": "packs/get-talent-list.db",
+      "path": "./packs/get-talent-list.db",
+      "entity": "Macro",
       "type": "Macro",
-      "private": false,
-      "flags": {}
+      "private": false
     },
     {
       "name": "Scene-Macro",
       "label": "Scene Macro",
       "system": "kamigakari",
-      "path": "packs/scene-macro.db",
+      "path": "./packs/scene-macro.db",
+      "entity": "Macro",
       "type": "Macro",
-      "private": false,
-      "flags": {}
+      "private": false
     }
   ],
-  "socket": true,
-  "manifest": "https://raw.githubusercontent.com/ksx0330/FVTT-Kamigakari-System/master/system.json",
-  "download": "https://github.com/ksx0330/FVTT-Kamigakari-System/archive/master.zip",
   "gridDistance": 1,
   "gridUnits": "Sq",
+  "socket": true,
   "primaryTokenAttribute": "attributs.hp",
-  "id": "kamigakari",
-  "compatibility": {
-    "minimum": "0.8.6",
-    "verified": "9"
-  }
+  "secondaryTokenAttribute": "attributes.encroachment",
+  "url": "https://github.com/ksx0330/FVTT-DX3rd-System",
+  "manifest": "https://raw.githubusercontent.com/ksx0330/FVTT-Kamigakari-System/master/system.json",
+  "download": "https://github.com/ksx0330/FVTT-Kamigakari-System/archive/master.zip",
+  "license": "LICENSE.txt"
 }
