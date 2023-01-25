@@ -267,3 +267,7 @@ Changelog
 
 1.5.0 - Minor update
   * Compatible Update v10
+
+1.5.1 - Bug fix
+  * Fix typo
+  * Fix chat portait bug
