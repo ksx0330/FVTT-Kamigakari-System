@@ -617,7 +617,8 @@ body {
 
 .dice-result .dice-rolls {
   display: inline-flex;
-  flex: 70%;
+  flex: 1;
+  flex-wrap: wrap;
 }
 
 .dice-result .part-total {

@@ -5,7 +5,7 @@
     <div class="dice">
         <span class="dice-rolls">
         {{#each this.rolls}}
-            <img src="systems/kamigakari/assets/dice/{{this.result}}.PNG" width=30 height=30 class="roll {{this.classes}}" data-dice={{this.result}}>
+            <span style="background-image: url('systems/kamigakari/assets/dice/{{this.result}}.PNG'); background-size: 30px; width: 30px; height: 30px;" class="roll {{this.classes}}" data-dice={{this.result}}></span>
         {{/each}}
         </span>
         <span class="part-total">{{this.total}} </span>
