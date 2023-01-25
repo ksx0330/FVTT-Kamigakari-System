@@ -361,7 +361,7 @@ async function setSpiritDice() {
     new Dialog({
         title: 'Spirit Dice',
         content: `
-            <h2>Whay do you want to change?\n ex) 4, 5</h2>
+            <h2>How many do you want to change to?\n ex) 4, 5</h2>
             <div style="margin: 4px 0;"><input type="number" id="dice-num"></div>
             <script>$("#dice-num").focus()</script>
         `,
