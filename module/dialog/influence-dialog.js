@@ -128,7 +128,7 @@ export class InfluenceDialog extends Dialog {
         this.actor.update(dices);
 
         var roll = new Roll(formula);
-        await roll.roll();
+        await roll.roll({async: true});
         
         roll.render().then(r => {
             console.log(r);

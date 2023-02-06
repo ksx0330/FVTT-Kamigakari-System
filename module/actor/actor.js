@@ -233,6 +233,7 @@ export class KamigakariActor extends Actor {
 
     let roll = new Roll(formula);
     roll.roll({async: true});
+    chatData.roll = roll;
 
     let high = 0, count = 0;
     for (let side of roll.terms[0].results) {

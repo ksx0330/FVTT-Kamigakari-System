@@ -315,7 +315,7 @@ async function chatListeners(html) {
         const data = ev.currentTarget.closest(".chat-message").dataset;
         const message = game.messages.get(data.messageId);
         
-        let actorId = message.data.speaker.actor;
+        let actorId = message.speaker.actor;
         if (actorId == null) {
             new Dialog({
                 title: "alert",
@@ -326,15 +326,14 @@ async function chatListeners(html) {
         }
 
         let actor = game.actors.get(actorId);
-        let d = $(message.data.content);
+        let d = $(message.content);
         let modScore = d.find(".dice-total").text() - d.find(".part-total").text();
 
         let actionDice = [];
         let spiritDice = actor.system.attributes.spirit_dice.value;
-
-        let dices = d.find("img");
-        dices.each(function() {
-            actionDice.push($(this).attr("data-dice"));
+        let dices = message.rolls[0].dice[0].results;
+        dices.forEach(r => {
+            actionDice.push(r.result);
         });
 
         let dialog = new InfluenceDialog(actionDice, spiritDice, actor, modScore);

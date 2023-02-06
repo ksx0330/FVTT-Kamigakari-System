@@ -271,3 +271,6 @@ Changelog
 1.5.1 - Bug fix
   * Fix typo
   * Fix chat portait bug
+
+1.5.2 - Bug fix
+  * Fix influence
