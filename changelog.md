@@ -274,3 +274,6 @@ Changelog
 
 1.5.2 - Bug fix
   * Fix influence
+
+1.5.3 - Bug fix
+  * Fix sheet's effect

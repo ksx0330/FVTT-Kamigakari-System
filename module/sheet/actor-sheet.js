@@ -155,11 +155,14 @@ export class KamigakariActorSheet extends ActorSheet {
     actorData.bonds = bonds;
 
     if (actorData.type != "enemy") {
+      console.log(actorData);
+      console.log(system.attributes.effects);
+
       actorData.effects = Object.values(system.attributes.effects).map( i => {
         let actor = game.actors.get(i.actorId);
         let item = actor.items.get(i.itemId);
         let data = item;
-        data.actor = actor.name;
+        data.actorName = actor.name;
         data.disable = i.disable;
         return item;
 
