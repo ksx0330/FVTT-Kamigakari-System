@@ -384,9 +384,7 @@ async function setSpiritDice() {
 }
 
 function showSpiritDiceViewer() {
-    var actors = game.data.actors.filter(e => e.type == "character" && (e.permission['default'] == 3 || e.permission[game.user.id] == 3) );
-
-    let dialog = new ActorListDialog(actors)
+    let dialog = new ActorListDialog();
     dialog.render(true);
 }
 

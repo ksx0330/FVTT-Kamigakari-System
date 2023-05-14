@@ -277,3 +277,6 @@ Changelog
 
 1.5.3 - Bug fix
   * Fix sheet's effect
+
+1.5.4 - Minor update
+  * Add features of spirit dice viewer

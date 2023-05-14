@@ -54,8 +54,17 @@ export class DicesDialog extends Dialog {
 
         html.find('.add--overflow').on('click', async ev => {
           const add = Number(ev.currentTarget.dataset.add);
-          var target = $(event.currentTarget);
-          var actor = game.actors.get(target.parent()[0].dataset.id);
+          let target = $(event.currentTarget);
+          let actor = game.actors.get(target.parent()[0].dataset.id);
+
+          if (!actor.isOwner) {
+            new Dialog({
+              title: "alert",
+              content: `Not permission`,
+              buttons: {}
+            }).render(true);
+            return;
+          }
 
           const overflow = actor.system.attributes.overflow.value;
 
@@ -71,12 +80,21 @@ export class DicesDialog extends Dialog {
 
 
     async _onRouteSpiritDice(html, event) {
-        var target = $(event.currentTarget);
-        var actor = game.actors.get(target.parent()[0].dataset.id);
+        let target = $(event.currentTarget);
+        let actor = game.actors.get(target.parent()[0].dataset.id);
 
-        var dice = target[0].dataset;
-        var key = dice.key;
-        var oriValue = dice.value;
+        if (!actor.isOwner) {
+          new Dialog({
+            title: "alert",
+            content: `Not permission`,
+            buttons: {}
+          }).render(true);
+          return;
+        }
+
+        let dice = target[0].dataset;
+        let key = dice.key;
+        let oriValue = dice.value;
 
         if (event.button == 2 || event.which == 3)
             await this._onUseSpirit(actor, key, oriValue);
