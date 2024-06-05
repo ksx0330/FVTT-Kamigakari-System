@@ -232,13 +232,12 @@
     "SETTINGS.TalentBar": "Talent Bar",
     "SETTINGS.TalentBarDesc": "When you show talent and items in the chat window, they are fixed at the bottom.",
 
-    "ITEM.TypeTalent": "Talent",
-    "ITEM.TypeEquipment": "Equipment",
-    "ITEM.TypeItem": "Item",
-    "ITEM.TypeAttackoption": "Attack Option",
-    "ITEM.TypeRace": "Ancestry",
-    "ITEM.TypeStyle": "Facet",
-    "ITEM.TypeFacade": "Facade",
-    "ITEM.TypeBond": "Bond"
-
+    "TYPES.Item.talent": "Talent",
+    "TYPES.Item.equipment": "Equipment",
+    "TYPES.Item.item": "Item",
+    "TYPES.Item.attackOption": "Attack Option",
+    "TYPES.Item.race": "Ancestry",
+    "TYPES.Item.style": "Facet",
+    "TYPES.Item.facade": "Facade",
+    "TYPES.Item.bond": "Bond"
 }

@@ -280,3 +280,6 @@ Changelog
 
 1.5.4 - Minor update
   * Add features of spirit dice viewer
+
+1.5.5 - Minor update
+  * Compatible Update v11

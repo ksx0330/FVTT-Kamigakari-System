@@ -232,12 +232,12 @@
     "SETTINGS.TalentBar": "탤런트 바",
     "SETTINGS.TalentBarDesc": "탤런트 및 아이템을 채팅창에 보여줬을 때 하단에 고정된다.",
 
-    "ITEM.TypeTalent": "탤런트",
-    "ITEM.TypeEquipment": "장비",
-    "ITEM.TypeItem": "아이템",
-    "ITEM.TypeAttackoption": "공격 옵션",
-    "ITEM.TypeRace": "종족",
-    "ITEM.TypeStyle": "칭호",
-    "ITEM.TypeFacade": "겉직업",
-    "ITEM.TypeBond": "감정"
+    "TYPES.Item.talent": "탤런트",
+    "TYPES.Item.equipment": "장비",
+    "TYPES.Item.item": "아이템",
+    "TYPES.Item.attackOption": "공격 옵션",
+    "TYPES.Item.race": "종족",
+    "TYPES.Item.style": "칭호",
+    "TYPES.Item.facade": "겉직업",
+    "TYPES.Item.bond": "감정"
 }
