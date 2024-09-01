@@ -8,7 +8,7 @@ export class KamigakariActorSheet extends ActorSheet {
 
   /** @override */
 	static get defaultOptions() {
-	  return mergeObject(super.defaultOptions, {
+	  return foundry.utils.mergeObject(super.defaultOptions, {
   	  classes: ["kamigakari", "sheet", "actor"],
       width: 850,
       height: 730,

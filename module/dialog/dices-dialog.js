@@ -15,7 +15,7 @@ export class DicesDialog extends Dialog {
 
       /** @override */
 	static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             template: "systems/kamigakari/templates/dice/dice-dialog.html",
             classes: ["kamigakari", "dialog"],
             width: 400
