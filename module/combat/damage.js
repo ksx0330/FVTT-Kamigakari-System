@@ -93,7 +93,7 @@ export class DamageController {
                         let data = await callback();
                         
                         let roll = new Roll(data.formula);
-                        roll.roll({async: false});
+                        roll.evaluateSync();
 
                         let content = await roll.render();
                         content += `<br><button type="button" class="apply-damage" 
@@ -158,7 +158,7 @@ export class DamageController {
             let actorData = actor.system;
             let realDamage = damage;
             
-            let r = await new Roll("1d6").roll({async: true});
+            let r = await new Roll("1d6").evaluate();
             if (actor.type === "enemy" && $("#weak").is(":checked"))
                 realDamage += (data.rank != null && data.rank < 10) ? +data.high : r.total;
             if ($("#half").is(":checked"))
