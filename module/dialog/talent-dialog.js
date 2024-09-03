@@ -16,7 +16,7 @@ export class TalentDialog extends Dialog {
 
       /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             template: "templates/hud/dialog.html",
             classes: ["kamigakari", "dialog"],
             width: 600,

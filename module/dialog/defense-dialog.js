@@ -28,7 +28,7 @@ export class DefenseDialog extends Dialog {
     
       /** @override */
 	static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             template: "systems/kamigakari/templates/battle/defense-dialog.html",
             classes: ["kamigakari", "dialog"],
             width: 400

@@ -283,3 +283,8 @@ Changelog
 
 1.5.5 - Minor update
   * Compatible Update v11
+
+1.6.0 - Minor update
+  * Compatible Update v12
+  * Fixed deprecations
+  * Fixed rolls

@@ -2,12 +2,11 @@
   "id": "kamigakari",
   "title": "Kamigakari: God Hunter",
   "description": "Urban fantasy action trpg, Kamigakari System",
-  "version": "1.5.5",
+  "version": "1.6.0",
   "compatibility": {
-    "minimum": 11,
-    "verified": "11.315"
+    "minimum": 12,
+    "verified": "12"
   },
-  "templateVersion": 1,
   "authors": [
     {
       "name": "ltaeng",
@@ -15,8 +14,12 @@
       "discord": "Ltaeng#2837"
     }
   ],
-  "esmodules": ["module/init.js"],
-  "styles": ["styles/simple.css"],
+  "esmodules": [
+    "module/init.js"
+  ],
+  "styles": [
+    "styles/simple.css"
+  ],
   "languages": [
     {
       "lang": "en",
@@ -78,8 +81,12 @@
   ],
   "gridDistance": 1,
   "gridUnits": "Sq",
+  "grid": {
+    "distance": 1,
+    "units": "Sq"
+  },
   "socket": true,
-  "primaryTokenAttribute": "attributs.hp",
+  "primaryTokenAttribute": "attributes.hp",
   "secondaryTokenAttribute": "attributes.spirit",
   "url": "https://github.com/ksx0330/FVTT-Kamigakari-System",
   "manifest": "https://raw.githubusercontent.com/ksx0330/FVTT-Kamigakari-System/master/system.json",

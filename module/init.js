@@ -76,7 +76,7 @@ Hooks.on('createActor', async (actor, options, id) => {
 });
 
 Hooks.on("canvasInit", function() {
-    SquareGrid.prototype.measureDistances = function(segments) {
+    foundry.grid.SquareGrid.prototype.measureDistances = function(segments) {
         // Track the total number of diagonals
         let nDiagonal = 0;
         const rule = this.parent.diagonalRule;

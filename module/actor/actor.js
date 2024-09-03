@@ -206,10 +206,10 @@ export class KamigakariActor extends Actor {
     formula = `${dice}6+${ability.value}`;
     if (actorData.attributes.transcend != null && actorData.attributes.transcend.value != 0) {
       formula = Number(actorData.attributes.transcend.value) + Number(dice.charAt(0)) + "D6 + " + ability.value;
-      await this.update({'system.attributes.transcend.value': 0});
+      await this.update({ 'system.attributes.transcend.value': 0 });
     }
     if (ability.roll != undefined)
-        formula += '+' + ability.roll;
+      formula += '+' + ability.roll;
 
     if (p != null && p != "")
       formula += (p < 0) ? `${p}` : `+${p}`;
@@ -232,8 +232,7 @@ export class KamigakariActor extends Actor {
     if (rollMode === "blindroll") chatData["blind"] = true;
 
     let roll = new Roll(formula);
-    roll.roll({async: true});
-    chatData.roll = roll;
+    await roll.evaluate();
 
     let high = 0, count = 0;
     for (let side of roll.terms[0].results) {
@@ -242,21 +241,15 @@ export class KamigakariActor extends Actor {
     }
 
     high = (count >= 2) ? 10 : high;
-    await this.update({"system.attributes.damage.high": high});
+    await this.update({ "system.attributes.damage.high": high });
 
-    roll.render().then(r => {
-      templateData.rollDw = r;
-      renderTemplate(template, templateData).then(content => {
-        chatData.content = content;
-        if (game.dice3d) {
-          game.dice3d.showForRoll(roll, game.user, true, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));;
-        }
-        else {
-          chatData.sound = CONFIG.sounds.dice;
-          ChatMessage.create(chatData);
-        }
-      });
-    });
+    let renderedRoll = await roll.render();
+    templateData.rollDw = renderedRoll;
+
+    let content = await renderTemplate(template, templateData);
+    chatData.content = content;
+
+    await roll.toMessage(chatData);
   }
 
   _echoItemDescription(itemId) {
@@ -443,7 +436,7 @@ export class KamigakariActor extends Actor {
                 if (rollMode === "blindroll") chatData["blind"] = true;
             
                 let roll = new Roll(answer + "d6");
-                await roll.roll({async: true});
+                await roll.evaluate();
 
                 roll.render().then(r => {
                   templateData.rollDw = r;
@@ -488,7 +481,7 @@ export class KamigakariActor extends Actor {
     if (rollMode === "blindroll") chatData["blind"] = true;
 
     let roll = new Roll("2d6");
-    await roll.roll({async: true});
+    await roll.evaluate();
     roll.render().then(r => {
       templateData.rollDw = r;
       renderTemplate(template, templateData).then(content => {
@@ -525,7 +518,7 @@ export class KamigakariActor extends Actor {
     if (rollMode === "blindroll") chatData["blind"] = true;
 
     let roll = new Roll("2d6 + 1d6");
-    await roll.roll({async: true});
+    await roll.evaluate();
     roll.render().then(r => {
       templateData.rollDw = r;
       renderTemplate(template, templateData).then(content => {

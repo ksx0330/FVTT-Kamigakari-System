@@ -34,7 +34,7 @@ export class InfluenceDialog extends Dialog {
 
       /** @override */
 	static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             template: "templates/hud/dialog.html",
             classes: ["kamigakari", "dialog"],
             width: 400
@@ -128,7 +128,7 @@ export class InfluenceDialog extends Dialog {
         this.actor.update(dices);
 
         var roll = new Roll(formula);
-        await roll.roll({async: true});
+        await roll.evaluate();
         
         roll.render().then(r => {
             console.log(r);
