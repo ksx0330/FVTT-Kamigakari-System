@@ -288,3 +288,7 @@ Changelog
   * Compatible Update v12
   * Fixed deprecations
   * Fixed rolls
+
+1.6.1 - Buf fix
+  * Fixed a bug when using spirit dices or updating overflow from a talent dialog box
+  * Fixed a bug when rolling an enemy talent
