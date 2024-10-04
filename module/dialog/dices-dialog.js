@@ -71,7 +71,7 @@ export class DicesDialog extends Dialog {
           if (overflow + add < 0)
             return;
 
-          await actor.update({"data.attributes.overflow.value": overflow + add});
+          await actor.update({"system.attributes.overflow.value": overflow + add});
           let chatData = {"content": "Overflow : " + overflow + "->" + (overflow + add) };
           ChatMessage.create(chatData);
         });
@@ -119,7 +119,7 @@ export class DicesDialog extends Dialog {
                   var dices = JSON.parse(JSON.stringify(actor.system.attributes.spirit_dice.value));
 
                   dices[key] = 0;
-                  await actor.update({"data.attributes.spirit_dice.value": dices});
+                  await actor.update({"system.attributes.spirit_dice.value": dices});
 
                   var context = game.i18n.localize("KG.UseSpiritMessage") ;
                   ChatMessage.create({content: context + " " + oriValue, speaker: ChatMessage.getSpeaker({actor: actor})});
@@ -152,7 +152,7 @@ export class DicesDialog extends Dialog {
                       var dices = JSON.parse(JSON.stringify(actor.system.attributes.spirit_dice.value));
 
                       dices[key] = answer;
-                      await actor.update({"data.attributes.spirit_dice.value": dices});
+                      await actor.update({"system.attributes.spirit_dice.value": dices});
 
                       var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
                       ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: actor})});

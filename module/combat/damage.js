@@ -93,7 +93,7 @@ export class DamageController {
                         let data = await callback();
                         
                         let roll = new Roll(data.formula);
-                        roll.evaluateSync();
+                        await roll.evaluate();
 
                         let content = await roll.render();
                         content += `<br><button type="button" class="apply-damage" 

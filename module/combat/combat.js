@@ -64,7 +64,7 @@ export class KamigakariCombat extends Combat {
 
       // Produce an initiative roll for the Combatant
       const roll = combatant.getInitiativeRoll(formula);
-      await roll.evaluate({async: true});
+      await roll.evaluate();
       updates.push({_id: id, initiative: roll.total});
     }
     if ( !updates.length ) return this;
