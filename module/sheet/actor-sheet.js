@@ -345,8 +345,6 @@ export class KamigakariActorSheet extends ActorSheet {
   }
   
   async _onRouteSpiritDicePool(html, event) {
-    console.log("AAA");
-    
     if (event.button == 2 || event.which == 3)
       this._onResetSpiritPool(html, event);
     else
@@ -428,7 +426,7 @@ export class KamigakariActorSheet extends ActorSheet {
               await this.actor.update({"system.attributes.spirit_dice.value": dices});
 
               var context = game.i18n.localize("KG.UseSpiritMessage") ;
-              ChatMessage.create({content: context + " " + oriValue, speaker: ChatMessage.getSpeaker({actor: this.actor})});
+              ChatMessage.create({content: context + ": " + oriValue, speaker: ChatMessage.getSpeaker({actor: this.actor})});
             }
           }
         },
@@ -444,33 +442,33 @@ export class KamigakariActorSheet extends ActorSheet {
     const index = a.dataset.index;
     const oriValue = dices[index];
 
-    new Dialog({
-        title: 'Change Spirit Dice',
-        content: `
-          <h2>${game.i18n.localize("KG.ChangeSpiritAlert")}</h2>
-          <div style="margin: 4px 0;"><input type="number" id="dice-num"/></div>
-          <script>$("#dice-num").focus()</script>
-        `,
-        buttons: {
-          confirm: {
-            icon: '<i class="fas fa-check"></i>',
-            label: "Confirm",
-            callback: async () => {
-              var answer = $("#dice-num").val();
+    game.changeDialog = new Dialog({
+      title: game.i18n.localize("Juink.ChangeFateDice"),
+      content: `
+          <h2 style="font-weight: bold; text-align: center;">${game.i18n.localize("KG.ChangeSpiritAlert")}</h2>
+          <div style="display: flex; gap: 6px; justify-content: center;">
+              <img onclick="onChange(1)" src="systems/kamigakari/assets/dice/1.PNG" width=50 height=50>
+              <img onclick="onChange(2)" src="systems/kamigakari/assets/dice/2.PNG" width=50 height=50>
+              <img onclick="onChange(3)" src="systems/kamigakari/assets/dice/3.PNG" width=50 height=50>
+              <img onclick="onChange(4)" src="systems/kamigakari/assets/dice/4.PNG" width=50 height=50>
+              <img onclick="onChange(5)" src="systems/kamigakari/assets/dice/5.PNG" width=50 height=50>
+              <img onclick="onChange(6)" src="systems/kamigakari/assets/dice/6.PNG" width=50 height=50>
+          </div>
+          <script>
+          async function onChange(answer) {
+              let document = game.actors.get("${this.document.id}");
+              let dices = duplicate(document.system.attributes.spirit_dice.value);
+              dices[${index}] = answer;
+              await document.update({"system.attributes.spirit_dice.value": dices});
 
-              if (!isNaN(answer) && answer != null && Number(answer) >= 1 && Number(answer) <= 6) {
-                dices[index] = Number(answer);
-                await this.actor.update({"system.attributes.spirit_dice.value": dices});
-
-                var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
-                ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: this.actor})});
-              }
-
-            }
+              let context = game.i18n.localize("KG.ChangeSpiritMessage") ;
+              ChatMessage.create({content: context + ": " + ${oriValue} + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: document})});
+              game.changeDialog.close();
           }
-        },
-        default: "confirm"
-    }).render(true);
+          </script>
+      `,
+      buttons: {}
+    }, {width: "150px"}).render(true);
 
   }
 
@@ -485,6 +483,7 @@ export class KamigakariActorSheet extends ActorSheet {
     const header = event.currentTarget;
     const type = header.dataset.type;
     const data = duplicate(header.dataset);
+    delete data["type"];
 
     if (type == 'item')
       data.class = data.talenttype;
@@ -495,9 +494,8 @@ export class KamigakariActorSheet extends ActorSheet {
     const itemData = {
       name: name,
       type: type,
-      data: data
+      system: data
     };
-    delete itemData.data["type"];
     await this.actor.createEmbeddedDocuments('Item', [itemData], {});
   }
 
