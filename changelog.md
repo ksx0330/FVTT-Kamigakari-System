@@ -289,6 +289,13 @@ Changelog
   * Fixed deprecations
   * Fixed rolls
 
-1.6.1 - Buf fix
+1.6.1 - Bug fix
   * Fixed a bug when using spirit dices or updating overflow from a talent dialog box
   * Fixed a bug when rolling an enemy talent
+
+1.6.2 - Compatible Update v12
+  * Compatible Update v12
+  * Updated the change of spirit dice's ui
+  * refactoried combat.js
+  * Fixed bugs that occur in timing
+  * Add feature of reset enemy's hp reset
