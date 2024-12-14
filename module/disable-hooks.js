@@ -33,11 +33,11 @@ export class DisableHooks {
             let updates = {};
             if (item.system.active != undefined)
             if (active.findIndex(i => i == item.system.active.disable) != -1)
-                updates["data.active.state"] = false;
+                updates["system.active.state"] = false;
 
             if (item.system.used != undefined)
-            if (active.findIndex(i => i == item.system.used.disable) != -1)
-                updates["data.used.state"] = 0;
+            if (used.findIndex(i => i == item.system.used.disable) != -1)
+                updates["system.used.state"] = 0;
 
             await item.update(updates);
         }
