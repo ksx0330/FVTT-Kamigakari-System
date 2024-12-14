@@ -145,10 +145,6 @@ Hooks.on("deleteCombat", async function (data, delta) {
 });
 
 Hooks.on("updateCombat", async function (data, delta) {
-    console.log(data);
-    console.log(delta);
-
-    var close = true;
     if (data.round == 0)
         return;
 
@@ -178,7 +174,7 @@ Hooks.on("updateCombat", async function (data, delta) {
     }
     
 
-    if (game.user.character === undefined || game.user.character.type === "enemy")
+    if (game.user.character === null || game.user.character.type === "enemy")
         return;
     
     var combatant = data.turns[(delta.turn == undefined) ? 0 : delta.turn];
