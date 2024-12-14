@@ -37,7 +37,6 @@ export class TalentDialog extends Dialog {
                         <ol class="items-list">`;
                         
         for (let item of this.talents) {
-            item = item.data;
             content += `
                         <li class="item flexrow" data-item-id="${item._id}" draggable="true">
                           <h4 class="item-name">
