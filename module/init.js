@@ -71,7 +71,7 @@ Hooks.once("ready", async function() {
 Hooks.on('createActor', async (actor, options, id) => {
 
     if (actor.isOwner && actor.system.details.basic == "") {
-        await actor.update({'data.details.basic': game.i18n.localize("KG.EnermyDefault") })
+        await actor.update({'system.details.basic': game.i18n.localize("KG.EnermyDefault") })
     }
 });
 
@@ -158,6 +158,9 @@ Hooks.on("updateCombat", async function (data, delta) {
         }, []);
         
         Hooks.call("afterRound", actors);
+        data.combatants.forEach(async element => {
+            await data.rollInitiative(element.id);
+        })
         
         if (data.round > 1) {
             for (let actor of actors) {
@@ -178,9 +181,9 @@ Hooks.on("updateCombat", async function (data, delta) {
         return;
     
     var combatant = data.turns[(delta.turn == undefined) ? 0 : delta.turn];
-    if (combatant.data.name == "[" +  game.i18n.localize("KG.Start") + "]")
+    if (combatant.system.name == "[" +  game.i18n.localize("KG.Start") + "]")
         Hooks.call("showStart");
-    else if (combatant.data.name == "[" +  game.i18n.localize("KG.End") + "]")
+    else if (combatant.system.name == "[" +  game.i18n.localize("KG.End") + "]")
         Hooks.call("showEnd");
     else if (game.user.character.id == combatant.actor.id && game.settings.get("kamigakari", "mainTimingDialog"))
         Hooks.call("showPrep");
