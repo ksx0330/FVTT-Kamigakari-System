@@ -131,38 +131,35 @@ export class DicesDialog extends Dialog {
 
     }
 
-    async _onChangeSpirit(actor, key, oriValue) {
-        event.preventDefault();
-
-        new Dialog({
-            title: 'Change Spirit Dice',
-            content: `
-              <h2>${actor.name} - ${game.i18n.localize("KG.ChangeSpiritAlert")}</h2>
-              <div style="margin: 4px 0;"><input type="number" id="dice-num"/></div>
-              <script>$("#dice-num").focus()</script>
-            `,
-            buttons: {
-              confirm: {
-                icon: '<i class="fas fa-check"></i>',
-                label: "Confirm",
-                callback: async () => {
-                  var answer = $("#dice-num").val();
-
-                  if (!isNaN(answer) && answer != null && answer >= 1 && answer <= 6) {
-                      var dices = JSON.parse(JSON.stringify(actor.system.attributes.spirit_dice.value));
-
-                      dices[key] = answer;
-                      await actor.update({"system.attributes.spirit_dice.value": dices});
-
-                      var context = game.i18n.localize("KG.ChangeSpiritMessage") ;
-                      ChatMessage.create({content: context + "<br>" + oriValue + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: actor})});
-                  }
-
-                }
-              }
-            },
-            default: "confirm"
-        }).render(true);
+    async _onChangeSpirit(actor, index, oriValue) {
+      event.preventDefault();
+      game.changeDialog = new Dialog({
+        title: game.i18n.localize("Juink.ChangeFateDice"),
+        content: `
+            <h2 style="font-weight: bold; text-align: center;">${game.i18n.localize("KG.ChangeSpiritAlert")}</h2>
+            <div style="display: flex; gap: 6px; justify-content: center;">
+                <img onclick="onChange(1)" src="systems/kamigakari/assets/dice/1.PNG" width=50 height=50>
+                <img onclick="onChange(2)" src="systems/kamigakari/assets/dice/2.PNG" width=50 height=50>
+                <img onclick="onChange(3)" src="systems/kamigakari/assets/dice/3.PNG" width=50 height=50>
+                <img onclick="onChange(4)" src="systems/kamigakari/assets/dice/4.PNG" width=50 height=50>
+                <img onclick="onChange(5)" src="systems/kamigakari/assets/dice/5.PNG" width=50 height=50>
+                <img onclick="onChange(6)" src="systems/kamigakari/assets/dice/6.PNG" width=50 height=50>
+            </div>
+            <script>
+            async function onChange(answer) {
+                let document = game.actors.get("${actor.id}");
+                let dices = duplicate(document.system.attributes.spirit_dice.value);
+                dices[${index}] = answer;
+                await document.update({"system.attributes.spirit_dice.value": dices});
+  
+                let context = game.i18n.localize("KG.ChangeSpiritMessage") ;
+                ChatMessage.create({content: context + ": " + ${oriValue} + " -> " + answer, speaker: ChatMessage.getSpeaker({actor: document})});
+                game.changeDialog.close();
+            }
+            </script>
+        `,
+        buttons: {}
+      }, {width: "150px"}).render(true);
 
     }
 
