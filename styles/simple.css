@@ -434,8 +434,9 @@
 }
 
 .kamigakari .sheet-attributes .spirit-list {
-  width: 100%;
-  text-align: center;
+  display: flex;  
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .kamigakari .sheet-attributes .spirit-list img {
